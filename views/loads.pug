@@ -1,0 +1,224 @@
+extends layout
+
+
+block content
+    <!-- NAVIGATOR -->
+    nav.navbar.navbar-expand-lg.navbar-light.bg-light
+        .container
+            a(herf= "#").navbar-brand
+            button(type="button", data-toggle="collapse", data-target="#navbarNavAltMarkup", aria-controls="navbarNavAltMarkup", aria-expanded="false", aria-label="Toggle navigation").navbar-toggler 
+                span.navbar-toggler-icon
+
+            div(id="navbarNavAltMarkup").collapse.navbar-collapse
+                .navbar-nav
+                    a(href="/infos").nav-item.nav-link.text-uppercase ข้อมูลการติดตั้ง
+                    a(href="/infos3").nav-item.nav-link.text-uppercase ข้อมูลการติดตั้ง 3 เฟส
+                    
+                    a(href="/pvs").nav-item.nav-link.text-uppercase PV MODULES
+                    a(href="/inverters").nav-item.nav-link.text-uppercase INVERTERS
+                    a(href="/inverters3").nav-item.nav-link.text-uppercase INVERTERS 3 Phase
+                    a(href="/loads").nav-item.nav-link.text-uppercase.active LOAD PROFILE
+    .container
+        .row
+            .col-12.col-sm-7
+                br
+                h2=(load ? 'EDIT LOAD PROFILE' : 'ADD LOAD PROFILE')
+                br
+                form(action=(load ? "/loads/edit/" + load._id : '/loads/add'), method="post")
+                    .row
+                        .form-group.col-6
+                            label(for="") Description
+                            input(name = "description" type="text", id="description", class="form-control" value=(load ? load.description : ''))
+                    .row        
+                        .col-6.col-sm-6    
+                            .row
+                                .form-group.col-6
+                                    <h6>TIME (Hour)</h6>
+                                .form-group.col-6
+                                    <h6>POWER (p.u.)</h6>
+                            .row
+                                .form-group.col-6
+                                    label(for="") 1:00 a.m.
+                                .form-group.col-6    
+                                    input(name ="one" type="text", id="one", class="form-control" value=(load ? load.one : ''))
+                            .row
+                                .form-group.col-6
+                                    label(for="") 2:00 a.m.
+                                .form-group.col-6    
+                                    input(name ="two" type="text", id="two", class="form-control" value=(load ? load.two : ''))
+                            .row
+                                .form-group.col-6
+                                    label(for="") 3:00 a.m.
+                                .form-group.col-6    
+                                    input(name ="three" type="text", id="three", class="form-control" value=(load ? load.three : ''))
+                            .row
+                                .form-group.col-6
+                                    label(for="") 4:00 a.m.
+                                .form-group.col-6    
+                                    input(name ="four" type="text", id="four", class="form-control" value=(load ? load.four : ''))
+                            .row
+                                .form-group.col-6
+                                    label(for="") 5:00 a.m.
+                                .form-group.col-6    
+                                    input(name ="five" type="text", id="five", class="form-control" value=(load ? load.five : ''))
+                            .row
+                                .form-group.col-6
+                                    label(for="") 6:00 a.m.
+                                .form-group.col-6    
+                                    input(name ="six" type="text", id="six", class="form-control" value=(load ? load.six : ''))
+                            .row
+                                .form-group.col-6
+                                    label(for="") 7:00 a.m.
+                                .form-group.col-6    
+                                    input(name ="seven" type="text", id="seven", class="form-control" value=(load ? load.seven : ''))
+                            .row
+                                .form-group.col-6
+                                    label(for="") 8:00 a.m.
+                                .form-group.col-6    
+                                    input(name ="eight" type="text", id="eight", class="form-control" value=(load ? load.eight : ''))
+                            .row
+                                .form-group.col-6
+                                    label(for="") 9:00 a.m.
+                                .form-group.col-6    
+                                    input(name ="nine" type="text", id="nine", class="form-control" value=(load ? load.nine : ''))
+                            .row
+                                .form-group.col-6
+                                    label(for="") 10:00 a.m.
+                                .form-group.col-6    
+                                    input(name ="ten" type="text", id="ten", class="form-control" value=(load ? load.ten : ''))
+                            .row
+                                .form-group.col-6
+                                    label(for="") 11:00 a.m.
+                                .form-group.col-6    
+                                    input(name ="eleven" type="text", id="eleven", class="form-control" value=(load ? load.eleven : ''))
+                            .row
+                                .form-group.col-6
+                                    label(for="") 12:00 p.m.
+                                .form-group.col-6    
+                                    input(name = "twelve" type="text", id="twelve", class="form-control" value=(load ? load.twelve : ''))
+                        .col-6.col-sm-6    
+                            .row
+                                .form-group.col-6
+                                    <h6>TIME (Hour)</h6>
+                                .form-group.col-6
+                                    <h6>POWER (p.u.)</h6>
+                            .row
+                                .form-group.col-6
+                                    label(for="") 1:00 p.m.
+                                .form-group.col-6    
+                                    input(name ="thirteen" type="text", id="thirteen", class="form-control" value=(load ? load.thirteen : ''))
+                            .row
+                                .form-group.col-6
+                                    label(for="") 2:00 p.m.
+                                .form-group.col-6    
+                                    input(name ="fourteen" type="text", id="fourteen", class="form-control" value=(load ? load.fourteen : ''))
+                            .row
+                                .form-group.col-6
+                                    label(for="") 3:00 p.m.
+                                .form-group.col-6    
+                                    input(name ="fifteen" type="text", id="fifteen", class="form-control" value=(load ? load.fifteen : ''))
+                            .row
+                                .form-group.col-6
+                                    label(for="") 4:00 p.m.
+                                .form-group.col-6    
+                                    input(name ="sixteen" type="text",id="sixteen", class="form-control" value=(load ? load.sixteen : ''))
+                            .row
+                                .form-group.col-6
+                                    label(for="") 5:00 p.m.
+                                .form-group.col-6    
+                                    input(name ="seventeen" type="text", id="seventeen", class="form-control" value=(load ? load.seventeen : ''))
+                            .row
+                                .form-group.col-6
+                                    label(for="") 6:00 p.m.
+                                .form-group.col-6    
+                                    input(name ="eighteen" type="text", id="eighteen", class="form-control" value=(load ? load.eighteen : ''))
+                            .row
+                                .form-group.col-6
+                                    label(for="") 7:00 p.m.
+                                .form-group.col-6    
+                                    input(name ="nineteen" type="text", id="nineteen", class="form-control" value=(load ? load.nineteen : ''))
+                            .row
+                                .form-group.col-6
+                                    label(for="") 8:00 p.m.
+                                .form-group.col-6    
+                                    input(name ="twenty" type="text",id="twenty", class="form-control" value=(load ? load.twenty : ''))
+                            .row
+                                .form-group.col-6
+                                    label(for="") 9:00 p.m.
+                                .form-group.col-6    
+                                    input(name ="twenty_one" type="text", id="twenty_one", class="form-control" value=(load ? load.twenty_one : ''))
+                            .row
+                                .form-group.col-6
+                                    label(for="") 10:00 p.m.
+                                .form-group.col-6    
+                                    input(name ="twenty_two" type="text", id="twenty_two", class="form-control" value=(load ? load.twenty_two : ''))
+                            .row
+                                .form-group.col-6
+                                    label(for="") 11:00 p.m.
+                                .form-group.col-6    
+                                    input(name ="twenty_three" type="text", id="twenty_three", class="form-control" value=(load ? load.twenty_three : ''))
+                            .row
+                                .form-group.col-6
+                                    label(for="") 12:00 a.m.
+                                .form-group.col-6    
+                                    input(name ="twenty_four" type="text", id="twenty_four", class="form-control" value=(load ? load.twenty_four : ''))
+                    
+                    br         
+                    .row
+                        .form-group.col-6
+                            button(type="submit").btn.btn-block.btn-success= (load ? 'SAVE' : 'ADD')
+                        .form-group.col-6
+                            button(type="reset").btn.btn-block.btn-warning RESET
+                    br
+            if loads
+                
+                .col-12.col-sm-4.offset-sm-1
+                    br
+                    h2 SEARCH LOAD PROFILE
+                    br
+                    form(action= "/loads/search", method="post")
+                        .row
+                            .form-group.col-8
+                                label(for="") Description
+                                input(name = "description" type="text", id="description", class="form-control" )
+                            .form-group.col-4
+                                label(for="") 12.00 p.m.
+                                input(name = "twelve" type="text", id="twelve", class="form-control", placeholder="p.u.")
+                            
+                            
+                        br
+                        .row
+                            .form-group.col-12
+                                button(type="submit").btn.btn-block.btn-info SEARCH
+                        br
+                    
+
+   
+
+
+
+
+
+                
+    if loads            
+        hr
+        div.container
+            br
+            h2 LOAD PROFILE
+            br
+            div.row
+                each load in loads
+                    div.col-6.col-md-4
+                        h4.text-primary=load.description
+                           
+                        p='12.00 p.m. : '+load.twelve +' ' + 'p.u.'
+                        
+                        div
+                            ul.list-inline
+                                li.list-inline-item
+                                    a(href="/loads/edit/" + load._id).btn.btn-primary EDIT
+                                li.list-inline-item
+                                    form(action="/loads/delete/"+ load._id, method='post')
+                                        button(type='submit').btn.btn-danger DEL                          
+                    
+                        hr

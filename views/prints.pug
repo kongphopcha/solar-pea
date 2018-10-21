@@ -1,0 +1,88 @@
+extends layout
+
+
+block content
+    <!-- NAVIGATOR -->
+    nav.navbar.navbar-expand-lg.navbar-light.bg-light
+        .container
+            a(herf= "#").navbar-brand
+            button(type="button", data-toggle="collapse", data-target="#navbarNavAltMarkup", aria-controls="navbarNavAltMarkup", aria-expanded="false", aria-label="Toggle navigation").navbar-toggler 
+                span.navbar-toggler-icon
+
+            div(id="navbarNavAltMarkup").collapse.navbar-collapse
+                .navbar-nav
+                    a(href="/infos").nav-item.nav-link.text-uppercase.active ข้อมูลการติดตั้ง
+                    a(href="/infos3").nav-item.nav-link.text-uppercase ข้อมูลการติดตั้ง 3 เฟส
+                   
+                    a(href="/pvs").nav-item.nav-link.text-uppercase PV MODULES
+                    a(href="/inverters").nav-item.nav-link.text-uppercase INVERTERS
+                    a(href="/inverters3").nav-item.nav-link.text-uppercase INVERTERS 3 Phase
+                    a(href="/loads").nav-item.nav-link.text-uppercase LOAD PROFILE
+
+    .container
+
+    .container
+        .row
+            
+            .col-12.col-sm-7 
+
+                br
+                h2 ข้อมูลการติดตั้ง
+                br
+                form(action='/prints', method="post")
+                    .row
+                        .form-group.col-5
+                            label(for="") ชื่อโครงการ
+                                
+                            input(type="text", name="Project",id='name9', class="form-control" value='' placeholder="*" )
+                    
+                    .form-group.col-6    
+                      
+                                
+                        <p>ชื่อโครงการ : <span id='name94'></span></p>
+                        <p>อาคารประเภท  : <span id='type9'></span></p>
+                        <p>ประเภทผู้ใช้ไฟ : <span id='users9'></span></p>
+                        <p>รายละเอียดอื่นๆ : <span id='Description9'></span> </p>
+                        <p>หน่วยการใช้ไฟฟ้าต่อเดือน : <span id='timeunit9'></span></p>
+                        <p>ซื้อไฟ/หน่วย : <span id='bath19'></span></p>
+                        <p>ขายไฟ/หน่วย : <span id='bath29'></span></p> 
+                        <p>อุณหภูมิต่ำสุด  : <span id='Tem_min9'></span></p>
+                        <p>อุณหภูมิสูงสุด  : <span id='Tem_max9'></span></p>
+                        <p>วิธีเดินสายจากแผงไปอินเวอร์เตอร์ : <span id='metdc9'></span></p>
+                        <p>ระยะแผงถึงอินเวอร์เตอร์ : <span id='PV_Inv9'></span></p>
+                        <p>วิธีเดินสายออกจากอินเวอร์เตอร์ : <span id='metac9'></span></p>
+                        <p>ระยะอินเวอร์เตอร์ถึง MDB หรือ DB Solar : <span id='Inv_Mdb9'></span></p>     
+                        
+                        <p>ชนิดสายไฟ AC<span id='wireac9'></span></p>
+                           <p>จังหวัด : <span id='Province9'></span></p>
+                        <p>Peak Sun Hours  : <span id='PSH9'></span></p>
+                        <p>มุมอะซิมุท : <span id='Azimuth9'></span></p>
+                        <p>มุมเงย  : <span id='Altitute9'></span> </p>
+                        <p>ความเข้มแสงอาทิตย์เฉลี่ยต่อปี : <span id='Hdts9'></span></p>
+                        <p>แผงโซล่าเซลล์ : <span id='PV_module9'></span></p>
+                        <p>จำนวนแผงโซล่าเซลล์ : <span id='Pvs19'></span></p>
+                        <p>ขนาดมิเตอร์ : <span id='Meter9'></span></p> 
+                        <p>พื้นที่ติดตั้ง  : <span id='Area9'></span></p>
+                        <p>อินเวอร์เตอร์  : <span id='inverter9'></span></p>
+                        <p>จำนวน : <span id='numberinv9'></span></p>
+                        
+                        
+                        <p>จำนวนสตริงที่ใช้ทั้งหมด : <span id='string_real'></span></p>
+                      
+                        br
+                                
+
+                    .form-group.col-6
+                        <h5>ข้อมูลด้าน AC</h5>
+                                
+                        <p><b>AC CB : <span id='cbaco'></span> (AT)</b></p>
+                        <p>สายไฟ  : <span id='wireo'></span> (sq.mm.)</p>
+                        <p>Vdrop : <span id='vdropaco'></span> (V)</p>
+                        <p style = "color:blue;">% Vdrop : <span id='pervdropaco'></span> (%)</p>
+                        <p>Ploss : <span id='plossaco'></span> (W)</p>
+                        <p style = "color:blue;">% Ploss : <span id='perplossaco'></span> (%)</p>
+                                
+                        <p>Ground : <span id='groundaco'></span> (sq.mm.)</p>
+                    
+
+            <a href="#/print"  class='btn btn-secondary' onclick="process9()">visit</a>

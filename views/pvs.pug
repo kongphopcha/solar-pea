@@ -1,0 +1,146 @@
+extends layout
+
+
+block content
+    <!-- NAVIGATOR -->
+    nav.navbar.navbar-expand-lg.navbar-light.bg-light
+        .container
+            a(herf= "#").navbar-brand
+            button(type="button", data-toggle="collapse", data-target="#navbarNavAltMarkup", aria-controls="navbarNavAltMarkup", aria-expanded="false", aria-label="Toggle navigation").navbar-toggler 
+                span.navbar-toggler-icon
+
+            div(id="navbarNavAltMarkup").collapse.navbar-collapse
+                .navbar-nav
+                    a(href="/infos").nav-item.nav-link.text-uppercase ข้อมูลการติดตั้ง
+                    a(href="/infos3").nav-item.nav-link.text-uppercase ข้อมูลการติดตั้ง 3 เฟส
+                    
+                    a(href="/pvs").nav-item.nav-link.text-uppercase.active PV MODULES
+                    a(href="/inverters").nav-item.nav-link.text-uppercase INVERTERS
+                    a(href="/inverters3").nav-item.nav-link.text-uppercase INVERTERS 3 Phase
+                    a(href="/loads").nav-item.nav-link.text-uppercase LOAD PROFILE
+                    
+
+
+    
+
+    .container
+        .row
+            .col-12.col-sm-6
+                br
+                h2=(pv ? 'EDIT PV MODULE' : 'ADD PV MODULE')
+                br
+                form(action=(pv ? "/pvs/edit/" + pv._id : '/pvs/add'), method="post")
+                    .row
+                        .form-group.col-6
+                            label(for="") Manufacturer
+                            input(type="text", name="Manufacturer", class="form-control" value=(pv ? pv.Manufacturer : ''))
+                        .form-group.col-6
+                            label(for="") PV module
+                            input(type="text", name="PV_module", class="form-control"  value=(pv ? pv.PV_module : ''))
+                    .row
+                        .form-group.col-6
+                            label(for="") Maximum Power at STC (Pmax)
+                        
+                            input(type="text", name="Pmax", class="form-control" placeholder="W" value=(pv ? pv.Pmax : ''))
+                                
+                        
+                    .row
+                        
+                        .form-group.col-6
+                            label(for="") Optimum Operating Voltage (Vmp)
+                            input(type="text", name="Vmp", class="form-control" placeholder="V" value=(pv ? pv.Vmp : ''))
+                        .form-group.col-6
+                            label(for="") Open Circuit Voltage (Voc)
+                            input(type="text", name="Voc", class="form-control" placeholder="V" value= (pv ? pv.Voc : ''))
+                    .row
+                        .form-group.col-6
+                            label(for="") Optimum Operating Current (Imp)
+                            input(type="text", name="Imp", class="form-control" placeholder="A" value= (pv ? pv.Imp : ''))
+                        .form-group.col-6
+                            label(for="") Short Circuit Current (Isc)
+                            input(type="text", name="Isc", class="form-control" placeholder="A" value= (pv ? pv.Isc : ''))
+                        
+                    .row
+                        .form-group.col-6
+                            label(for="") Temperature Coefficient of Pmax
+                            input(type="text", name="Temperature_Coefficient_of_Pmax", class="form-control" placeholder="%/°C" value= (pv ? pv.Temperature_Coefficient_of_Pmax : ''))
+                        .form-group.col-6
+                            label(for="") Temperature Coefficient of Voc
+                            input(type="text", name="Temperature_Coefficient_of_Voc", class="form-control" placeholder="%/°C" value= (pv ? pv.Temperature_Coefficient_of_Voc : ''))
+                    .row
+                        .form-group.col-6
+                            label(for="") Length
+                            input(type="text", name="Length", class="form-control" placeholder="m" value= (pv ? pv.Length : ''))
+                        .form-group.col-6
+                            label(for="") Price
+                            input(type="text", name="Price", class="form-control" placeholder="Bath" value= (pv ? pv.Price : '')) 
+                    br         
+                    .row
+                        .form-group.col-6
+                            button(type="submit").btn.btn-block.btn-success= (pv ? 'SAVE' : 'ADD')
+                        .form-group.col-6
+                            button(type="reset").btn.btn-block.btn-warning RESET
+                    br
+            if pvs
+                
+                .col-12.col-sm-5.offset-sm-1
+                    br
+                    h2 SEARCH PV MODELES
+                    br
+                    form(action= "/pvs/search", method="post")
+                        .row
+                            .form-group.col-6
+                                label(for="") Manufacturer
+                                input(type="text", name="Manufacturer", class="form-control")
+                            .form-group.col-6
+                                label(for="") PV module
+                                input(type="text", name="PV_module", class="form-control")
+                        .row
+                            .form-group.col-6
+                                label(for="") Pmax
+                                input(type="text", name="Pmax", class="form-control" placeholder="W")
+                                
+                        
+                            .form-group.col-6
+                                label(for="") Vmp
+                                input(type="text", name="Vmp", class="form-control" placeholder="V" )
+                          
+                        br
+                        .row
+                            .form-group.col-12
+                                button(type="submit").btn.btn-block.btn-info SEARCH
+                        br
+                    
+
+   
+
+
+
+
+
+                
+    if pvs            
+        hr
+        div.container
+            br
+            h2 PV MODULES
+            br
+            div.row
+                each pv in pvs
+                    div.col-6.col-md-4
+                        h4.text-primary=pv.PV_module
+                        h4.text-secondary=pv.Manufacturer   
+                        p='Maximum Power at STC (Pmax) : '+pv.Pmax +' ' + 'W'
+                        p='Optimum Operating Voltage (Vmp) : '+pv.Vmp +' ' + 'V'
+                        
+                        div
+                            ul.list-inline
+                                li.list-inline-item
+                                    a(href="/pvs/edit/" + pv._id).btn.btn-primary EDIT
+                                li.list-inline-item
+                                    form(action="/pvs/delete/"+ pv._id, method='post')
+                                        button(type='submit').btn.btn-danger DEL                          
+                    
+                        hr
+                       
+
