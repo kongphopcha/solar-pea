@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 // Schema Validation
 var inverterSchema3 = mongoose.Schema({
     Manufacturer: {type: String, trim:true},
-    Inverter: {type: String, trim:true} ,
+    Inverter: {type: String, trim:true, required: true} ,
     Pinv_dc: {type: Number,  required: true },
     
     MPP_Voltage_range_min : {type: Number,  required: true},

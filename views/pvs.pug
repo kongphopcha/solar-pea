@@ -33,11 +33,14 @@ block content
                     .row
                         .form-group.col-6
                             label(for="") Manufacturer
-                            input(type="text", name="Manufacturer", class="form-control" value=(pv ? pv.Manufacturer : ''))
+                            input(type="text", name="Manufacturer", class="form-control" placeholder="(ไม่ต้องกรอกก็ได้)" value=(pv ? pv.Manufacturer : ''))
                         .form-group.col-6
                             label(for="") PV module
                             input(type="text", name="PV_module", class="form-control"  value=(pv ? pv.PV_module : ''))
                     .row
+                        .form-group.col-6
+                            label(for="") Price
+                            input(type="text", name="Price", class="form-control" placeholder="Bath (ไม่ต้องกรอกก็ได้)" value= (pv ? pv.Price : ''))
                         .form-group.col-6
                             label(for="") Maximum Power at STC (Pmax)
                         
@@ -72,8 +75,9 @@ block content
                             label(for="") Length
                             input(type="text", name="Length", class="form-control" placeholder="m" value= (pv ? pv.Length : ''))
                         .form-group.col-6
-                            label(for="") Price
-                            input(type="text", name="Price", class="form-control" placeholder="Bath" value= (pv ? pv.Price : '')) 
+                            label(for="") Width
+                            input(type="text", name="width", class="form-control" placeholder="m" value= (pv ? pv.width : ''))    
+                         
                     br         
                     .row
                         .form-group.col-6

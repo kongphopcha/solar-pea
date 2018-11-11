@@ -21,351 +21,341 @@ block content
     .container
 
     .container
-        .row
-            
-            .col-12.col-sm-7
-                br
-                h2 ข้อมูลการติดตั้ง
-                br
-                form(action='/infos', method="post")
+        form(action='/infos/add', method="post", id="bigform")
+            .row
+                
+                .col-12.col-sm-7
+                    br
+                    h2 ข้อมูลการติดตั้ง
+                    br
                     .row
-                        .form-group.col-5
+                        <p><strong>ตัวอย่าง Singleline diagram</strong></p>
+                        <div class="gallery">
+                            <div>
+                                <img src="images/singleline6.PNG" alt="ตัวอย่าง Singleline Diagram">
+                                
+                            </div>
+                            
+                        </div>
+                    br
+                    .row
+                        .form-group.col-6
                             label(for="") ชื่อโครงการ
-                                
-                            input(type="text", name="Project", class="form-control" value='' placeholder="*" )
-                        
-                        .form-group.col-3
-                            label(for="") อาคารประเภท
-                            
-                            select(id="type",name="met",type="text", class="form-control")
-                                option(value='' select) *
-                                option(value=0 ) บ้านอยู่อาศัย
-                                option(value=1 ) ไม่ใช่บ้านอยู่อาศัย       
-                        .form-group.col-4
-                            label(for="") ประเภทผู้ใช้ไฟ 
-                            select(id="users", class="form-control" )
-                                option(value='' selected)
-                                each load in loads
                                     
-                                    option(value=load ) #{load.description}    
-                                
-                            
-                            
+                            input(type="text", name="project", class="form-control", value=''  )
                     .row
                         .form-group.col-12
                             label(for="") รายละเอียดอื่นๆ
-                                
-                            input(type="text", name="Description", class="form-control" value='' placeholder="*")
+                                    
+                            input(type="text", name="des", class="form-control", value='')
+                    .row    
                         .form-group.col-6
-                            label(for="") หน่วยการใช้ไฟฟ้าต่อเดือน (Unit)
-                            select(id='timeunit' ,type="text", class="form-control")
-                                option(value='' selected) 
-                                option(value=1 ) หน่วยการใช้ไฟต่อเดือน
-                                option(value=2 ) หน่วยการใช้ไฟ 9.00-16.00 น.
-                            input(id='unit9' type="text", class="form-control" value='' placeholder="*")
+                            label(for="") อาคารประเภท
+                                
+                            select(id="type",name="met",type="text", class="form-control")
+                                option(value='' select) *
+                                option(value='บ้านอยู่อาศัย' ) บ้านอยู่อาศัย
+                                option(value='ไม่ใช่บ้านอยู่อาศัย' ) ไม่ใช่บ้านอยู่อาศัย       
+                        .form-group.col-6
+                            label(for="") ประเภทผู้ใช้ไฟ 
+                            select(id="users", class="form-control", name='user')
+                                option(value='' selected)
+                                each load in loads
+                                        
+                                    option(value=load ) #{load.description}  
+
+                                     
+                                
+                                
                         
+                        .form-group.col-6
+                            label(for="") หน่วยการใช้ไฟ (Unit)
+                            select(id='timeunit', name="time_use" ,type="text", class="form-control")
+                                option(value='' selected) *
+                                option(value='หน่วยการใช้ไฟต่อเดือน' ) หน่วยการใช้ไฟต่อเดือน
+                                option(value='หน่วยการใช้ไฟ 9.00-16.00 น.' ) หน่วยการใช้ไฟ 9.00-16.00 น.
+                            input(id='unit9', name="unit", type="text", class="form-control" ,value='', placeholder="*")
                         .form-group.col-3
                             label(for="") ซื้อไฟ/หน่วย (บาท)
-                                
-                            input(type="text", id='bath1', class="form-control" value='' placeholder="*")
+                                    
+                            input(type="text", id='bath1', name='buy' class="form-control", value='', placeholder="*")
                         .form-group.col-3
                             label(for="") ขายไฟ/หน่วย (บาท)
-                                
-                            input(type="text", id='bath2', class="form-control" value='' placeholder="*") 
+                                    
+                            input(type="text", id='bath2', name='sale', class="form-control", value='', placeholder="*")
+                    .row
+                            
+                        .form-group.col-4
+                            label(for="") อุณหภูมิต่ำสุดที่แผง (°C)
+                                    
+                            input(type="text", id="Tem_min", name='tem_min', class="form-control", value='', placeholder="*0 °C")
+                        .form-group.col-4
+                            label(for="") อุณหภูมิสูงสุดที่แผง (°C)
+                                    
+                            input(type="text", id="Tem_max", name='tem_max', class="form-control", value='', placeholder="*50 °C") 
+                        .form-group.col-4
+                            label(for="") อุณหภูมิสูงสุดที่ Inv. (°C)
+                                    
+                            input(type="text", id="Tem_max2", name='tem_max2', class="form-control", value='', placeholder="*40 °C") 
+                        
+                        
+                           
                     
-                    .row
-                        .form-group.col-6
-                            label(for="") อุณหภูมิต่ำสุด (°C)
-                                
-                            input(type="text", id="Tem_min", class="form-control" value='' placeholder="*")
-                        .form-group.col-6
-                            label(for="") อุณหภูมิสูงสุด (°C)
-                                
-                            input(type="text", id="Tem_max", class="form-control" value='' placeholder="*")
-                        
-                    .row
-                        .form-group.col-6
-                            label(for="") วิธีเดินสายจากแผงไปอินเวอร์เตอร์
-                                               
-                            select(id='metdc' ,type="text", class="form-control")
-                                option(value='' selected) 
-                                option(value=1 ) ท่อร้อยสาย
-                                option(value=2 ) Wireway
-                        
-                        .form-group.col-6
-                            label(for="") ระยะแผงถึงอินเวอร์เตอร์ (m)
-                            input(type="text", id="PV_Inv", class="form-control"  placeholder="*" value='')
-                        
-                    
-                    .row
-                        .form-group.col-6
-                            label(for="") วิธีเดินสายออกจากอินเวอร์เตอร์
-                            select(id='metac' ,type="text", class="form-control")
-                                option(value='' selected) 
-                                option(value=1 ) ช่องเดินสาย 
-                                option(value=2 ) Wireway     
-                        .form-group.col-6
-                            label(for="") ระยะอินเวอร์เตอร์ถึง MDB หรือ DB Solar (m)
-                            input(type="text", id="Inv_Mdb", class="form-control" placeholder="*" value= '' )    
-                    .row
-                        .form-group.col-6
-                            label(for="") ชนิดสายไฟ AC
-                                
-                            select(id='wireac' ,type="text", class="form-control")
-                                option(value='' selected) 
-                                option(value='thw' ) สายไฟหุ้มฉนวน PVC (1 แกน)
-                                option(value='thws' ) สายไฟหุ้มฉนวน PVC (หลายแกน)
-                                option(value='cv' ) สายไฟหุ้มฉนวน XLPE (1 แกน)
-                                option(value='cvs' ) สายไฟหุ้มฉนวน XLPE (หลายแกน)
-                        
-                        
+
                     .row    
                         .form-group.col-6    
                                 label(for="") จังหวัด
-                                
-                                select(id="Province",name="Province", class="form-control")
-                                    option(value="")
-                                    option(value=1) เชียงใหม่
-                                    option(value=2) เชียงราย
-                                    option(value=3) น่าน
-                                    option(value=4) พะเยา
-                                    option(value=5) แพร่
-                                    option(value=6) แม่ฮ่องสอน
-                                    option(value=7) ลำปาง
-                                    option(value=8) ลำพูน
-                                    option(value=9) อุตรดิตถ์
-                                    option(value=10) กาฬสินธุ์
-                                    option(value=11) ขอนแก่น
-                                    option(value=12) ชัยภูมิ
-                                    option(value=13) นครพนม
-                                    option(value=14) นครราชสีมา 
-                                    option(value=15) บึงกาฬ
-                                    option(value=16) บุรีรัมย์
-                                    option(value=17) มหาสารคาม
-                                    option(value=18) มุกดาหาร
-                                    option(value=19) ยโสธร
-                                    option(value=20) ร้อยเอ็ด
-                                    option(value=21) เลย
-                                    option(value=22) สกลนคร
-                                    option(value=23) สุรินทร์
-                                    option(value=24) ศรีสะเกษ
-                                    option(value=25) นองคาย
-                                    option(value=26) หนองบัวลำภู
-                                    option(value=27) อุดรธานี
-                                    option(value=28) อุบลราชธานี
-                                    option(value=29) อำนาจเจริญ
-                                    option(value=30) กำแพงเพชร
-                                    option(value=31) ชัยนาท
-                                    option(value=32) นครนายก
-                                    option(value=33) นครปฐม
-                                    option(value=34) นครสวรรค์
-                                    option(value=35) นนทบุรี
-                                    option(value=36) ปทุมธานี
-                                    option(value=37) พระนครศรีอยุธยา
-                                    option(value=38) พิจิตร
-                                    option(value=39) พิษณุโลก
-                                    option(value=40) เพชรบูรณ์
-                                    option(value=41) ลพบุรี
-                                    option(value=42) สมุทรปราการ
-                                    option(value=43) สมุทรสงคราม
-                                    option(value=44) สมุทรสาคร
-                                    option(value=45) สิงห์บุรี
-                                    option(value=46) สุโขทัย
-                                    option(value=47) สุพรรณบุรี
-                                    option(value=48) สระบุรี
-                                    option(value=49) อ่างทอง
-                                    option(value=50) อุทัยธานี
-                                    option(value=51) จันทบุรี
-                                    option(value=52) ฉะเชิงเทรา
-                                    option(value=53) ชลบุรี
-                                    option(value=54) ตราด
-                                    option(value=55) ปราจีนบุรี
-                                    option(value=56) ระยอง
-                                    option(value=57) สระแก้ว
-                                    option(value=58) กาญจนบุรี
-                                    option(value=59) ตาก
-                                    option(value=60) ประจวบคีรีขันธ์
-                                    option(value=61) เพชรบุรี
-                                    option(value=62) ราชบุรี
-                                    option(value=63) กระบี่
-                                    option(value=64) ชุมพร
-                                    option(value=65) ตรัง
-                                    option(value=66) นครศรีธรรมราช
-                                    option(value=67) นราธิวาส
-                                    option(value=68) ปัตตานี
-                                    option(value=69) พังงา
-                                    option(value=70) พัทลุง
-                                    option(value=71) ภูเก็ต
-                                    option(value=72) ระนอง
-                                    option(value=73) สตูล
-                                    option(value=74) สงขลา
-                                    option(value=75) สุราษฎร์ธานี
-                                    option(value=76) ยะลา
-                                   
-                    
+                                    
+                                select(id="Province",name="province", class="form-control")
+                                    option(value="") *
+                                    option(value='เชียงใหม่') เชียงใหม่
+                                    option(value='เชียงราย') เชียงราย
+                                    option(value='น่าน') น่าน
+                                    option(value='พะเยา') พะเยา
+                                    option(value='แพร่') แพร่
+                                    option(value='แม่ฮ่องสอน') แม่ฮ่องสอน
+                                    option(value='ลำปาง') ลำปาง
+                                    option(value='ลำพูน') ลำพูน
+                                    option(value='อุตรดิตถ์') อุตรดิตถ์
+                                    option(value='กาฬสินธุ์') กาฬสินธุ์
+                                    option(value='ขอนแก่น') ขอนแก่น
+                                    option(value='ชัยภูมิ') ชัยภูมิ
+                                    option(value='นครพนม') นครพนม
+                                    option(value='นครราชสีมา') นครราชสีมา 
+                                    option(value='บึงกาฬ') บึงกาฬ
+                                    option(value='บุรีรัมย์') บุรีรัมย์
+                                    option(value='มหาสารคาม') มหาสารคาม
+                                    option(value='มุกดาหาร') มุกดาหาร
+                                    option(value='ยโสธร') ยโสธร
+                                    option(value='ร้อยเอ็ด') ร้อยเอ็ด
+                                    option(value='เลย') เลย
+                                    option(value='สกลนคร') สกลนคร
+                                    option(value='สุรินทร์') สุรินทร์
+                                    option(value='ศรีสะเกษ') ศรีสะเกษ
+                                    option(value='หนองคาย') หนองคาย
+                                    option(value='หนองบัวลำภู') หนองบัวลำภู
+                                    option(value='อุดรธานี') อุดรธานี
+                                    option(value='อุบลราชธานี') อุบลราชธานี
+                                    option(value='อำนาจเจริญ') อำนาจเจริญ
+                                    option(value='กำแพงเพชร') กำแพงเพชร
+                                    option(value='ชัยนาท') ชัยนาท
+                                    option(value='นครนายก') นครนายก
+                                    option(value='นครปฐม') นครปฐม
+                                    option(value='นครสวรรค์') นครสวรรค์
+                                    option(value='นนทบุรี') นนทบุรี
+                                    option(value='ปทุมธานี') ปทุมธานี
+                                    option(value='พระนครศรีอยุธยา') พระนครศรีอยุธยา
+                                    option(value='พิจิตร') พิจิตร
+                                    option(value='พิษณุโลก') พิษณุโลก
+                                    option(value='เพชรบูรณ์') เพชรบูรณ์
+                                    option(value='ลพบุรี') ลพบุรี
+                                    option(value='สมุทรปราการ') สมุทรปราการ
+                                    option(value='สมุทรสงคราม') สมุทรสงคราม
+                                    option(value='สมุทรสาคร') สมุทรสาคร
+                                    option(value='สิงห์บุรี') สิงห์บุรี
+                                    option(value='สุโขทัย') สุโขทัย
+                                    option(value='สุพรรณบุรี') สุพรรณบุรี
+                                    option(value='สระบุรี') สระบุรี
+                                    option(value='อ่างทอง') อ่างทอง
+                                    option(value='อุทัยธานี') อุทัยธานี
+                                    option(value='จันทบุรี') จันทบุรี
+                                    option(value='ฉะเชิงเทรา') ฉะเชิงเทรา
+                                    option(value='ชลบุรี') ชลบุรี
+                                    option(value='ตราด') ตราด
+                                    option(value='ปราจีนบุรี') ปราจีนบุรี
+                                    option(value='ระยอง') ระยอง
+                                    option(value='สระแก้ว') สระแก้ว
+                                    option(value='กาญจนบุรี') กาญจนบุรี
+                                    option(value='ตาก') ตาก
+                                    option(value='ประจวบคีรีขันธ์') ประจวบคีรีขันธ์
+                                    option(value='เพชรบุรี') เพชรบุรี
+                                    option(value='ราชบุรี') ราชบุรี
+                                    option(value='กระบี่') กระบี่
+                                    option(value='ชุมพร') ชุมพร
+                                    option(value='ตรัง') ตรัง
+                                    option(value='นครศรีธรรมราช') นครศรีธรรมราช
+                                    option(value='นราธิวาส') นราธิวาส
+                                    option(value='ปัตตานี') ปัตตานี
+                                    option(value='พังงา') พังงา
+                                    option(value='พัทลุง') พัทลุง
+                                    option(value='ภูเก็ต') ภูเก็ต
+                                    option(value='ระนอง') ระนอง
+                                    option(value='สตูล') สตูล
+                                    option(value='สงขลา') สงขลา
+                                    option(value='สุราษฎร์ธานี') สุราษฎร์ธานี
+                                    option(value='ยะลา') ยะลา
+                                    
+                        
                         .form-group.col-6
                                 label(for="") Peak Sun Hours (Hours)
-                                    
-                                input(id="PSH", type="text", class="form-control" )
+                                        
+                                input(id="PSH", name='psh', type="text", class="form-control" )
                     .row
                         .form-group.col-6
-                            label(for="") มุมอะซิมุท (°)
-                                
-                            input(id='Azimuth', type="text", name="Azimuth", class="form-control" placeholder="* 180°" value='' )
+                            label(for="") มุมที่แผงหันหน้าไปในแนวราบ (°)
                                     
+                            input(id='Azimuth', type="text", name="azimuth", class="form-control", placeholder="* N=0°, E=90°, S=180°, W=270° ", value='' )
+                                        
                         .form-group.col-6
                                 label(for="") มุมเงย (°)
-                                    
-                                input(type="text", id="Altitute", class="form-control" placeholder="* 10°-20°" value='' )
-                        
+                                        
+                                input(type="text", id="Altitute", name="altitute", class="form-control", placeholder="* 10°-20°" ,value='' )
+                            
                     .row
                         .form-group.col-12
                             label(for="") ความเข้มแสงอาทิตย์เฉลี่ยต่อปี (kWh/m^2/year)
-                                
-                    
-                            input(id='Hdts' type="text", name="Hdts", class="form-control" value=''  )
+                                    
+                        
+                            input(id='Hdts', type="text", name="hdts", class="form-control", value=''  )
 
-                
+                    
                     .row
                         .form-group.col-6    
                             label(for="") แผงโซล่าเซลล์
-                                               
+                                                
                             select(name="PV_module", class="form-control" )
                                 option(value='' selected)
                                 each pv in pvs
-                                    
+                                        
                                     option(value=pv ) #{pv.PV_module}
                         .form-group.col-6
-                            label(for="") นำหน่วยการใช้ไฟมาคิดกำลังไฟฟ้าสูงสุด
+                            label(for="") นำหน่วยการใช้ไฟคิดกำลังไฟฟ้าสูงสุด
                             select(id='selectunit', class="form-control")
-                                option(value=0 selected) 
+                                option(value=0 selected) *
                                 option(value=1 ) นำมาพิจารณา
                                 option(value=2 ) ไม่นำมาพิจารณา
-                        
+                            
+                                        
+                            
                                     
                         
-                                
-                    
                     .row                 
                         .form-group.col-6
                             label(for="") ขนาดมิเตอร์ [เลือก - เพื่อกรอก Pmax เอง] 
-                            
-                              
-                            select(id='Meter' name="Meter", class="form-control")
-                                option(value='0' selected) -
-                                option(value='135' ) 15(45), 3 เฟส
-                                option(value='300' ) 30(100), 3 เฟส
                                 
-        
+                                
+                            select(id='Meter', name="meter", class="form-control")
+                                option(value='1 เฟส' selected) -
+                                option(value='5(15), 1 เฟส' ) 5(15), 1 เฟส
+                                option(value='15(45), 1 เฟส' ) 15(45), 1 เฟส
+                                option(value='30(100), 1 เฟส' ) 30(100), 1 เฟส
+                                    
+            
                         .form-group.col-6
                             label(for="") พื้นที่ติดตั้ง (m^2) [ใส่ 0 เพื่อกรอก Pmax เอง]
-                                
-                            input(id='Area' type="text", name="Area", class="form-control" placeholder="* (ใส่ค่า 0 เพื่อกรอกกำลังสูงสุดเอง)" value='' )
-                                   
+                                    
+                            input(id='Area', type="text", name="area", class="form-control", placeholder="* (ใส่ค่า 0 เพื่อกรอกกำลังสูงสุดเอง)", value='' )
+                                    
                     .row
                         .form-group.col-6
                             label(for="") กำลังไฟฟ้าสูงสุด (W) [Pmax]
-                                
-                            input(id='Pmaximum' type="text", name="Pmaximum", class="form-control" value='')
-                                
+                                    
+                            input(id='Pmaximum', type="text", name="Pmaximum", class="form-control", value='')
+                                    
                         .form-group.col-6
                             label(for="") จำนวนแผงโซล่าเซลล์ (Modules)
-                                
-                            input(type="text", name="No_Pvs", class="form-control" value='')
-                    
+                                    
+                            input(type="text", name="No_Pvs", class="form-control", value='')
                         
+                            
 
                     .row
                         .form-group.col-12
                             label(for="") Pinv_ac ที่แนะนำ (W)
                         .form-group.col-6
+                                    
+                            input(id='Pinv_ac_min',type="text", name="Pinv_ac_min", class="form-control",  value='' )
                                 
-                            input(id='Pinv_ac_min',type="text", name="Pinv_ac_min", class="form-control"  value='' )
-                            
                         .form-group.col-6    
-                            input(id='Pinv_ac_max', type="text", name="Pinv_ac_max", class="form-control" value='')    
+                            input(id='Pinv_ac_max', type="text", name="Pinv_ac_max", class="form-control", value='')    
                     .row
                         .form-group.col-6
-                            
-                            
+                                
+                                
                             <a href='#/infos' class='btn btn-secondary' onclick="invertercheck2()">เลือกอินเวอร์เตอร์</a>
-                            
+                                
                         .form-group.col-6
-                            
+                                
 
                             <p>อินเวอร์เตอร์: <span id="demo"></span>  (W)</p>
-                           
+                            
                             <p>จำนวน: <span id="demo1" value = ''></span>  (เครื่อง)</p>
-                            
-                            
+                                
+                                
 
-                            
-                        
-                           
-                          
-                        .form-group.col-6    
-                             
                                 
                             
-                            input(id='inverters' type="hidden", class="form-control" value=inverters)     
+                            
+                            
+                        .form-group.col-6    
+                                
+                                    
+                                
+                            input(id='inverters', type="hidden", class="form-control", value=inverters)     
                             <!--input(id='inverters' type="hidden", class="form-control" value=inverters3) -->
                     .row
-                        .form-group.col-8
+                        .form-group.col-6
                             label(for="") อินเวอร์เตอร์
-                            select(id='inverter', class="form-control" )
+                            select(id='inverter',name="inv", class="form-control" )
                                 option(value='' selected)
                                 each inverter in inverters
                                     option(value=inverter ) #{inverter.Inverter}  
-                                
-                        .form-group.col-4
+                                    
+                        .form-group.col-3
                             label(for="") จำนวน
-                            input(id="numberinv", type="text", class="form-control" value='')
-                        .form-group.col-6
+                            input(id="numberinv", name='num_inv', type="text", class="form-control", placeholder="*",value='')
+                        .form-group.col-3
                             label(for="") DC to AC ratio*
-                            input(id="dc_to_ac", type="text", class="form-control" value='')
-                        .form-group.col-6
-                            label(for="") Max. PV/String 
-                            input(id="PV_string" type="text", name="PV_String", class="form-control" value='')    
+                            input(id="dc_to_ac", type="text", class="form-control", value='')
+                        .form-group.col-4
+                            label(for="") สตริงต่ออินพุตสูงสุด  
+                            input(id="string_input", type="text", name="string_input", class="form-control", value='')      
+                        .form-group.col-4
+                            label(for="") จำนวนแผงต่อสตริงน้อยสุด 
+                            input(id="PV_stringmin", type="text", name="PV_Stringmin", class="form-control", value='')  
+                        .form-group.col-4
+                            label(for="") จำนวนแผงต่อสตริงมากสุด 
+                            input(id="PV_string", type="text", name="PV_String", class="form-control", value='')    
                         .form-group.col-6
                             br
-                            
+                                
                             <p>*DC to AC ratio ควรมีค่า 1.1-1.2 </p>            
                     .row
                         .form-group.col-6
-                            
+                                
                             <a href='#/infos' class='btn btn-secondary' onclick="Strings()">ประมวลผล</a>            
                     .row    
                         .form-group.col-12
 
                             <h5>การจัดสตริงของอินเวอร์เตอร์รวมทุกตัว</h5>
                         .form-group.col-12
-                            <p>Num_Pvs : <span id="numpvs"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Num_Inv : <span id="numinvs"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Max. Input/inv : <span id="maxin" ></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Max. Strings/Input : <span id="maxst_in" ></span></p>
-                            
+                            <p>แผงสูงสุด : <span id="numpvs"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;อินเวอร์เตอร์ : <span id="numinvs"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;อินพุต/อินเวอร์เตอร์ : <span id="maxin" ></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;สตริง/อินพุต : <span id="maxst_in" ></span></p>
                                 
+                                    
                     .row    
                         .form-group.col-12
                             <p>สตริงน้อยที่สุด : <span id="cat1"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;แผง/สตริงน้อยที่สุด : <span id="rat1"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;แผงน้อยที่สุด : <span id="dog1" ></span></p>
-                       
+                        
                         .form-group.col-12
                             <p>สตริงมากที่สุด : <span id="cat"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;แผง/สตริงมากที่สุด : <span id="rat"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;แผงมากที่สุด : <span id="dog" ></span></p>
                         .form-group.col-12
-                            <p>แนะนำ : <span id="good"></span></p>
+                            <p>จำนวนแผงที่เหมาะกับอินเวอร์เตอร์ : <span id="good"></span></p>
                         .form-group.col-12
-                            
-                            <p>Voc/Array ต่างกันไม่เกิน 5% (ต่อขนานกันแผงควรเท่ากัน) , ในท่อร้อยสายไม่ควรเกิน 20 สตริง</p>
+                                
+                            <p>Voc/Array ต่างกันไม่เกิน 5% (ต่อขนานกันแผงควรเท่ากัน)</p>
                     .row    
                         .form-group.col-6
                             label(for="") เลือกจำนวนแผง
-                            input(type="text", id="Pvs1", class="form-control"  value=''  placeholder="*")
+                            input(type="text", id="Pvs1",name='num_pv', class="form-control",  value='' , placeholder="*")
                         .form-group.col-6
                             label(for="") DC to AC ratio*
-                            input(type="text", id="dc_to_ac2", class="form-control" value='')
+                            input(type="text", id="dc_to_ac2", class="form-control", value='')
                         .form-group.col-6
                             label(for="") จำนวนสตริงที่ใช้ทั้งหมด
-                            input(type="text", id="string_real", class="form-control" value='' placeholder="*")
+                            input(type="text", id="string_real",name='string', class="form-control", value='', placeholder="*")
                         .form-group.col-6
                             label(for="") จำนวนแผงเฉลี่ยต่อสตริง
-                            input(type="text", id="pvperstring", class="form-control" value='')
+                            input(type="text", id="pvperstring" name='pvperstring' class="form-control", value='')
                         .form-group.col-12
                             br  
                             
@@ -373,140 +363,231 @@ block content
                     .row      
                         .form-group.col-12
                             <a href='#' class='btn btn-secondary'  onclick="process()">ประมวลผล</a>    
-                               
+                                
                     br         
-                    .row
-                        
-                        .form-group.col-12
-                            button(type="reset" onclick="reset1()").btn.btn-block.btn-warning RESET
-                    br    
+                 
+                    
                 
-            
+                    
                 
-               
-            .col-12.col-sm-4.offset-sm-1
-                    br
-                    h2 รายละเอียดการคำนวณ
-                    br
-                    form(action= '/infos', method="post")
+                .col-12.col-sm-4.offset-sm-1
+                        br
+                        h2 เลือกขนาดสายไฟ
+                        br
+          
                         
-                        .row    
-                            
-                            .form-group.col-6
-                                
-                                <h5>ข้อมูลด้าน DC</h5>
-                                
-                                <p><b>DC CB : <span id='cbdco'></span> (AT)</b></p>
-                                <p>PV1-F  : <span id='pv1fo'></span> (sq.mm.)</p>
-                                <p>Vdrop : <span id='vdropdco'></span> (V)</p>
-                                <p style = "color:red;">% Vdrop : <span id='pervdropdco'></span> (%)</p>
-                                <p>Ploss : <span id='plossdco'></span> (W)</p>
-                                <p style = "color:red;">% Ploss : <span id='perplossdco'></span> (%)</p>
-                                <p>Ground : <span id='grounddco'></span> (sq.mm.)</p>
-                                <p><span id='fuse1'></span></p>
-                                br
-                                
-
-                            .form-group.col-6
-                                <h5>ข้อมูลด้าน AC</h5>
-                                
-                                <p><b>AC CB : <span id='cbaco'></span> (AT)</b></p>
-                                <p>สายไฟ  : <span id='wireo'></span> (sq.mm.)</p>
-                                <p>Vdrop : <span id='vdropaco'></span> (V)</p>
-                                <p style = "color:blue;">% Vdrop : <span id='pervdropaco'></span> (%)</p>
-                                <p>Ploss : <span id='plossaco'></span> (W)</p>
-                                <p style = "color:blue;">% Ploss : <span id='perplossaco'></span> (%)</p>
-                                <p>Ground : <span id='groundaco'></span> (sq.mm.)</p>
+                               
                         .row
                         
-                            .form-group.col-12
+                            .form-group.col-12    
+                                <h6>PV STRING</h6>
+                                <h6><span id='fuse0'></span></h6>
                                 <p style = "color:red;">Vdrop DC ไม่เกิน 1%, Ploss DC ไม่เกิน 3% </p>
-                                <p style = "color:blue;">Vdrop AC ไม่เกิน 3%, Ploss AC ไม่เกิน 3%</p>
-                                <p><span id='fuse2'></span></p>       
+                        .row
+                            .form-group.col-9
+                                label(for="") วิธีเดินสายจากแผงไปกล่องรวมสาย DC
+                                                    
+                                select(id='metdc', name='how_wdc' ,type="text", class="form-control")
+                                    option(value='' selected) *
+                                    option(value='ท่อร้อยสาย' ) ท่อร้อยสาย
+                                    option(value='Wireway' ) Wireway
+                                    option(value='วางบนรางชิดกัน (ไม่ซ้อนแถว)' ) วางบนรางชิดกัน (ไม่ซ้อนแถว)
+                                    option(value='วางบนรางชิดกัน (ซ้อนแถว)' ) วางบนรางชิดกัน (ซ้อนแถว)
+                                
+                            .form-group.col-3
+                                label(for="") ระยะ (m)
+                                input(type="text", id="PV_Inv", name='distance_dc', class="form-control",  placeholder="*", value='')       
+                        .row
+                            .form-group.col-6
+                                label(for="") FUSE
+                                select(id='fuse00',name='fuse', class="form-control" )
+                                    option(value=0 selected) *
+                                    option(value='-') ไม่ติดตั้ง
+                                    option(value=1 ) 1
+                                    option(value=2 ) 2
+                                    option(value=3 ) 3
+                                    option(value=4 ) 4
+                                    option(value=5 ) 5
+                                    option(value=6 ) 6
+                                    option(value=8 ) 8
+                                    option(value=10 ) 10
+                                    option(value=12 ) 12
+                                    option(value=15 ) 15
+                                    option(value=20 ) 20
                         
-                            .form-group.col-12
-                                <h5>CB, สายไฟ และ สายกราวด์ เข้าตู้ MDB</h5>
-                                <p><span id='cbmdbo'></span> (AT), <span id='wmdbo'></span> (sq.mm.), Ground : <span id='gmdbo'></span> (sq.mm.)</p>
-                          
-                        
+                            .form-group.col-6
+                                    label(for="") PV1-F ใหญ่กว่า
+                                    input(type="text", id="pv1f_select00", class="form-control" value='')
+                            .form-group.col-6
+                                    label(for="") PV1-F
+                                    select(id='pv1f_select002',name='pv1f_string', class="form-control" )
+                                        option(value='' selected) *
+                                        option(value=4 ) 4
+                                        option(value=6 ) 6
+                                        option(value=10 ) 10
+                                        option(value=16 ) 16
+                                        option(value=25 ) 25 
                                
+                        .row
+                            .form-group.col-6
+                                label(for="") Vdrop Max./Input
+                                input(type="text", id="Vdrop_pv002_select",name='vdroppv', class="form-control" value='')
+                            .form-group.col-6
+                                label(for="") <a style = "color:red;">% Vdrop Max.</a>
+                                input(type="text", id="Per_vdroppv002_select",name = 'pervdroppv', class="form-control" value='')
+                        .row
+                            .form-group.col-6
+                                label(for="") Ploss/String
+                                input(type="text", id="Ploss_pv002_select",name='plosspv', class="form-control" value='')
+                            .form-group.col-6
+                                label(for="") <a style = "color:red;">% Ploss</a>
+                                input(type="text", id="Per_plosspv002f_select",name='perplosspv', class="form-control" value='')  
+                        hr     
+                        .row
                         
+                            .form-group.col-12    
+                                <h6>PV ARRAY&emsp;&emsp;<span id='cbdco'></span></h6>
                         
-
                         .row
                             .form-group.col-6
                                 label(for="") CB DC
-                                select(id='pv1f_select', class="form-control" )
-                                    option(value=0 selected)
-                                    option(value=10 ) 10
-                                    option(value=13 ) 13
-                                    option(value=15 ) 15
-                                    option(value=16 ) 16
-                                    option(value=20 ) 20
-                                    option(value=25 ) 25
-                                    option(value=30 ) 30
-                                    option(value=32 ) 32
-                                    option(value=40 ) 40
-                                    option(value=50 ) 50
-                                    option(value=63 ) 63
+                                input(type="text", id='pv1f_select',name='cbdc', class="form-control",placeholder="*",  value='')
+                                    
                             .form-group.col-6
                                 label(for="") PV1-F ใหญ่กว่า
                                 input(type="text", id="pv1f_select1", class="form-control" value='')     
-                               
-                            .form-group.col-4
+                                
+                            .form-group.col-6
                                 label(for="") PV1-F
-                                select(id='pv1f_select2', class="form-control" )
-                                    option(value='' selected)
+                                select(id='pv1f_select2',name='pv1f_array', class="form-control" )
+                                    option(value='' selected) *
                                     option(value=4 ) 4
                                     option(value=6 ) 6
                                     option(value=10 ) 10
                                     option(value=16 ) 16
                                     option(value=25 ) 25
-                            .form-group.col-8
-                                label(for="") ภายในช่องเดินสาย (sq.mm.)
-                                input(type="text", id="pipe_way1", class="form-control" value='')
-                            
-                            
                         .row
-                            .form-group.col-3
-                                label(for="") Vdrop
-                                input(type="text", id="Vdrop_pv1f_select", class="form-control" value='')
-                            .form-group.col-3
-                                label(for="") % Vdrop
-                                input(type="text", id="Per_vdroppv1f_select", class="form-control" value='')
+                            .form-group.col-6
+                                label(for="") สายดินที่โครงโลหะ
+                                input(type="text", id="groundpv1",name='groundpv1', class="form-control" value='') 
+                            .form-group.col-6
+                                label(for="") สายต่อหลักดิน
+                                input(type="text", id="groundpv2",name='groundpv2', class="form-control" value='') 
+                        hr
+                        .row
                         
+                            .form-group.col-12          
+                                <h6>INVERTER&emsp;&emsp;<span id='cbaco'></span></h6>  
+                                <p style = "color:blue;">Vdrop AC ไม่เกิน 3%, Ploss AC ไม่เกิน 3%</p> 
+                        .row
+                            .form-group.col-12
+                                label(for="") ชนิดสายไฟจาก Inverter ไป AC Solar หรือ MDB
+                                        
+                                select(id='wireac', name='type_wac' ,type="text", class="form-control")
+                                    option(value='' selected) *
+                                    option(value='สายไฟหุ้มฉนวน PVC (1 แกน)' ) สายไฟหุ้มฉนวน PVC (1 แกน)
+                                    option(value='สายไฟหุ้มฉนวน PVC (หลายแกน)' ) สายไฟหุ้มฉนวน PVC (หลายแกน)
+                                    option(value='สายไฟหุ้มฉนวน XLPE (1 แกน)' ) สายไฟหุ้มฉนวน XLPE (1 แกน)
+                                    option(value='สายไฟหุ้มฉนวน XLPE (หลายแกน)' ) สายไฟหุ้มฉนวน XLPE (หลายแกน)
+                                
+                            .form-group.col-9
+                                label(for="") วิธีเดินสาย
+                                
+                                select(id='metac', name='how_wac' ,type="text", class="form-control")
+                                    option(value='' selected) *
+                                    option(value='ท่อร้อยสาย' ) ท่อร้อยสาย 
+                                    option(value='Wireway' ) Wireway                 
                             .form-group.col-3
-                                label(for="") Ploss
-                                input(type="text", id="Ploss_pv1f_select", class="form-control" value='')
-                            .form-group.col-3
-                                label(for="") % Ploss
-                                input(type="text", id="Per_plosspv1f_select", class="form-control" value='')
+                                label(for="") ระยะ (m)
+                                input(type="text", id="Inv_Mdb", name='distance_ac', class="form-control", placeholder="*", value= '' )
                         .row
                             .form-group.col-6
                                 label(for="") CB Inv.
-                                select(id='cb_invs', class="form-control" )
-                                    option(value='' selected)
-                                    option(value=15) 15
-                                    option(value=20) 20
-                                    option(value=30) 30
-                                    option(value=40) 40
-                                    option(value=50) 50
-                                    option(value=60) 60
-                                    option(value=80) 80
-                                    option(value=100) 100
-                                    option(value=125) 125
-                                    option(value=175) 175
-                                    option(value=200) 200
-                                    option(value=225) 225
-                                    option(value=250) 250
+                                input(type="text", id='cb_invs',name='cbac' class="form-control", placeholder="*", value= ''  )
+                                    
                             .form-group.col-6
                                 label(for="") สายไฟใหญ่กว่า
                                 input(type="text", id="wire_invs", class="form-control" value='')
                             
-                            
+                                
                             .form-group.col-6
                                 label(for="") ขนาดสายไฟ Inv.
-                                select(id='wire_ac_select', class="form-control" )
+                                select(id='wire_ac_select',name='wireac', class="form-control" )
+                                    option(value=0 selected) *
+                                    option(value=2.5) 2.5
+                                    option(value=4) 4
+                                    option(value=6) 6
+                                    option(value=10) 10
+                                    option(value=16) 16
+                                    option(value=25) 25
+                                    option(value=35) 35
+                                    option(value=50) 50
+                                    option(value=70) 70
+                                    option(value=95) 95
+                                    option(value=120) 120
+                                    option(value=150) 150
+                                    option(value=185) 185
+                                    option(value=240) 240
+                                    option(value=300) 300
+                                    option(value=400) 400
+                                    option(value=500) 500
+                            .form-group.col-6
+                                label(for="") สายดิน Inv.(sq.mm.)
+                                input(type="text", id="ground_inv",name='ground_inv', class="form-control" value='')
+                        
+                        .row
+                            .form-group.col-6
+                                label(for="") Vdrop Max./Inv.
+                                input(type="text", id="Vdrop_ac_select",name='vdropac', class="form-control" value='')
+                            .form-group.col-6
+                                label(for="") <a style = "color:blue;">% Vdrop Max.</a>
+                                input(type="text", id="Per_vdropac_select",name='pervdropac',  class="form-control" value='')
+                        .row    
+                            .form-group.col-6
+                                label(for="") Ploss/Inv.
+                                input(type="text", id="Ploss_ac_select",name='plossac',  class="form-control" value='')
+                            .form-group.col-6
+                                label(for="") <a style = "color:blue;">% Ploss</a>
+                                input(type="text", id="Per_plossac_select",name='perplossac',  class="form-control" value='')
+                        hr
+                        .row
+                        
+                            .form-group.col-12          
+                                <h6>MDB&emsp;&emsp;<span id='cbmdbo'></span></h6>  
+                        .row
+                            .form-group.col-12
+                                label(for="") ชนิดสายไฟจาก AC Solar ไป MDB
+                                        
+                                select(id='wiremdb', name='type_wmdb' ,type="text", class="form-control")
+                                    option(value='' selected) 
+                                    option(value='ไม่มีตู้ AC Solar') ไม่มีตู้ AC Solar
+                                    option(value='สายไฟหุ้มฉนวน PVC (1 แกน)' ) สายไฟหุ้มฉนวน PVC (1 แกน)
+                                    option(value='สายไฟหุ้มฉนวน PVC (หลายแกน)' ) สายไฟหุ้มฉนวน PVC (หลายแกน)
+                                    option(value='สายไฟหุ้มฉนวน XLPE (1 แกน)' ) สายไฟหุ้มฉนวน XLPE (1 แกน)
+                                    option(value='สายไฟหุ้มฉนวน XLPE (หลายแกน)' ) สายไฟหุ้มฉนวน XLPE (หลายแกน)
+                            .form-group.col-9
+                                label(for="") วิธีเดินสาย AC Solar ไป MDB
+                                select(id='metacsolar', name='how_wacsolar' ,type="text", class="form-control")
+                                    option(value='-' selected)
+                                    option(value='ท่อร้อยสาย' ) ท่อร้อยสาย 
+                                    option(value='Wireway' ) Wireway     
+                                    
+                            .form-group.col-3
+                                label(for="") ระยะ (m)
+                                input(type="text", id="acsolar_Mdb", name='distance_acsolar', class="form-control", placeholder="*", value= '' )
+                        .row
+                            .form-group.col-6
+                                label(for="") CB MDB.
+                                input(type="text",id='cb_mdb',name='cb_mdb', class="form-control", placeholder="*", value= ''  )
+                                    
+                            .form-group.col-6
+                                label(for="") สายไฟใหญ่กว่า
+                                input(type="text", id="wire_mdb", class="form-control" value='')
+                            
+                                
+                            .form-group.col-6
+                                label(for="") ขนาดสายไฟ MDB
+                                select(id='wire_mdb_select',name='wiremdb', class="form-control" )
                                     option(value=0 selected)
                                     option(value=2.5) 2.5
                                     option(value=4) 4
@@ -526,49 +607,81 @@ block content
                                     option(value=400) 400
                                     option(value=500) 500
                             .form-group.col-6
-                                label(for="") สายดินเข้า Inv.(sq.mm.)
-                                input(type="text", id="ground_inv", class="form-control" value='')
-                           
+                                label(for="") สายดิน MDB(sq.mm.)
+                                input(type="text", id="ground_mdb",name='ground_mdb', class="form-control" value='') 
                         .row
-                            .form-group.col-3
-                                label(for="") Vdrop
-                                input(type="text", id="Vdrop_ac_select", class="form-control" value='')
-                            .form-group.col-3
-                                label(for="") % Vdrop
-                                input(type="text", id="Per_vdropac_select", class="form-control" value='')
-                        
-                            .form-group.col-3
+                            .form-group.col-6
+                                label(for="") Vdrop Max.
+                                input(type="text", id="Vdrop_mdb_select",name='vdropmdb', class="form-control" value='')
+                            .form-group.col-6
+                                label(for="") <a style = "color:blue;">% Vdrop Max.</a>
+                                input(type="text", id="Per_vdropmdb_select",name='pervdropmdb', class="form-control" value='')
+                        .row    
+                            .form-group.col-6
                                 label(for="") Ploss
-                                input(type="text", id="Ploss_ac_select", class="form-control" value='')
-                            .form-group.col-3
-                                label(for="") % Ploss
-                                input(type="text", id="Per_plossac_select", class="form-control" value='')
+                                input(type="text", id="Ploss_mdb_select",name='plossmdb', class="form-control" value='')
+                            .form-group.col-6
+                                label(for="") <a style = "color:blue;">% Ploss</a>
+                                input(type="text", id="Per_plossmdb_select",name='perplossmdb', class="form-control" value='')
+                
                         <hr>
+                        
                         .row      
                             .form-group.col-12
-                                <a href='#/infos' class='btn btn-secondary'  onclick="process1()">ประมวลผล</a>     
-                        
-                        .row
-                            .form-group.col-12
-                                <p>กำลังสูงสุด : <span id='Pmax1'></span> (W)</p>
-                            .form-group.col-12    
-                                <p>ประมาณการลงทุน : <span id='invest'></span> (บาท)</p>
-                            .form-group.col-12
-                                <p>ปริมาณไฟฟ้าที่ผลิตได้ : <span id='energy'></span> (หน่วย/ปี)</p>    
-                            .form-group.col-12
-                                <p>รายได้ : <span id='income'></span> (บาท/ปี)</p>    
-                            .form-group.col-12
-                                <p>ระยะเวลาคุ้มทุน : <span id='year'></span> (ปี)&nbsp;&nbsp;&nbsp;&nbsp;<span id='month'></span> (เดือน)</p>    
-                            
-                        br         
-                        .row
-                        
-                            .form-group.col-12
-                                button(type="reset" onclick='reset2()').btn.btn-block.btn-warning RESET
+                                <a href='#/infos' class='btn btn-secondary'  onclick="process1()">สรุปผล</a>     
                         br
-                        
+                        .row
+                            .form-group.col-12
+                                label(for="") กำลังสูงสุดของด้านดีซี (W)
+                                input(type="text", id="Pmax_dc",name='Pmax_dc', class="form-control" value='')
+                            .form-group.col-12
+                                label(for="") ประมาณการลงทุน (บาท)
+                                input(type="text", id="invest10",name='invest10', class="form-control" value='')
+                            .form-group.col-12
+                                label(for="") ปริมาณไฟฟ้าที่ผลิตได้ (หน่วย/ปี)
+                                input(type="text", id="energy10",name='energy10', class="form-control" value='')
+                            .form-group.col-12
+                                label(for="") รายได้ (บาท/ปี)
+                                input(type="text", id="income10",name='income10', class="form-control" value='')
+                            .form-group.col-6
+                                label(for="") ระยะเวลาคุ้มทุน (ปี)
+                                input(type="text", id="year10",name='year10', class="form-control" value='')
+                            .form-group.col-6
+                                label(for="") (เดือน)
+                                input(type="text", id="month10",name='month10', class="form-control" value='')
+                            
+                                
+                        br         
+                   
+        .form-group.col-12                    
+            button(type="reset" form="bigform" onclick='reset1()').btn.btn-block.btn-warning RESET                
+        .form-group.col-12
+            button(type="submit" form="bigform").btn.btn-block.btn-info ADD    
+    hr    
+    div.container
             
+        br
+        h2 Information
+        br
+        div.row
+            each info in infos
+                div.col-6.col-md-4
+                    h4.text-primary=info.project
+                    
+                    
+                    p='รายละเอียดอื่นๆ : '+info.des
+                    
                         
+                    div
+                        ul.list-inline
+                            li.list-inline-item
+                                a(href="/prints").btn.btn-primary PRINTS
+                            li.list-inline-item
+                                form(action="/infos/delete/"+ info._id, method='post')
+                                    button(type='submit').btn.btn-danger DEL                          
+                
+                    hr
+
     
 
     //-script.
@@ -637,7 +750,7 @@ block content
     
    
     script.
-        function reset1(){  
+        function reset1(){
                             document.getElementById("demo").innerHTML = ""
                             document.getElementById("demo1").innerHTML = ""
 
@@ -652,37 +765,14 @@ block content
                             document.getElementById("rat").innerHTML = ""
                             document.getElementById("rat1").innerHTML = ""
                             document.getElementById("good").innerHTML = ""
-        }
-    script.
-        function reset2(){
-                            document.getElementById("cbdco").innerHTML = " "
-                            document.getElementById("pv1fo").innerHTML = ""
-                            document.getElementById("vdropdco").innerHTML = ""
-                            document.getElementById("pervdropdco").innerHTML = ""
-                            document.getElementById("plossdco").innerHTML = ""
-                            document.getElementById("perplossdco").innerHTML = ""
-                            document.getElementById("grounddco").innerHTML = ""
-                            document.getElementById("fuse1").innerHTML = ""
-                            document.getElementById("fuse2").innerHTML = ""
 
+                            document.getElementById("fuse0").innerHTML = ""
+                            document.getElementById("cbdco").innerHTML = ""
                             document.getElementById("cbaco").innerHTML = ""
-                            document.getElementById("wireo").innerHTML = ""
-                            document.getElementById("vdropaco").innerHTML = ""
-                            document.getElementById("pervdropaco").innerHTML = ""
-                            document.getElementById("plossaco").innerHTML = ""
-                            document.getElementById("perplossaco").innerHTML = ""
-                            document.getElementById("groundaco").innerHTML = ""
                             document.getElementById("cbmdbo").innerHTML = ""
-                            document.getElementById("wmdbo").innerHTML = ""
-                            document.getElementById("gmdbo").innerHTML = ""
 
-                            document.getElementById("Pmax1").innerHTML = ""
-                            document.getElementById("invest").innerHTML = ""
-                            document.getElementById("year").innerHTML = ""
-                            document.getElementById("month").innerHTML = ""
-                            document.getElementById("energy").innerHTML = ""
-                            document.getElementById("income").innerHTML = ""
         }
+
     script.
         var invsPacs = [];
         var inverterss = document.getElementById('inverters').value;

@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 // Schema Validation
-var infoSchema = mongoose.Schema({
+var infoSchema3 = mongoose.Schema({
     project: {type: String, trim:true},
     des: {type: String, trim:true},
     met : {type: String, trim:true},
@@ -78,8 +78,8 @@ var infoSchema = mongoose.Schema({
 });
 
 
-var Info = mongoose.model('infos',infoSchema);
-module.exports = Info;  
+var Info3 = mongoose.model('infos3',infoSchema3);
+module.exports = Info3;  
     
 
 

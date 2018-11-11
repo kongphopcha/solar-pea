@@ -1,0 +1,232 @@
+@media print
+{    
+    .no-print, .no-print *
+    {
+        display: none !important;
+    }
+}
+
+div.gallery div {
+    margin: 5px;
+    padding: 5px;
+    border: 1px solid black;
+    position: relative;
+    width: 100%;
+    float: left;
+    background-color: white;
+}
+div.gallery div img {
+    width: 100%;
+}
+
+div.gallery2 div {
+    margin: 5px;
+    padding: 5px;
+    border: 1px solid black;
+    position: relative;
+    width: 200%;
+    float: left;
+    background-color: white;
+}
+div.gallery2 div img {
+    width: 100%;
+    
+}
+
+div.gallery2 div p #image1{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    position: absolute;
+    bottom: 25px;
+    left: 220px;
+    color : black;
+    -webkit-text-stroke: 1px white;
+}
+div.gallery2 div p #imgground2{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    position: absolute;
+    bottom: 80px;
+    left: 330px;
+    color : black;
+    -webkit-text-stroke: 1px white;
+}
+div.gallery2 div p #imgground1{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    position: absolute;
+    bottom: 110px;
+    left: 330px;
+    color : black;
+    -webkit-text-stroke: 1px white;
+}
+div.gallery2 div p #image2{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    position: absolute;
+    bottom: 140px;
+    left: 330px;
+    color : black;
+    -webkit-text-stroke: 1px white;
+}
+div.gallery2 div p #image3{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    position: absolute;
+    bottom: 170px;
+    left: 330px;
+    color : black;
+    -webkit-text-stroke: 1px white;
+}
+div.gallery2 div p #image4{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    position: absolute;
+    bottom: 200px;
+    left: 330px;
+    color : black;
+    -webkit-text-stroke: 1px white;
+}
+
+
+div.gallery2 div p #image5{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    position: absolute;
+    bottom: 305px;
+    left: 520px;
+    color : black;
+    -webkit-text-stroke: 1px white;
+}
+div.gallery2 div p #image6{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    position: absolute;
+    bottom: 280px;
+    left: 520px;
+    color : black;
+    -webkit-text-stroke: 1px white;
+}
+
+
+div.gallery2 div p #image7{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    position: absolute;
+    bottom: 410px;
+    left: 80px;
+    color : black;
+    -webkit-text-stroke: 1px white;
+}
+div.gallery2 div p #image8{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    position: absolute;
+    bottom: 515px;
+    left: 520px;
+    color : black;
+    -webkit-text-stroke: 1px white;
+}
+div.gallery2 div p #image9{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    position: absolute;
+    bottom: 610px;
+    left: 750px;
+    color : black;
+    -webkit-text-stroke: 1px white;
+}
+div.gallery2 div p #image10{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    position: absolute;
+    bottom: 640px;
+    left: 750px;
+    color : black;
+    -webkit-text-stroke: 1px white;
+}
+div.gallery2 div p #image11{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    position: absolute;
+    bottom: 670px;
+    left: 750px;
+    color : black;
+    -webkit-text-stroke: 1px white;
+}
+div.gallery2 div p #imgground3{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 17px;
+    position: absolute;
+    bottom: 765px;
+    left: 720px;
+    color : black;
+    -webkit-text-stroke: 1px white;
+}
+div.gallery2 div p #image12{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 17px;
+    position: absolute;
+    bottom: 790px;
+    left: 720px;
+    color : black;
+    -webkit-text-stroke: 1px white;
+}
+div.gallery2 div p #image13{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 17px;
+    position: absolute;
+    bottom: 815px;
+    left: 720px;
+    color : black;
+    -webkit-text-stroke: 1px white;
+}
+div.gallery2 div p #image14{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    position: absolute;
+    bottom: 950px;
+    left: 260px;
+    color : black;
+    -webkit-text-stroke: 1px white;
+}
+div.gallery2 div p #imgground4{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 17px;
+    position: absolute;
+    bottom: 1100px;
+    left: 720px;
+    color : black;
+    -webkit-text-stroke: 1px white;
+}
+div.gallery2 div p #image15{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 17px;
+    position: absolute;
+    bottom: 1125px;
+    left: 720px;
+    color : black;
+    -webkit-text-stroke: 1px white;
+}
+div.gallery2 div p #image16{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 17px;
+    position: absolute;
+    bottom: 1150px;
+    left: 720px;
+    color : black;
+    -webkit-text-stroke: 1px white;
+}
+
+div.gallery2 div p #sample{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 25px;
+    position: absolute;
+    bottom: 1300px;
+    left: 750px;
+    color : black;
+    -webkit-text-stroke: 1px white;
+}
+
+
+

@@ -30,7 +30,7 @@ block content
                     .row
                         .form-group.col-6
                             label(for="") Manufacturer
-                            input(type="text", name="Manufacturer", class="form-control" value=(inverter ? inverter.Manufacturer : ''))
+                            input(type="text", name="Manufacturer", class="form-control" placeholder="(ไม่ต้องกรอกก็ได้)" value=(inverter ? inverter.Manufacturer : ''))
                         .form-group.col-6
                             label(for="") Inverter
                             input(type="text", name="Inverter", class="form-control"  value=(inverter ? inverter.Inverter : ''))
@@ -40,7 +40,7 @@ block content
                             input(type="text", name="Pinv_dc", class="form-control" placeholder="W" value=(inverter ? inverter.Pinv_dc : ''))
                         .form-group.col-6
                             label(for="") Rated input voltage (Vrated_dc)
-                            input(type="text", name="Vrated_dc", class="form-control" placeholder="V" value=(inverter ? inverter.Vrated_dc : ''))    
+                            input(type="text", name="Vrated_dc", class="form-control" placeholder="V (ไม่ต้องกรอกก็ได้)" value=(inverter ? inverter.Vrated_dc : ''))    
                         
                     .row
                         .form-group.col-6
@@ -56,7 +56,7 @@ block content
                             input(type="text", name="Iinv_dcmax", class="form-control" placeholder="A" value=(inverter ? inverter.Iinv_dcmax : ''))
                    
                         .form-group.col-6
-                            label(for="") No. independent MPP inputs
+                            label(for="") Number inputs
                             input(type="text", name="Number_of_independent_MPP_inputs", class="form-control" placeholder="Input" value=(inverter ? inverter.Number_of_independent_MPP_inputs : ''))
                     .row    
                         
@@ -77,7 +77,7 @@ block content
                     
                         .form-group.col-6
                             label(for="") Price
-                            input(type="text", name="Price", class="form-control" placeholder="Bath" value=(inverter ? inverter.Price : '')) 
+                            input(type="text", name="Price", class="form-control" placeholder="Bath (ไม่ต้องกรอกก็ได้)" value=(inverter ? inverter.Price : '')) 
                     
                     br         
                     .row

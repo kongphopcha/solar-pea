@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 // Schema Validation
 var pvSchema = mongoose.Schema({
     Manufacturer: {type: String, trim:true},
-    PV_module: {type: String, trim:true} ,
+    PV_module: {type: String, trim:true,  required: true} ,
     Pmax: {type: Number, required: true },
     Vmp : {type: Number,  required: true },
     Imp : {type: Number, required: true},
@@ -12,6 +12,7 @@ var pvSchema = mongoose.Schema({
     Temperature_Coefficient_of_Pmax:  {type: Number, required: true},
     Temperature_Coefficient_of_Voc:  {type: Number, required: true},
     Length : {type: Number, required: true},
+    width : {type: Number, required: true},
     Price : {type: Number},
     created_date:{type:Date, default: Date.now}
 });

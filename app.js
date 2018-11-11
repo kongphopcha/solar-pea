@@ -18,6 +18,7 @@ var infosRouter = require('./routes/infoRoutes')
 var infosRouter3 = require('./routes/infoRoutes3')
 var loadsRouter = require('./routes/loadRoutes');
 var printsRouter = require('./routes/printRoutes');
+var printsRouter3 = require('./routes/printRoutes3');
 
 var app = express();
 
@@ -39,6 +40,7 @@ app.use('/infos', infosRouter);
 app.use('/infos3', infosRouter3);
 app.use('/loads', loadsRouter);
 app.use('/prints', printsRouter);
+app.use('/prints3', printsRouter3);
 
 
 // catch 404 and forward to error handler

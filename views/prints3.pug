@@ -1,8 +1,7 @@
-extends layout
+extends layout3
 
 
 block content
-    
     <!-- NAVIGATOR -->
     nav.navbar.navbar-expand-lg.navbar-light.bg-light
         .container
@@ -12,14 +11,14 @@ block content
 
             div(id="navbarNavAltMarkup").collapse.navbar-collapse
                 .navbar-nav
-                    a(href="/infos").nav-item.nav-link.text-uppercase.active ข้อมูลการติดตั้ง
-                    a(href="/infos3").nav-item.nav-link.text-uppercase ข้อมูลการติดตั้ง 3 เฟส
+                    a(href="/infos").nav-item.nav-link.text-uppercase ข้อมูลการติดตั้ง
+                    a(href="/infos3").nav-item.nav-link.text-uppercase.active ข้อมูลการติดตั้ง 3 เฟส
                    
                     a(href="/pvs").nav-item.nav-link.text-uppercase PV MODULES
                     a(href="/inverters").nav-item.nav-link.text-uppercase INVERTERS
                     a(href="/inverters3").nav-item.nav-link.text-uppercase INVERTERS 3 Phase
                     a(href="/loads").nav-item.nav-link.text-uppercase LOAD PROFILE
-   
+
     .container
 
     .container
@@ -28,17 +27,17 @@ block content
             .col-12.col-sm-6
 
                 br
-                h1 ข้อมูลการติดตั้ง
+                h2 ข้อมูลการติดตั้ง
                 br
-                form(action='/prints', method="post")
+                form(action='/prints3', method="post")
                     .row
                         .form-group.col-8
                             label(for="") ชื่อโครงการ 
                             select(id="nameproject9", class="form-control" name='nameproject9' onclick="process9()")
                                 option(value='' selected)
-                                each info in infos
+                                each info in infos3
                                     option(value=info ) #{info.project}             
-                        .form-group.col-12
+                        
                             br
                             <h5>รายละเอียดอื่นๆ : <span id='Description9'></span></h5>
                             <h5>อาคารประเภท : <span id='type9'></span></h5>
@@ -67,7 +66,7 @@ block content
                             <h5>จำนวนแผงต่อสตริงมากสุด : <span id='maxpvstring'></span></h5>
                         .form-group.col-12
                             hr
-                            h1 ประมาณการลงทุน
+                            <h3>ประมาณการลงทุน</h3>
                             <h5>กำลังสูงสุดของด้านดีซี : <span id='pmaxdc9'></span></h5>
                             <h5>ประมาณการลงทุน : <span id='invest9'></span></h5>
                             <h5>ปริมาณไฟฟ้าที่ผลิตได้ : <span id='energy99'></span></h5>
@@ -77,7 +76,6 @@ block content
             .col-12.col-sm-5.offset-sm-1
                         .form-group.col-12
                             br
-                            h2 รายละเอียดการเดินสายไฟ
                             <h4>PV STRING</h4>
                             <h5>วิธีเดินสายจากแผงไปกล่องรวมสาย DC : </h5>
                             <h5><span id='metstring'></span></h5>
@@ -120,11 +118,12 @@ block content
                             <h5>% Vdrop Max. : <span id='pervdropmdb9'></span></h5>
                             <h5>Ploss/Inv. : <span id='plossmdb9'></span></h5>
                             <h5>% Ploss : <span id='perplossmdb9'></span></h5>
-        
-       
-        
+
+
+
+                                
         .row
-                               
+                                
             .col-12.col-sm-6            
                                 
                 
@@ -136,7 +135,6 @@ block content
                 <a href="javascript:window.print()"  class='btn btn-secondary' >PRINT</a>
                 </div>
                 br
-        
         br
         br
         br
@@ -169,11 +167,8 @@ block content
                     <p><span id='image16'></span></p>
                     <p><strong id='sample'>แผนภาพอย่างง่าย</strong></p>
                     
+                    
                 </div>
                 
             </div>
         br
-
-
-                                
-    
