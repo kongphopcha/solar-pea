@@ -1,4 +1,4 @@
-extends layout
+extends layoutload
 
 
 block content
@@ -20,7 +20,7 @@ block content
                     a(href="/loads").nav-item.nav-link.text-uppercase.active LOAD PROFILE
     .container
         .row
-            .col-12.col-sm-7
+            .col-12.col-sm-6
                 br
                 h2=(load ? 'EDIT LOAD PROFILE' : 'ADD LOAD PROFILE')
                 br
@@ -29,6 +29,7 @@ block content
                         .form-group.col-6
                             label(for="") Description
                             input(name = "description" type="text", id="description", class="form-control" value=(load ? load.description : ''))
+                        
                     .row        
                         .col-6.col-sm-6    
                             .row
@@ -40,7 +41,7 @@ block content
                                 .form-group.col-6
                                     label(for="") 1:00 a.m.
                                 .form-group.col-6    
-                                    input(name ="one" type="text", id="one", class="form-control" value=(load ? load.one : ''))
+                                    input(name ="one" type="number", id="one", class="form-control" value=(load ? load.one : ''))
                             .row
                                 .form-group.col-6
                                     label(for="") 2:00 a.m.
@@ -169,10 +170,11 @@ block content
                             button(type="submit").btn.btn-block.btn-success= (load ? 'SAVE' : 'ADD')
                         .form-group.col-6
                             button(type="reset").btn.btn-block.btn-warning RESET
+                        
                     br
             if loads
                 
-                .col-12.col-sm-4.offset-sm-1
+                .col-12.col-sm-5.offset-sm-1
                     br
                     h2 SEARCH LOAD PROFILE
                     br
@@ -192,6 +194,13 @@ block content
                                 button(type="submit").btn.btn-block.btn-info SEARCH
                         br
                     
+
+            if load
+                .form-group.col-12
+                    
+                    <div id="chartContainer" style="height: 600px; width: 100%;"></div>
+
+                
 
    
 
@@ -221,4 +230,4 @@ block content
                                     form(action="/loads/delete/"+ load._id, method='post')
                                         button(type='submit').btn.btn-danger DEL                          
                     
-                        hr
+                        hr  

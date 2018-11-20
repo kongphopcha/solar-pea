@@ -4,6 +4,7 @@ var Load = require('../models/loadModel');
 var _ = require('lodash');
 
 /* GET inverters listing. */
+
 router.get('/', function(req, res, next) {
   Load.find().sort({created_date :1}).exec((err, data) => {
     
@@ -37,7 +38,9 @@ router.post('/delete/:_id' , function(req, res, next){
 
 router.get('/edit/:_id', function(req, res, next){
     Load.findById(req.params._id, (err, data) => {
+      
     res.render('loads', {load: data});
+
   })
 });
 

@@ -25,11 +25,23 @@ var infoSchema3 = mongoose.Schema({
     inv : {type: String, trim:true},
     
     num_inv : {type: Number},
-    string : {type: Number},
-    pvperstring : {type: Number},
+    in_inv : {type: Number},
     string_input : {type: Number},
     PV_Stringmin : {type: Number},
     PV_String : {type: Number},
+    PV_string_best : {type: Number},
+    in_inv1 : {type: Number},
+    st_in1 : {type: Number},
+    Pv_st1 : {type: Number},
+    in_inv2 : {type: Number},
+    st_in2 : {type: Number},
+    Pv_st2 : {type: Number},
+    in_inv3 : {type: Number},
+    st_in3 : {type: Number},
+    pv_onein : {type: Number},
+    stringtotal : {type: Number},
+    saspv : {type: Number},
+
     how_wdc : {type: String, trim:true},  
     distance_dc : {type: String, trim:true}, 
     fuse : {type: String, trim:true},
@@ -68,6 +80,7 @@ var infoSchema3 = mongoose.Schema({
     income10 : {type: String, trim:true},
     year10 : {type: Number},
     month10 : {type: Number},
+
 
 
     

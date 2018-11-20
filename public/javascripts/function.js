@@ -361,6 +361,7 @@ var Tem_max2
   //  $('.form-control').keyup(function(){
     //    $('#dc_to_ac').val(Pmaximum/datain.Pinv_ac*Numberinv);
    // })})
+   var stringnmax
 $(document).ready(function() {
     $('.form-control').keyup(function(){
         Numberinv =$('#numberinv').val();
@@ -370,14 +371,17 @@ $(document).ready(function() {
         Tem_min=$('#Tem_min').val();
         Tem_max=$('#Tem_max').val();
         Tem_max2=$('#Tem_max2').val();
-        Pv_stringmin = Math.floor((datain.MPP_Voltage_range_min+100)/data.Vmp);
+        Pv_stringmin = Math.ceil((datain.MPP_Voltage_range_min*1.1)/data.Vmp);
         Vcell_min=data.Vmp*[1+(data.Temperature_Coefficient_of_Pmax/100)*(Tem_max-25)];
-        Vstring_min =(Math.floor(Pvs1/string_real))*Vcell_min
+        Vstring_min =Pv_stringmin*Vcell_min
         
         //Max_strings = Numberinv*String_array*datain.Number_of_independent_MPP_inputs
         Voc_maxpv = data.Voc*[1+(data.Temperature_Coefficient_of_Voc/100)*(Tem_min-25)];
-        Pv_string = Math.floor((datain.MPP_Voltage_range_max)/data.Vmp);
-        
+        Pv_string = Math.ceil((datain.MPP_Voltage_range_max)/data.Vmp);
+
+        Pv_stringgood =  Math.ceil(datain.Vrated_dc/data.Vmp)
+        stringnmax =Math.floor(No_Pvs/Pv_stringgood)
+
         Voc_maxstring = Voc_maxpv*Pv_string
         
         
@@ -405,7 +409,8 @@ $(document).ready(function() {
             Pv_string1 = Math.floor(1000/Voc_maxpv)
            
         }
-               
+
+        $('#in_inv').val(datain.Number_of_independent_MPP_inputs)     
         
         })})  
         $(document).ready(function() {
@@ -413,16 +418,21 @@ $(document).ready(function() {
                 Numberinv =$('#numberinv').val();
                 
                
-                //var Pvs_string=Math.round(No_Pvs/Max_strings);
+                 //var Pvs_string=Math.round(No_Pvs/Max_strings);
                 Tem_min=$('#Tem_min').val();
                 Tem_max=$('#Tem_max').val();
+                Tem_max2=$('#Tem_max2').val();
+                Pv_stringmin = Math.ceil((datain.MPP_Voltage_range_min*1.1)/data.Vmp);
                 Vcell_min=data.Vmp*[1+(data.Temperature_Coefficient_of_Pmax/100)*(Tem_max-25)];
-                Vstring_min =(Math.floor(Pvs1/string_real))*Vcell_min
-        
+                Vstring_min =Pv_stringmin*Vcell_min
+                
                 //Max_strings = Numberinv*String_array*datain.Number_of_independent_MPP_inputs
                 Voc_maxpv = data.Voc*[1+(data.Temperature_Coefficient_of_Voc/100)*(Tem_min-25)];
-                Pv_string = Math.floor((datain.MPP_Voltage_range_max)/data.Vmp);
-                Pv_stringmin = Math.floor((datain.MPP_Voltage_range_min+100)/data.Vmp);
+                Pv_string = Math.ceil((datain.MPP_Voltage_range_max)/data.Vmp);
+
+                Pv_stringgood =  Math.ceil(datain.Vrated_dc/data.Vmp)
+                stringnmax =Math.floor(No_Pvs/Pv_stringgood)
+                
                 Voc_maxstring = Voc_maxpv*Pv_string
                 
                 
@@ -450,7 +460,7 @@ $(document).ready(function() {
                     Pv_string1 = Math.floor(1000/Voc_maxpv)
                    
                 }
-                       
+                $('#in_inv').val(datain.Number_of_independent_MPP_inputs)         
                 
                 })})             
                 var String_array;
@@ -484,169 +494,359 @@ $(document).ready(function() {
                 $(document).ready(function() {
                     $('.form-control').keyup(function(){
                     
-                        
-                        Max_stringss = Math.round((datain.Pinv_dc*Numberinv)/(0.8*Pv_stringmin*data.Pmax))
                         $('#input_inv').val(datain.Number_of_independent_MPP_inputs);
                         $('#string_input').val(String_array);
                         $('#PV_stringmin').val(Pv_stringmin);
                         $('#PV_string').val(Pv_string1);
-                        
-                
-                        if(Max_stringss > String_array*datain.Number_of_independent_MPP_inputs*Numberinv){
-                            Max_strings =  String_array*datain.Number_of_independent_MPP_inputs*Numberinv
-                        }
-                        else if(Max_stringss <= String_array*datain.Number_of_independent_MPP_inputs*Numberinv){
-                            Max_strings =Max_stringss
-                        }
-                
-                       
+                        $('#PV_string_best').val(Pv_stringgood);
+
                 })})
                 $(document).ready(function() {
                     $('.form-control').click(function(){
-                    
-                        
-                        Max_stringss = Math.round((datain.Pinv_dc*Numberinv)/(0.8*Pv_stringmin*data.Pmax))
-                        
+
                         $('#input_inv').val(datain.Number_of_independent_MPP_inputs);
                         $('#string_input').val(String_array);
                         $('#PV_stringmin').val(Pv_stringmin);
                         $('#PV_string').val(Pv_string1);
+                        $('#PV_string_best').val(Pv_stringgood);
                 
-                        if(Max_stringss > String_array*datain.Number_of_independent_MPP_inputs*Numberinv){
-                            Max_strings =  String_array*datain.Number_of_independent_MPP_inputs*Numberinv
-                        }
-                        else if(Max_stringss <= String_array*datain.Number_of_independent_MPP_inputs*Numberinv){
-                            Max_strings =Max_stringss
-                        }
-                
-                       
+                        
                 })})
+
+    var nin
+    var stminchok
+    var pv_stchok1
+    var min
+    var stmaxchok
+    var pv_stchok2
+    var in_inv3
+    var st_in3
+    var pvk_invok
+    var stringtotal
+    var pvkok
+    var pv_stch
+
                 $(document).ready(function() {
                     $('.form-control').keyup(function(){
-                        Min_stringss = Math.round((datain.Pinv_dc*Numberinv)/(1.1*Pv_string1*data.Pmax))
-                        if(Min_stringss != 0 ){
-                            Min_strings =  Min_stringss
+                        pv_stch=$('#pv_stch').val()
+                        pv_inv=Math.floor(No_Pvs/Numberinv)
+                        stm_inv=Math.floor(pv_inv/pv_stch)
+                        pvk= No_Pvs - (stm_inv*pv_stch*Numberinv)
+                        pvk_inv = Math.floor(pvk/Numberinv)
+
+                        if(datain.Number_of_independent_MPP_inputs > 1){
+                            test1 = stm_inv % (datain.Number_of_independent_MPP_inputs-1) 
+                            test1= test1 || 0
+                            stmin=Math.floor(stm_inv/(datain.Number_of_independent_MPP_inputs-1))
+                            stmin= stmin || 0
+                            if(test1 == 0){stmax=0}
+                            else{stmax=stmin+1}
+                            nin=(datain.Number_of_independent_MPP_inputs-1)*(stmin+1)-stm_inv
+                            min=(datain.Number_of_independent_MPP_inputs-1)-nin
+                            
+                            if(stmin<=String_array){stminch=stmin,sas1=0}
+                            else{stminch=String_array,sas1=(stmin-String_array)*Numberinv}
+                            if(stmax<=String_array){stmaxch=stmax,sas2=0}
+                            else{stmaxch=String_array,sas2=(stmax-String_array)*Numberinv}
+                        
+                            
+                            sasst=sas1+sas2
+                            stringtotal = Numberinv*(stm_inv+1)
+
+
+
+                            if(nin == 0){stminchok = 0}
+                            else{stminchok=stminch}
+                            if(stminchok == 0){pv_stchok1 = 0}
+                            else{pv_stchok1 = pv_stch}
+                            
+                            if(min == 0){stmaxchok = 0}
+                            else{stmaxchok=stmaxch}
+                            if(stmaxchok == 0){pv_stchok2 = 0}
+                            else{pv_stchok2 = pv_stch}
+
+                            if(pvk_inv !=0){
+                                in_inv3=1
+                                st_in3=1
+                                pvk_invok = pvk_inv
+                            }
+                            else{in_inv3=0
+                                st_in3=0
+                                pvk_invok = 0}
+
+                     
+                            pvkok = No_Pvs-(pvk_inv*Numberinv+pv_stch*stm_inv*Numberinv)
+                            
+                            $('#sas').val(sasst)
                         }
-                        else if(Min_stringss == 0){
-                            Min_strings = 1
+                        //ลงตัว
+
+
+
+
+                    
+                    if(datain.Number_of_independent_MPP_inputs > 1 && pvk == 0){
+                        test1 = stm_inv % (datain.Number_of_independent_MPP_inputs) 
+                        test1= test1 || 0
+                        stmin=Math.floor(stm_inv/(datain.Number_of_independent_MPP_inputs))
+                        stmin= stmin || 0
+                        if(test1 == 0){stmax=0}
+                        else{stmax=stmin+1}
+                        nin=(datain.Number_of_independent_MPP_inputs)*(stmin+1)-stm_inv
+                        min=(datain.Number_of_independent_MPP_inputs)-nin
+                        
+                        if(stmin<=String_array){stminch=stmin,sas1=0}
+                        else{stminch=String_array,sas1=(stmin-String_array)*Numberinv}
+                        if(stmax<=String_array){stmaxch=stmax,sas2=0}
+                        else{stmaxch=String_array,sas2=(stmax-String_array)*Numberinv}
+                    
+                        
+                        sasst=sas1+sas2
+                        stringtotal = Numberinv*(stm_inv)
+
+
+
+                        if(nin == 0){stminchok = 0}
+                        else{stminchok=stminch}
+                        if(stminchok == 0){pv_stchok1 = 0}
+                        else{pv_stchok1 = pv_stch}
+                        
+                        if(min == 0){stmaxchok = 0}
+                        else{stmaxchok=stmaxch}
+                        if(stmaxchok == 0){pv_stchok2 = 0}
+                        else{pv_stchok2 = pv_stch}
+
+                        if(pvk_inv !=0){
+                            in_inv3=1
+                            st_in3=1
+                            pvk_invok = pvk_inv
                         }
+                        else{in_inv3=0
+                            st_in3=0
+                            pvk_invok = 0}
+
+                 
+                        pvkok = No_Pvs-(pvk_inv*Numberinv+pv_stch*stm_inv*Numberinv)
+                        
+                        $('#sas').val(sasst)
+
+
+                        
+
+
+
+
+                        }
+                            else if (datain.Number_of_independent_MPP_inputs == 1){
+                                pv_stch=$('#pv_stch').val()
+                                pv_inv=Math.floor(No_Pvs/Numberinv)
+                                stm_inv=Math.floor(pv_inv/pv_stch)
+                                pvk= No_Pvs - (stm_inv*pv_stch*Numberinv)
+                                pvkok = pvk
+                                
+                                stmin=stm_inv
+                                nin = 1
+                                stmax = 0
+                                min = 0
+                            if(stmin<=String_array){stminch=stmin,sas1=0}
+                            else{stminch=String_array,sas1=(stmin-String_array)*Numberinv}
+                            
+                            sasst=sas1
+                            stringtotal = Numberinv*(stm_inv)
+                            
+                            stminchok=stminch
+                            pv_stchok1 = pv_stch
+                            stmaxchok = 0
+                            pv_stchok2 = 0
+
+                            in_inv3=0
+                            st_in3=0
+                            pvk_invok = 0
+
+                            $('#sas').val(sasst)
+                            }
+                        
+                       
                     })})
                     $(document).ready(function() {
                         $('.form-control').click(function(){
-                            Min_stringss = Math.round((datain.Pinv_dc*Numberinv)/(1.1*Pv_string1*data.Pmax))
-                            if(Min_stringss != 0 ){
-                                Min_strings =  Min_stringss
-                            }
-                            else if(Min_stringss == 0){
-                                Min_strings = 1
-                            }
-                        })})
-                var pv_suggestmax
-                var pv_suggestmin
-                $(document).ready(function() {
-                    $('.form-control').keyup(function(){
-                        pv_suggestmax = Math.round((datain.Pinv_dc*Numberinv)/(0.8*data.Pmax))
-                        pv_suggestmin = Math.round((datain.Pinv_dc*Numberinv)/(1.1*data.Pmax))
-                    })})
-                $(document).ready(function() {
-                    $('.form-control').click(function(){
-                        pv_suggestmax = Math.round((datain.Pinv_dc*Numberinv)/(0.8*data.Pmax))
-                        pv_suggestmin = Math.round((datain.Pinv_dc*Numberinv)/(1.1*data.Pmax))
-                })})
-                var pv_suggestmin1
-                var pv_suggestmax1
-                $(document).ready(function() {
-                    $('.form-control').keyup(function(){
-                        if(pv_suggestmin <= Min_strings*(Pv_stringmin)){
-                            if(Min_strings*(Pv_stringmin)<=No_Pvs){pv_suggestmin1 = Min_strings*(Pv_stringmin)}
-                            else{pv_suggestmin1 = No_Pvs}}
-                        else if(pv_suggestmin > Min_strings*(Pv_stringmin) && pv_suggestmin <= Max_strings*Pv_string1){
-                           if(pv_suggestmin<=No_Pvs){pv_suggestmin1 = pv_suggestmin}
-                           else{pv_suggestmin1 = No_Pvs}}
-                          
-                        else if(pv_suggestmin > Max_strings*Pv_string1){
-                           if(Max_strings*Pv_string1<=No_Pvs){pv_suggestmin1 = Max_strings*Pv_string1}
-                           else{pv_suggestmin1 = No_Pvs}}
-
-                })})
-                $(document).ready(function() {
-                   $('.form-control').click(function(){
-                       if(pv_suggestmin <= Min_strings*(Pv_stringmin)){
-                           if(Min_strings*(Pv_stringmin)<=No_Pvs){pv_suggestmin1 = Min_strings*(Pv_stringmin)}
-                           else{pv_suggestmin1 = No_Pvs}}
-                       else if(pv_suggestmin > Min_strings*(Pv_stringmin) && pv_suggestmin <= Max_strings*Pv_string1){
-                          if(pv_suggestmin<=No_Pvs){pv_suggestmin1 = pv_suggestmin}
-                          else{pv_suggestmin1 = No_Pvs}}
+                            pv_stch=$('#pv_stch').val()
+                            pv_inv=Math.floor(No_Pvs/Numberinv)
+                            stm_inv=Math.floor(pv_inv/pv_stch)
+                            pvk= No_Pvs - (stm_inv*pv_stch*Numberinv)
+                            pvk_inv = Math.floor(pvk/Numberinv)
+    
+                            if(datain.Number_of_independent_MPP_inputs > 1 && pvk !=0){
+                                test1 = stm_inv % (datain.Number_of_independent_MPP_inputs-1) 
+                                test1= test1 || 0
+                                stmin=Math.floor(stm_inv/(datain.Number_of_independent_MPP_inputs-1))
+                                stmin= stmin || 0
+                                if(test1 == 0){stmax=0}
+                                else{stmax=stmin+1}
+                                nin=(datain.Number_of_independent_MPP_inputs-1)*(stmin+1)-stm_inv
+                                min=(datain.Number_of_independent_MPP_inputs-1)-nin
+                                
+                                if(stmin<=String_array){stminch=stmin,sas1=0}
+                                else{stminch=String_array,sas1=(stmin-String_array)*Numberinv}
+                                if(stmax<=String_array){stmaxch=stmax,sas2=0}
+                                else{stmaxch=String_array,sas2=(stmax-String_array)*Numberinv}
+                            
+                                
+                                sasst=sas1+sas2
+                                stringtotal = Numberinv*(stm_inv+1)
+    
+    
+    
+                                if(nin == 0){stminchok = 0}
+                                else{stminchok=stminch}
+                                if(stminchok == 0){pv_stchok1 = 0}
+                                else{pv_stchok1 = pv_stch}
+                                
+                                if(min == 0){stmaxchok = 0}
+                                else{stmaxchok=stmaxch}
+                                if(stmaxchok == 0){pv_stchok2 = 0}
+                                else{pv_stchok2 = pv_stch}
+    
+                                if(pvk_inv !=0){
+                                    in_inv3=1
+                                    st_in3=1
+                                    pvk_invok = pvk_inv
+                                }
+                                else{in_inv3=0
+                                    st_in3=0
+                                    pvk_invok = 0}
+    
                          
-                       else if(pv_suggestmin > Max_strings*Pv_string1){
-                          if(Max_strings*Pv_string1<=No_Pvs){pv_suggestmin1 = Max_strings*Pv_string1}
-                          else{pv_suggestmin1 = No_Pvs}}
+                                pvkok = No_Pvs-(pvk_inv*Numberinv+pv_stch*stm_inv*Numberinv)
+                                
+                                $('#sas').val(sasst)
 
-               })}) 
-                $(document).ready(function() {
-                    $('.form-control').keyup(function(){
-                        if(pv_suggestmax <= Min_strings*(Pv_stringmin)){
-                            if(Min_strings*(Pv_stringmin)>=No_Pvs){pv_suggestmax1 = Min_strings*(Pv_stringmin)}
-                            else{pv_suggestmax1=No_Pvs}
-                           }
-                        else if(pv_suggestmax > Min_strings*(Pv_stringmin) && pv_suggestmax <= Max_strings*Pv_string1){
-                           if(pv_suggestmax>=No_Pvs){pv_suggestmax1 = pv_suggestmax}
-                           else{pv_suggestmax1=No_Pvs} 
-                          }
-                        else if(pv_suggestmax > Max_strings*Pv_string1){
-                           if(Max_strings*Pv_string1>=No_Pvs){pv_suggestmax1 = Max_strings*Pv_string1}
-                           else{pv_suggestmax1=No_Pvs} 
-                          }
-                       
-                })})    
-                $(document).ready(function() {
-                   $('.form-control').click(function(){
-                       if(pv_suggestmax <= Min_strings*(Pv_stringmin)){
-                           if(Min_strings*(Pv_stringmin)>=No_Pvs){pv_suggestmax1 = Min_strings*(Pv_stringmin)}
-                           else{pv_suggestmax1=No_Pvs}
-                          }
-                       else if(pv_suggestmax > Min_strings*(Pv_stringmin) && pv_suggestmax <= Max_strings*Pv_string1){
-                          if(pv_suggestmax>=No_Pvs){pv_suggestmax1 = pv_suggestmax}
-                          else{pv_suggestmax1=No_Pvs} 
-                         }
-                       else if(pv_suggestmax > Max_strings*Pv_string1){
-                          if(Max_strings*Pv_string1>=No_Pvs){pv_suggestmax1 = Max_strings*Pv_string1}
-                          else{pv_suggestmax1=No_Pvs} 
-                         }
+
+                                //ลงตัว
+
+
+
+
+                                }
+                                if(datain.Number_of_independent_MPP_inputs > 1 && pvk == 0){
+                                    test1 = stm_inv % (datain.Number_of_independent_MPP_inputs) 
+                                    test1= test1 || 0
+                                    stmin=Math.floor(stm_inv/(datain.Number_of_independent_MPP_inputs))
+                                    stmin= stmin || 0
+                                    if(test1 == 0){stmax=0}
+                                    else{stmax=stmin+1}
+                                    nin=(datain.Number_of_independent_MPP_inputs)*(stmin+1)-stm_inv
+                                    min=(datain.Number_of_independent_MPP_inputs)-nin
+                                    
+                                    if(stmin<=String_array){stminch=stmin,sas1=0}
+                                    else{stminch=String_array,sas1=(stmin-String_array)*Numberinv}
+                                    if(stmax<=String_array){stmaxch=stmax,sas2=0}
+                                    else{stmaxch=String_array,sas2=(stmax-String_array)*Numberinv}
+                                
+                                    
+                                    sasst=sas1+sas2
+                                    stringtotal = Numberinv*(stm_inv)
+        
+        
+        
+                                    if(nin == 0){stminchok = 0}
+                                    else{stminchok=stminch}
+                                    if(stminchok == 0){pv_stchok1 = 0}
+                                    else{pv_stchok1 = pv_stch}
+                                    
+                                    if(min == 0){stmaxchok = 0}
+                                    else{stmaxchok=stmaxch}
+                                    if(stmaxchok == 0){pv_stchok2 = 0}
+                                    else{pv_stchok2 = pv_stch}
+        
+                                    if(pvk_inv !=0){
+                                        in_inv3=1
+                                        st_in3=1
+                                        pvk_invok = pvk_inv
+                                    }
+                                    else{in_inv3=0
+                                        st_in3=0
+                                        pvk_invok = 0}
+        
+                             
+                                    pvkok = No_Pvs-(pvk_inv*Numberinv+pv_stch*stm_inv*Numberinv)
+                                    
+                                    $('#sas').val(sasst)
+    
+    
+                                    
+    
+    
+    
+    
+                                    }
+                                else if (datain.Number_of_independent_MPP_inputs == 1){
+                                    pv_stch=$('#pv_stch').val()
+                                    pv_inv=Math.floor(No_Pvs/Numberinv)
+                                    stm_inv=Math.floor(pv_inv/pv_stch)
+                                    pvk= No_Pvs - (stm_inv*pv_stch*Numberinv)
+                                    pvkok = pvk
+                                    
+                                    stmin=stm_inv
+                                    nin = 1
+                                    stmax = 0
+                                    min = 0
+                                if(stmin<=String_array){stminch=stmin,sas1=0}
+                                else{stminch=String_array,sas1=(stmin-String_array)*Numberinv}
+                                
+                                sasst=sas1
+                                stringtotal = Numberinv*(stm_inv)
+                                
+                                stminchok=stminch
+                                pv_stchok1 = pv_stch
+                                stmaxchok = 0
+                                pv_stchok2 = 0
+    
+                                in_inv3=0
+                                st_in3=0
+                                pvk_invok = 0
+    
+                                $('#sas').val(sasst)
+                                }
+                            
+                           
+                        })})                    
+function jadstring (){
+    $('#in_inv1').val(nin)
+    $('#st_in1').val(stminchok)
+    $('#Pv_st1').val(pv_stchok1)
+    $('#in_inv2').val(min)
+    $('#st_in2').val(stmaxchok)
+    $('#Pv_st2').val(pv_stchok2)
+    $('#in_inv3').val(in_inv3)
+    $('#st_in3').val(st_in3)
+    $('#pv_onein').val(pvk_invok)
+    $('#stringtotal').val(stringtotal)
+    $('#saspv').val(pvkok)
+
+}
+           
                       
-               })})     
-                      
-                function process(){ 
-                    $('#fuse0').html('FUSE : '+fuse0+''+' (A)'+' ขึ้นไป '+ fuse09)
-                    $('#cbdco').html('CB DC : '+cbdc+''+' (AT)'+' ขึ้นไป')
-                    $('#cbaco').html('CB INV. : '+cbac+''+' (AT)'+' ขึ้นไป')
-                    $('#cbmdbo').html('CB MDB : '+cbact+''+' (AT)'+' ขึ้นไป')
-                
-      
-                }
+function process(){ 
+    $('#fuse0').html('FUSE : '+fuse0+''+' (A)'+' ขึ้นไป '+ fuse09)
+    $('#cbdco').html('CB DC : '+cbdc+', '+cbdc2+' (AT)'+' ขึ้นไป')
+    $('#cbaco').html('CB INV. : '+cbac+''+' (AT)'+' ขึ้นไป')
+    $('#cbmdbo').html('CB MDB : '+cbact+''+' (AT)'+' ขึ้นไป')
+
+
+}
 
 
 
 
 var Pmax1
-var Pvs1
-$(document).ready(function() {
-    $('.form-control').keyup(function(){
-        Pvs1 = parseFloat($('#Pvs1').val())
-        Pmax1 = Pvs1*data.Pmax   
-    })
-});  
-$(document).ready(function() {
-    $('.form-control').click(function(){
-        Pvs1 = parseFloat($('#Pvs1').val())
-        Pmax1 = Pvs1*data.Pmax   
-    })
-});   
+
+
 var invest1
 $(document).ready(function() {
     $('.form-control').keyup(function(){
-        Pvs1 = parseFloat($('#Pvs1').val())
-        Pmax1 = Pvs1*data.Pmax
+        
+        Pmax1 = No_Pvs*data.Pmax
         if(Pmax1 <= 5000){invest = Pmax1*60}
         else if(Pmax1 > 5000 && Pmax1 <= 6000){invest = Pmax1*59}
         else if(Pmax1 > 6000 && Pmax1 <= 7000){invest = Pmax1*58}
@@ -699,8 +899,8 @@ $(document).ready(function() {
     })})
     $(document).ready(function() {
         $('.form-control').click(function(){
-            Pvs1 = parseFloat($('#Pvs1').val())
-            Pmax1 = Pvs1*data.Pmax
+            
+            Pmax1 = No_Pvs*data.Pmax
             if(Pmax1 <= 5000){invest = Pmax1*60}
             else if(Pmax1 > 5000 && Pmax1 <= 6000){invest = Pmax1*59}
             else if(Pmax1 > 6000 && Pmax1 <= 7000){invest = Pmax1*58}
@@ -750,56 +950,33 @@ $(document).ready(function() {
             
         })})
 
-
-//$(document).ready(function() {
-  
-    //$('#numberinverter').click(function(){
-      //  var numberinverter = $('#numberinverter').val();
-      //  $('.inverter').html('');
-      //  var inverterss = $('#inverters').val();
-      //  var inverters = JSON.parse(inverterss);
-        
-
-        
-      //  for(var i = 1;i<=numberinverter;i++){
-      //      $('.inverter').prepend('อินเวอร์เตอร์ '+i+ ' <select id="number" type="text" class"inverter">')
-            
-       //         for(var j = 0;j<=inverters.length;j++){
-         //           $('.inverter').append('<option value="'+inverters[j]+'">'+inverters[j].Inverter+'</option>')}
-                   
-         //   $('.inverter').append('</select>')    
-    //}
-//})})         
-        
-      
-//var inverter = $('#numberinverter');
-//$.each(datain, function(val, text) {
-//    inverter.append(
- //       $('<option></option>').val(val).html(text)
-  //  );
-//});
-
-//var myOptions = {
-//    val1 : 'text1',
- //   val2 : 'text2'
-//};
-//var mySelect = $('.inverter');
-//$.each(datain, function(val, text) {
-  //  mySelect.append(
-    //    $('<option></option>').val(val).html(text)
-  //  );
-//});
-
-
 function process9(){
-    if(datainfo.pvperstring/(Math.floor(datainfo.pvperstring)) == 1){
-        pvperstring=datainfo.pvperstring+' (แผง) '
-       
+    if(datainfo.in_inv1 ==0){
+        input1 =''
+    
     }
     else{
-        pvperstring=Math.floor(datainfo.pvperstring)+' - '+(Math.floor(datainfo.pvperstring)+1)+' (แผง) '
+        input1 = 'อินพุต : '+ datainfo.in_inv1+ ' สตริง : '+datainfo.st_in1+ ' แผง : '+datainfo.Pv_st1
+      
     }
-    console.log(datainfo.pvperstring)
+
+    if(datainfo.in_inv2 ==0){
+        input2 =''
+      
+    }
+    else{
+        input2 ='อินพุต : '+ datainfo.in_inv2+ ' สตริง : '+datainfo.st_in2+ ' แผง : '+datainfo.Pv_st2
+       
+    }
+    if(datainfo.in_inv3 ==0){
+        
+        input3 =''
+    }
+    else{
+        input3 ='อินพุต : '+ datainfo.in_inv3+ ' สตริง : '+datainfo.st_in3+ ' แผง : '+datainfo.pv_onein
+      
+    }
+    pvuse = datainfo.No_Pvs-datainfo.saspv
     $('#Description9').html(datainfo.des)
     $('#type9').html(datainfo.met)
     $('#users9').html(datainfouser.description)
@@ -818,13 +995,17 @@ function process9(){
     $('#Pvs19').html(datainfo.No_Pvs+ ' (แผง) ')
     $('#Meter9').html(datainfo.meter)
     $('#Area9').html(datainfo.area+ ' (m^2) ')
-    $('#inverter9').html(datainfoinv.Inverter)
-    $('#numberinv9').html(datainfo.num_inv+ ' (เครื่อง) ')
-    $('#string_real').html(datainfo.string+ ' (สตริง) ')
-    $('#pv_string').html(pvperstring)
-    $('#string_input').html(datainfo.string_input+ ' (สตริง) ')
-    $('#minpvstring').html(datainfo.PV_Stringmin+ ' (แผง) ')
-    $('#maxpvstring').html(datainfo.PV_String+ ' (แผง) ')
+
+    $('#inverter9').html(datainfoinv.Inverter+', '+datainfo.in_inv+' (อินพุต)')
+    $('#numberinv9').html(datainfo.num_inv+ ' (เครื่อง)'+', '+datainfo.stringtotal+' (สตริง)')
+    $('#jadstring1').html(datainfo.in_inv1+' (อินพุต), '+datainfo.st_in1+' (สตริง), '+datainfo.Pv_st1+' (แผง)')
+    $('#jadstring2').html(datainfo.in_inv2+' (อินพุต), '+datainfo.st_in2+' (สตริง), '+datainfo.Pv_st2+' (แผง)')
+    $('#jadstring3').html(datainfo.in_inv3+' (อินพุต), '+datainfo.st_in3+' (สตริง), '+datainfo.pv_onein+' (แผง)')
+    $('#sas9').html(datainfo.saspv+' (แผง)')
+    $('#string_inmax9').html(datainfo.string_input+' (สตริง)')
+    $('#pv_st9').html(datainfo.PV_Stringmin+' - '+datainfo.PV_String+' (แผง), [ประสิทธิภาพดีสุด] '+datainfo.PV_string_best+' (แผง)')
+
+    
     $('#pmaxdc9').html(datainfo.Pmax_dc+ ' (W) ')
     $('#invest9').html(datainfo.invest10+ ' (บาท) ')
     $('#energy99').html(datainfo.energy10+ ' (หน่วย/ปี) ')
@@ -864,10 +1045,13 @@ function process9(){
     $('#plossmdb9').html(datainfo.plossmdb+ ' (W) ')
     $('#perplossmdb9').html(datainfo.perplossmdb+ ' (%) ')
     
-    $('#image1').html(datainfopvmodule.PV_module+' : '+ datainfo.No_Pvs+ ' (แผง) ')
-    $('#image2').html('แผงต่อสตริง : '+pvperstring)
-    $('#image3').html('สตริงสูงสุดต่ออินพุต : '+ datainfo.string_input+ ' (สตริง) ')
-    $('#image4').html('สตริงทั้งหมด : '+ datainfo.string+ ' (สตริง) ')
+    $('#image1').html(datainfopvmodule.PV_module+' : '+ datainfo.No_Pvs+ ' (แผง), '+'ใช้ไป : '+pvuse +' (แผง), '+'เหลือ : '+ datainfo.saspv+' (แผง)')
+    $('#image2').html(input3)
+    $('#image3').html(input2)
+    $('#image4').html(input1)
+
+    
+
     $('#imgground1').html('สายดินที่โครงโลหะ : '+datainfo.groundpv1+ ' (sq.mm.) ')
     $('#imgground2').html('สายต่อหลักดิน : '+datainfo.groundpv2+ ' (sq.mm.) ')
     $('#image5').html('PV1-F : '+datainfo.pv1f_string+ ' (sq.mm.), '+datainfo.distance_dc+ ' (m) ')
@@ -898,40 +1082,9 @@ function process1(){
 }
 
 
-
-$(document).ready(function() {
-    $('.form-control').keyup(function(){
-        dc_ac2=(Pmax1/(datain.Pinv_ac*Numberinv)).toFixed(2)
-        $('#dc_to_ac2').val(dc_ac2)
-})})
-$(document).ready(function() {
-    $('.form-control').click(function(){
-        dc_ac2=(Pmax1/(datain.Pinv_ac*Numberinv)).toFixed(2)
-        $('#dc_to_ac2').val(dc_ac2)
-})})
-
-
-
-
 var fuse0
 // เลือก cbdc    
-$(document).ready(function() {
-    $('.form-control').keyup(function(){    
-        fu0 = 1.25*data.Isc
-        if(fu0 <= 1){fuse0 =1}
-        else if(fu0 > 1 && fu0 <= 2){fuse0 =2}
-        else if(fu0 > 2 && fu0 <= 3){fuse0 =3}
-        else if(fu0 > 3 && fu0 <= 4){fuse0 =4}
-        else if(fu0 > 4 && fu0 <= 5){fuse0 =5}
-        else if(fu0 > 5 && fu0 <= 6){fuse0 =6}
-        else if(fu0 > 6 && fu0 <= 8){fuse0 =8}
-        else if(fu0 > 8 && fu0 <= 10){fuse0 =10}
-        else if(fu0 > 10 && fu0 <= 12){fuse0 =12}
-        else if(fu0 > 12 && fu0 <= 15){fuse0 =15}
-        else if(fu0 > 15 && fu0 <= 20){fuse0 =20}
-        else if(fu0 > 20){fuse0 =fu0}
     
-})})     
 $(document).ready(function() {
     $('.form-control').keyup(function(){    
         fu0 = 1.25*data.Isc
@@ -952,19 +1105,35 @@ $(document).ready(function() {
 var fuse09
 $(document).ready(function() {
     $('.form-control').keyup(function(){ 
-        if(String_array == 1){fuse09 = '(ไม่จำเป็นต้องติดตั้ง)'}
-        else{fuse09 = ''}
-    })})
-    $(document).ready(function() {
-        $('.form-control').click(function(){ 
-            if(String_array == 1){fuse09 = '(ไม่จำเป็นต้องติดตั้ง)'}
-            else{fuse09 = ''}
-        })})
+        if(stminchok >1 ){
+            fuse09 = ''
+        }
+        else if(stmaxchok >1 ){
+            fuse09 = ''
+        }
+
+        else{fuse09 = '(ไม่จำเป็นต้องติดตั้ง)'}
+})})
+$(document).ready(function() {
+    $('.form-control').click(function(){ 
+        if(stminchok >1 ){
+            fuse09 = ''
+        }
+        else if(stmaxchok >1 ){
+            fuse09 = ''
+        }
+
+        else{fuse09 = '(ไม่จำเป็นต้องติดตั้ง)'}
+})})
+        
 var cbdc
+var cbdc2
     $(document).ready(function() {
-        $('.form-control').keyup(function(){     
-            Isc = 1.25*data.Isc*String_array  
+        $('.form-control').keyup(function(){    
+            cbformst = Math.max(stminchok,stmaxchok,st_in3) 
+            Isc = 1.25*data.Isc*cbformst  
             cbdc = Math.ceil(Isc)
+            cbdc2 = Math.ceil(1.25*data.Isc*String_array)
        // if(Isc<=5){cbdc=5}
         //else if(Isc >5 && Isc<=10){cbdc=10}
        // else if(Isc >10 && Isc<=13){cbdc=13}
@@ -981,9 +1150,11 @@ var cbdc
     })})     
 
     $(document).ready(function() {
-        $('.form-control').click(function(){     
-            Isc = 1.25*data.Isc*String_array  
+        $('.form-control').click(function(){
+            cbformst = Math.max(stminchok,stmaxchok,st_in3)   
+            Isc = 1.25*data.Isc*cbformst  
             cbdc = Math.ceil(Isc)
+            cbdc2 = Math.ceil(1.25*data.Isc*String_array)
        // if(Isc<=5){cbdc=5}
        // else if(Isc >5 && Isc<=10){cbdc=10}
        // else if(Isc >10 && Isc<=13){cbdc=13}
@@ -1170,110 +1341,94 @@ $(document).ready(function() {
         })})
 $(document).ready(function() {
     $('.form-control').keyup(function(){
-        string_real=parseFloat($('#string_real').val())
+        
         metdc= $('#metdc').val()
         if(metdc == 'ท่อร้อยสาย' || metdc == 'Wireway'){
-            if(string_real == 1){cross = 1}
-            else if(string_real == 2){cross = 0.8}
-            else if(string_real == 3){cross = 0.7}
-            else if(string_real == 4){cross = 0.65}
-            else if(string_real == 5){cross = 0.6}
-            else if(string_real == 6){cross = 0.57}
-            else if(string_real == 7){cross = 0.54}
-            else if(string_real == 8){cross = 0.52}
-            else if(string_real == 9){cross = 0.5}
-            else if(string_real >= 10 && string_real <=12){cross = 0.45}
-            else if(string_real >=13 && string_real <=16){cross = 0.41}
-            else if(string_real >=17 && string_real <=20){cross = 0.38}
-            else if(string_real> 20 ){cross = 0.38}
+            if(stringtotal == 1){cross = 1}
+            else if(stringtotal == 2){cross = 0.8}
+            else if(stringtotal == 3){cross = 0.7}
+            else if(stringtotal == 4){cross = 0.65}
+            else if(stringtotal == 5){cross = 0.6}
+            else if(stringtotal == 6){cross = 0.57}
+            else if(stringtotal == 7){cross = 0.54}
+            else if(stringtotal == 8){cross = 0.52}
+            else if(stringtotal == 9){cross = 0.5}
+            else if(stringtotal >= 10 && stringtotal <=12){cross = 0.45}
+            else if(stringtotal >=13 && stringtotal <=16){cross = 0.41}
+            else if(stringtotal >=17 && stringtotal <=20){cross = 0.38}
+            else if(stringtotal> 20 ){cross = 0.38}
         }
         else if(metdc == 'วางบนรางชิดกัน (ไม่ซ้อนแถว)'){
-            if(string_real == 1){cross = 0}
-            else if(string_real == 2){cross = 0.87}
-            else if(string_real == 3){cross = 0.81}
-            else if(string_real == 4){cross = 0.78}
-            else if(string_real > 4 && string_real <=6){cross = 0.75}
-            else if(string_real > 6 && string_real <=8){cross = 0.74}
-            else if(string_real > 8 && string_real <=10){cross = 0.73}
-            else if(string_real > 10 && string_real <=16){cross = 0.72}
-            else if(string_real > 16 && string_real <=20){cross = 0.71}
-            else if(string_real> 20 ){cross = 0.71}
+            if(stringtotal == 1){cross = 1}
+            else if(stringtotal == 2){cross = 0.87}
+            else if(stringtotal == 3){cross = 0.81}
+            else if(stringtotal == 4){cross = 0.78}
+            else if(stringtotal > 4 && stringtotal <=6){cross = 0.75}
+            else if(stringtotal > 6 && stringtotal <=8){cross = 0.74}
+            else if(stringtotal > 8 && stringtotal <=10){cross = 0.73}
+            else if(stringtotal > 10 && stringtotal <=16){cross = 0.72}
+            else if(stringtotal > 16 && stringtotal <=20){cross = 0.71}
+            else if(stringtotal> 20 ){cross = 0.71}
            
         }
         else if(metdc == 'วางบนรางชิดกัน (ซ้อนแถว)'){
-            if(string_real == 1){cross = 0}
-            else if(string_real == 2){cross = 0}
-            else if(string_real == 3){cross = 0}
-            else if(string_real == 4){cross = 0.71}
-            else if(string_real > 4 && string_real <=6){cross = 0.58}
-            else if(string_real > 6 && string_real <=8){cross = 0.52}
-            else if(string_real > 8 && string_real <=10){cross = 0.48}
-            else if(string_real > 10 && string_real <=16){cross = 0.41}
-            else if(string_real > 16 && string_real <=20){cross = 0.38}
-            else if(string_real> 20 ){cross = 0.38}
+            if(stringtotal == 1){cross = 1}
+            else if(stringtotal == 2){cross = 1}
+            else if(stringtotal == 3){cross = 1}
+            else if(stringtotal == 4){cross = 0.71}
+            else if(stringtotal > 4 && stringtotal <=6){cross = 0.58}
+            else if(stringtotal > 6 && stringtotal <=8){cross = 0.52}
+            else if(stringtotal > 8 && stringtotal <=10){cross = 0.48}
+            else if(stringtotal > 10 && stringtotal <=16){cross = 0.41}
+            else if(stringtotal > 16 && stringtotal <=20){cross = 0.38}
+            else if(stringtotal> 20 ){cross = 0.38}
         }
 })})  
 $(document).ready(function() {
     $('.form-control').click(function(){
-        string_real=parseFloat($('#string_real').val())
+        
         metdc= $('#metdc').val()
         if(metdc == 'ท่อร้อยสาย' || metdc == 'Wireway'){
-            if(string_real == 1){cross = 1}
-            else if(string_real == 2){cross = 0.8}
-            else if(string_real == 3){cross = 0.7}
-            else if(string_real == 4){cross = 0.65}
-            else if(string_real == 5){cross = 0.6}
-            else if(string_real == 6){cross = 0.57}
-            else if(string_real == 7){cross = 0.54}
-            else if(string_real == 8){cross = 0.52}
-            else if(string_real == 9){cross = 0.5}
-            else if(string_real >= 10 && string_real <=12){cross = 0.45}
-            else if(string_real >=13 && string_real <=16){cross = 0.41}
-            else if(string_real >=17 && string_real <=20){cross = 0.38}
-            else if(string_real> 20 ){cross = 0.38}
+            if(stringtotal == 1){cross = 1}
+            else if(stringtotal == 2){cross = 0.8}
+            else if(stringtotal == 3){cross = 0.7}
+            else if(stringtotal == 4){cross = 0.65}
+            else if(stringtotal == 5){cross = 0.6}
+            else if(stringtotal == 6){cross = 0.57}
+            else if(stringtotal == 7){cross = 0.54}
+            else if(stringtotal == 8){cross = 0.52}
+            else if(stringtotal == 9){cross = 0.5}
+            else if(stringtotal >= 10 && stringtotal <=12){cross = 0.45}
+            else if(stringtotal >=13 && stringtotal <=16){cross = 0.41}
+            else if(stringtotal >=17 && stringtotal <=20){cross = 0.38}
+            else if(stringtotal> 20 ){cross = 0.38}
         }
         else if(metdc == 'วางบนรางชิดกัน (ไม่ซ้อนแถว)'){
-            if(string_real == 1){cross = 0}
-            else if(string_real == 2){cross = 0.87}
-            else if(string_real == 3){cross = 0.81}
-            else if(string_real == 4){cross = 0.78}
-            else if(string_real > 4 && string_real <=6){cross = 0.75}
-            else if(string_real > 6 && string_real <=8){cross = 0.74}
-            else if(string_real > 8 && string_real <=10){cross = 0.73}
-            else if(string_real > 10 && string_real <=16){cross = 0.72}
-            else if(string_real > 16 && string_real <=20){cross = 0.71}
-            else if(string_real> 20 ){cross = 0.71}
+            if(stringtotal == 1){cross = 1}
+            else if(stringtotal == 2){cross = 0.87}
+            else if(stringtotal == 3){cross = 0.81}
+            else if(stringtotal == 4){cross = 0.78}
+            else if(stringtotal > 4 && stringtotal <=6){cross = 0.75}
+            else if(stringtotal > 6 && stringtotal <=8){cross = 0.74}
+            else if(stringtotal > 8 && stringtotal <=10){cross = 0.73}
+            else if(stringtotal > 10 && stringtotal <=16){cross = 0.72}
+            else if(stringtotal > 16 && stringtotal <=20){cross = 0.71}
+            else if(stringtotal> 20 ){cross = 0.71}
            
         }
         else if(metdc == 'วางบนรางชิดกัน (ซ้อนแถว)'){
-            if(string_real == 1){cross = 0}
-            else if(string_real == 2){cross = 0}
-            else if(string_real == 3){cross = 0}
-            else if(string_real == 4){cross = 0.71}
-            else if(string_real > 4 && string_real <=6){cross = 0.58}
-            else if(string_real > 6 && string_real <=8){cross = 0.52}
-            else if(string_real > 8 && string_real <=10){cross = 0.48}
-            else if(string_real > 10 && string_real <=16){cross = 0.41}
-            else if(string_real > 16 && string_real <=20){cross = 0.38}
-            else if(string_real> 20 ){cross = 0.38}
+            if(stringtotal == 1){cross = 1}
+            else if(stringtotal == 2){cross = 1}
+            else if(stringtotal == 3){cross = 1}
+            else if(stringtotal == 4){cross = 0.71}
+            else if(stringtotal > 4 && stringtotal <=6){cross = 0.58}
+            else if(stringtotal > 6 && stringtotal <=8){cross = 0.52}
+            else if(stringtotal > 8 && stringtotal <=10){cross = 0.48}
+            else if(stringtotal > 10 && stringtotal <=16){cross = 0.41}
+            else if(stringtotal > 16 && stringtotal <=20){cross = 0.38}
+            else if(stringtotal> 20 ){cross = 0.38}
         }
-})})       
-
-var string_real
-$(document).ready(function() {
-    $('.form-control').keyup(function(){
-        string_real=parseFloat($('#string_real').val())
-        if(cross == 0){$('#pvperstring').val('ควรเลือกวิธีเดินสาย PV1-F แบบอื่น')}
-        else{$('#pvperstring').val((Pvs1/string_real).toFixed(2))}
-    
-})})
-$(document).ready(function() {
-    $('.form-control').click(function(){
-        string_real=parseFloat($('#string_real').val())
-        if(cross == 0){$('#pvperstring').val('ควรเลือกวิธีเดินสาย PV1-F แบบอื่น')}
-        else{$('#pvperstring').val((Pvs1/string_real).toFixed(2))}
-    
-})})    
+})})  
 
 var Ipv
 var fuse00
@@ -1293,16 +1448,16 @@ $(document).ready(function() {
         
         metdc= $('#metdc').val()
         if(metdc=='ท่อร้อยสาย' || metdc=='วางบนรางชิดกัน (ไม่ซ้อนแถว)' || metdc=='วางบนรางชิดกัน (ซ้อนแถว)'){Ipv=fuse00/(cross*crosstem)}
-        else if(metdc== 'Wireway' && string_real < 16){Ipv=fuse00/crosstem}    
-        else if(metdc=='Wireway' && string_real >= 16){Ipv=fuse00/(cross*crosstem)}    
+        else if(metdc== 'Wireway' && stringtotal < 16){Ipv=fuse00/crosstem}    
+        else if(metdc=='Wireway' && stringtotal >= 16){Ipv=fuse00/(cross*crosstem)}    
 })})
 $(document).ready(function() {
     $('.form-control').click(function(){ 
         
         metdc= $('#metdc').val()
         if(metdc=='ท่อร้อยสาย' || metdc=='วางบนรางชิดกัน (ไม่ซ้อนแถว)' || metdc=='วางบนรางชิดกัน (ซ้อนแถว)'){Ipv=fuse00/(cross*crosstem)}
-        else if(metdc== 'Wireway' && string_real < 16){Ipv=fuse00/crosstem}    
-        else if(metdc=='Wireway' && string_real >= 16){Ipv=fuse00/(cross*crosstem)}    
+        else if(metdc== 'Wireway' && stringtotal < 16){Ipv=fuse00/crosstem}    
+        else if(metdc=='Wireway' && stringtotal >= 16){Ipv=fuse00/(cross*crosstem)}    
 })})
  
         
@@ -1333,10 +1488,10 @@ $(document).ready(function() {
             else if(pv1fs002 == 16){ohmpv002=(1.24*$('#PV_Inv').val())/1000}
             else if(pv1fs002 == 25){ohmpv002=(0.795*$('#PV_Inv').val())/1000}
 
-            Vdrop_pv002= 2*data.Imp*String_array*ohmpv002
-            Per_vdroppv002 = (100/Vstring_min)*Vdrop_pv002 
-            Ploss_pv002 = 2*data.Imp*data.Imp*ohmpv002
-            Per_plosspv002 = (100*Ploss_pv002*string_real)/Pmax1
+            Vdrop_pv002= 2*data.Imp*ohmpv002
+            Per_vdroppv002 = (100/(pv_stch*Vcell_min))*Vdrop_pv002 
+            Ploss_pv002 = (2*data.Imp*data.Imp*ohmpv002*stringtotal)/Numberinv
+            Per_plosspv002 = (100*Ploss_pv002*Numberinv)/Pmax1
             $('#Vdrop_pv002_select').val(Vdrop_pv002.toFixed(2))
             $('#Per_vdroppv002_select').val(Per_vdroppv002.toFixed(2))
             $('#Ploss_pv002_select').val(Ploss_pv002.toFixed(2))
@@ -1427,7 +1582,7 @@ $(document).ready(function() {
    
 $(document).ready(function() {
     $('#pv1f_select').keyup(function(){
-        ground2 = 1.25*data.Isc*string_real
+        ground2 = 1.25*data.Isc*stringtotal
        
         if(ground2 <= 100 && ground2 != 0){ground11 =10}
         else if(ground2 > 100 && ground2<= 200){ground11 =16}
@@ -2207,7 +2362,7 @@ $(document).ready(function() {
         
         Vdrop_mdbs2= vd*datain.Iinv_acmax*Numberinv*$('#acsolar_Mdb').val()
         Per_vdropmdbs2 = (100/230)*Vdrop_mdbs2
-        Ploss_mdbs2 = datain.Iinv_acmax*Numberinv*Vdrop_mdbs2
+        Ploss_mdbs2 = datain.Iinv_acmax*Vdrop_mdbs2*Numberinv
         Per_plossmdbs2 = (100*Ploss_mdbs2/(datain.Pinv_ac*Numberinv))
         $('#Vdrop_mdb_select').val(Vdrop_mdbs2.toFixed(2))
         $('#Per_vdropmdb_select').val(Per_vdropmdbs2.toFixed(2))
@@ -2686,4 +2841,5 @@ $(document).ready(function() {
         $('#PSH').val(4.90);
     }
 })})
+
 

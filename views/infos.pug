@@ -88,13 +88,13 @@ block content
                         .form-group.col-4
                             label(for="") อุณหภูมิต่ำสุดที่แผง (°C)
                                     
-                            input(type="text", id="Tem_min", name='tem_min', class="form-control", value='', placeholder="*0 °C")
+                            input(type="text", id="Tem_min", name='tem_min', class="form-control", value='', placeholder="*-10 °C")
                         .form-group.col-4
                             label(for="") อุณหภูมิสูงสุดที่แผง (°C)
                                     
-                            input(type="text", id="Tem_max", name='tem_max', class="form-control", value='', placeholder="*50 °C") 
+                            input(type="text", id="Tem_max", name='tem_max', class="form-control", value='', placeholder="*60 °C") 
                         .form-group.col-4
-                            label(for="") อุณหภูมิสูงสุดที่ Inv. (°C)
+                            label(for="") อุณหภูมิสูงสุดที่ INV. (°C)
                                     
                             input(type="text", id="Tem_max2", name='tem_max2', class="form-control", value='', placeholder="*40 °C") 
                         
@@ -280,17 +280,9 @@ block content
                             <p>อินเวอร์เตอร์: <span id="demo"></span>  (W)</p>
                             
                             <p>จำนวน: <span id="demo1" value = ''></span>  (เครื่อง)</p>
-                                
-                                
-
-                                
-                            
-                            
-                            
+ 
                         .form-group.col-6    
-                                
-                                    
-                                
+ 
                             input(id='inverters', type="hidden", class="form-control", value=inverters)     
                             <!--input(id='inverters' type="hidden", class="form-control" value=inverters3) -->
                     .row
@@ -305,64 +297,92 @@ block content
                             label(for="") จำนวน
                             input(id="numberinv", name='num_inv', type="text", class="form-control", placeholder="*",value='')
                         .form-group.col-3
-                            label(for="") DC to AC ratio*
+                            label(for="" style = "color:blue;") DC to AC ratio*
                             input(id="dc_to_ac", type="text", class="form-control", value='')
-                        .form-group.col-4
-                            label(for="") สตริงต่ออินพุตสูงสุด  
+                        .form-group.col-12
+
+                            <p style = "color:blue;">*DC to AC ratio ควรมีค่า 1.1-1.2 </p>
+                        .form-group.col-12
+                            
+                            <h5><b>เงื่อนไขการจัดสตริงของอินเวอร์เตอร์</b></h5> 
+                        
+                        .form-group.col-6
+                            label(for="") อินพุต/อินเวอร์เตอร์  
+                            input(id="in_inv", type="text", name="in_inv", class="form-control", value='')   
+                        .form-group.col-6
+                            label(for="") สตริง/อินพุตสูงสุด
                             input(id="string_input", type="text", name="string_input", class="form-control", value='')      
                         .form-group.col-4
-                            label(for="") จำนวนแผงต่อสตริงน้อยสุด 
-                            input(id="PV_stringmin", type="text", name="PV_Stringmin", class="form-control", value='')  
+                            label(for="") แผง/สตริง น้อยสุด
+                            input(id="PV_stringmin", type="text", name="PV_Stringmin", class="form-control", value='')
+                         
                         .form-group.col-4
-                            label(for="") จำนวนแผงต่อสตริงมากสุด 
-                            input(id="PV_string", type="text", name="PV_String", class="form-control", value='')    
-                        .form-group.col-6
+                            label(for="") แผง/สตริง มากสุด
+                            input(id="PV_string", type="text", name="PV_String", class="form-control", value='') 
+                        .form-group.col-4
+                            label(for="") แผง/สตริงประสิทธิภาพสูงสุด
+                            input(id="PV_string_best", type="text", name="PV_string_best", class="form-control", value='')  
+                        .form-group.col-12
                             br
-                                
-                            <p>*DC to AC ratio ควรมีค่า 1.1-1.2 </p>            
+                            <h5><b>การจัดสตริงของอินเวอร์เตอร์แต่ละเครื่อง</b></h5>   
+                        .form-group.col-6
+                            label(for="") เลือกจำนวนแผงต่อสตริง
+                            input(id="pv_stch", type="text", name="pv_stch", class="form-control", value='', placeholder="*") 
+                        
+                        .form-group.col-6
+                            label(for="" style = "color:red;") *สตริงที่เกินมา (สตริง)
+                            input(id="sas", type="text", name="sas", class="form-control", value='') 
+                        .form-group.col-12 
+                            <p style = "color:red;">*สตริงที่เกินมาต้องเป็น 0 (ปรับแผงต่อสตริงเพิ่มขึ้นเพื่อให้สตริงที่เกินมาเป็น 0)</p>   
+                        
                     .row
                         .form-group.col-6
                                 
-                            <a href='#/infos' class='btn btn-secondary' onclick="Strings()">ประมวลผล</a>            
-                    .row    
-                        .form-group.col-12
-
-                            <h5>การจัดสตริงของอินเวอร์เตอร์รวมทุกตัว</h5>
-                        .form-group.col-12
-                            <p>แผงสูงสุด : <span id="numpvs"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;อินเวอร์เตอร์ : <span id="numinvs"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;อินพุต/อินเวอร์เตอร์ : <span id="maxin" ></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;สตริง/อินพุต : <span id="maxst_in" ></span></p>
                                 
-                                    
-                    .row    
-                        .form-group.col-12
-                            <p>สตริงน้อยที่สุด : <span id="cat1"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;แผง/สตริงน้อยที่สุด : <span id="rat1"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;แผงน้อยที่สุด : <span id="dog1" ></span></p>
+                            <a href='#/infos' class='btn btn-secondary' onclick="jadstring()">ประมวลผล</a>     
+                    .row
+                        .form-group.col-4
+                            label(for="") อินพุต ชุดที่ 1 (อินพุต)
+                            input(id="in_inv1", type="text", name="in_inv1", class="form-control", value='')    
+                        .form-group.col-4
+                            label(for="") สตริง/อินพุต ชุดที่ 1 (สตริง)
+                            input(id="st_in1", type="text", name="st_in1", class="form-control", value='')
+                        .form-group.col-4
+                            label(for="") แผง/สตริง ชุดที่ 1 (แผง)
+                            input(id="Pv_st1", type="text", name="Pv_st1", class="form-control", value='')  
                         
-                        .form-group.col-12
-                            <p>สตริงมากที่สุด : <span id="cat"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;แผง/สตริงมากที่สุด : <span id="rat"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;แผงมากที่สุด : <span id="dog" ></span></p>
-                        .form-group.col-12
-                            <p>จำนวนแผงที่เหมาะกับอินเวอร์เตอร์ : <span id="good"></span></p>
-                        .form-group.col-12
-                                
-                            <p>Voc/Array ต่างกันไม่เกิน 5% (ต่อขนานกันแผงควรเท่ากัน)</p>
-                    .row    
+                          
+                        .form-group.col-4
+                            label(for="") อินพุต ชุดที่ 2 (อินพุต)
+                            input(id="in_inv2", type="text", name="in_inv2", class="form-control", value='')    
+                        .form-group.col-4
+                            label(for="") สตริง/อินพุต ชุดที่ 2 (สตริง)
+                            input(id="st_in2", type="text", name="st_in2", class="form-control", value='')
+                        .form-group.col-4
+                            label(for="") แผง/สตริง ชุดที่ 2 (แผง)
+                            input(id="Pv_st2", type="text", name="Pv_st2", class="form-control", value='')  
+
+                        .form-group.col-4
+                            label(for="") อินพุต ชุดที่ 3 (อินพุต)
+                            input(id="in_inv3", type="text", name="in_inv3", class="form-control", value='')    
+                        .form-group.col-4
+                            label(for="") สตริง/อินพุต ชุดที่ 3 (สตริง)
+                            input(id="st_in3", type="text", name="st_in3", class="form-control", value='')
+                        .form-group.col-4
+                            label(for="") แผง/สตริง ชุดที่ 3 (แผง)
+                            input(id="pv_onein", type="text", name="pv_onein", class="form-control", value='')
                         .form-group.col-6
-                            label(for="") เลือกจำนวนแผง
-                            input(type="text", id="Pvs1",name='num_pv', class="form-control",  value='' , placeholder="*")
+                            label(for="") จำนวนสตริงทั้งหมด
+                            input(id="stringtotal", type="text", name="stringtotal", class="form-control", value='') 
                         .form-group.col-6
-                            label(for="") DC to AC ratio*
-                            input(type="text", id="dc_to_ac2", class="form-control", value='')
-                        .form-group.col-6
-                            label(for="") จำนวนสตริงที่ใช้ทั้งหมด
-                            input(type="text", id="string_real",name='string', class="form-control", value='', placeholder="*")
-                        .form-group.col-6
-                            label(for="") จำนวนแผงเฉลี่ยต่อสตริง
-                            input(type="text", id="pvperstring" name='pvperstring' class="form-control", value='')
-                        .form-group.col-12
-                            br  
-                            
-                            <p>*DC to AC ratio ควรมีค่า 1.1-1.2 </p>
+                            label(for="") จำนวนแผงที่เหลือ (แผง)
+                            input(id="saspv", type="text", name="saspv", class="form-control", value='')  
+                        .form-group.col-12 
+                            <p style = "color:red;">*แผงต่อสตริงต้องอยู่ในเงื่อนไขการจัดสตริง</p>
+                
                     .row      
                         .form-group.col-12
-                            <a href='#' class='btn btn-secondary'  onclick="process()">ประมวลผล</a>    
+                            <a href='#' class='btn btn-secondary'  onclick="process()">เลือกอุปกรณ์ป้องกัน</a>    
                                 
                     br         
                  
@@ -382,7 +402,7 @@ block content
                             .form-group.col-12    
                                 <h6>PV STRING</h6>
                                 <h6><span id='fuse0'></span></h6>
-                                <p style = "color:red;">Vdrop DC ไม่เกิน 1%, Ploss DC ไม่เกิน 3% </p>
+                                <p style = "color:red;">แรงดันตกไม่ควรเกิน 1%, กำลังสูญเสียไม่ควรเกิน 3% </p>
                         .row
                             .form-group.col-9
                                 label(for="") วิธีเดินสายจากแผงไปกล่องรวมสาย DC
@@ -416,10 +436,10 @@ block content
                                     option(value=20 ) 20
                         
                             .form-group.col-6
-                                    label(for="") PV1-F ใหญ่กว่า
+                                    label(for="") สาย PV1-F ใหญ่กว่า
                                     input(type="text", id="pv1f_select00", class="form-control" value='')
                             .form-group.col-6
-                                    label(for="") PV1-F
+                                    label(for="") เลือกขนาดสาย PV1-F
                                     select(id='pv1f_select002',name='pv1f_string', class="form-control" )
                                         option(value='' selected) *
                                         option(value=4 ) 4
@@ -430,17 +450,17 @@ block content
                                
                         .row
                             .form-group.col-6
-                                label(for="") Vdrop Max./Input
+                                label(for="") แรงดันตกในสายไฟ
                                 input(type="text", id="Vdrop_pv002_select",name='vdroppv', class="form-control" value='')
                             .form-group.col-6
-                                label(for="") <a style = "color:red;">% Vdrop Max.</a>
+                                label(for="") <a style = "color:red;">เปอร์เซ็นต์แรงดันตก</a>
                                 input(type="text", id="Per_vdroppv002_select",name = 'pervdroppv', class="form-control" value='')
                         .row
                             .form-group.col-6
-                                label(for="") Ploss/String
+                                label(for="") กำลังสูญเสีย/INVERTER
                                 input(type="text", id="Ploss_pv002_select",name='plosspv', class="form-control" value='')
                             .form-group.col-6
-                                label(for="") <a style = "color:red;">% Ploss</a>
+                                label(for="") <a style = "color:red;">เปอร์เซ็นต์กำลังสูญเสีย</a>
                                 input(type="text", id="Per_plosspv002f_select",name='perplosspv', class="form-control" value='')  
                         hr     
                         .row
@@ -450,15 +470,15 @@ block content
                         
                         .row
                             .form-group.col-6
-                                label(for="") CB DC
+                                label(for="") เซอร์กิตเบรกเกอร์ (DC)
                                 input(type="text", id='pv1f_select',name='cbdc', class="form-control",placeholder="*",  value='')
                                     
                             .form-group.col-6
-                                label(for="") PV1-F ใหญ่กว่า
+                                label(for="") สาย PV1-F ใหญ่กว่า
                                 input(type="text", id="pv1f_select1", class="form-control" value='')     
                                 
                             .form-group.col-6
-                                label(for="") PV1-F
+                                label(for="") เลือกขนาดสาย PV1-F
                                 select(id='pv1f_select2',name='pv1f_array', class="form-control" )
                                     option(value='' selected) *
                                     option(value=4 ) 4
@@ -478,7 +498,7 @@ block content
                         
                             .form-group.col-12          
                                 <h6>INVERTER&emsp;&emsp;<span id='cbaco'></span></h6>  
-                                <p style = "color:blue;">Vdrop AC ไม่เกิน 3%, Ploss AC ไม่เกิน 3%</p> 
+                                <p style = "color:blue;">แรงดันตกไม่ควรเกิน 3%, กำลังสูญเสียไม่ควรเกิน 3%</p> 
                         .row
                             .form-group.col-12
                                 label(for="") ชนิดสายไฟจาก Inverter ไป AC Solar หรือ MDB
@@ -502,7 +522,7 @@ block content
                                 input(type="text", id="Inv_Mdb", name='distance_ac', class="form-control", placeholder="*", value= '' )
                         .row
                             .form-group.col-6
-                                label(for="") CB Inv.
+                                label(for="") เซอร์กิตเบรกเกอร์ (AC)
                                 input(type="text", id='cb_invs',name='cbac' class="form-control", placeholder="*", value= ''  )
                                     
                             .form-group.col-6
@@ -511,7 +531,7 @@ block content
                             
                                 
                             .form-group.col-6
-                                label(for="") ขนาดสายไฟ Inv.
+                                label(for="") เลือกขนาดสายไฟ
                                 select(id='wire_ac_select',name='wireac', class="form-control" )
                                     option(value=0 selected) *
                                     option(value=2.5) 2.5
@@ -532,35 +552,35 @@ block content
                                     option(value=400) 400
                                     option(value=500) 500
                             .form-group.col-6
-                                label(for="") สายดิน Inv.(sq.mm.)
+                                label(for="") สายดิน (sq.mm.)
                                 input(type="text", id="ground_inv",name='ground_inv', class="form-control" value='')
                         
                         .row
                             .form-group.col-6
-                                label(for="") Vdrop Max./Inv.
+                                label(for="") แรงดันตกในสายไฟ
                                 input(type="text", id="Vdrop_ac_select",name='vdropac', class="form-control" value='')
                             .form-group.col-6
-                                label(for="") <a style = "color:blue;">% Vdrop Max.</a>
+                                label(for="") <a style = "color:blue;">เปอร์เซ็นต์แรงดันตก</a>
                                 input(type="text", id="Per_vdropac_select",name='pervdropac',  class="form-control" value='')
                         .row    
                             .form-group.col-6
-                                label(for="") Ploss/Inv.
+                                label(for="") กำลังสูญเสีย
                                 input(type="text", id="Ploss_ac_select",name='plossac',  class="form-control" value='')
                             .form-group.col-6
-                                label(for="") <a style = "color:blue;">% Ploss</a>
+                                label(for="") <a style = "color:blue;">เปอร์เซ็นต์กำลังสูญเสีย</a>
                                 input(type="text", id="Per_plossac_select",name='perplossac',  class="form-control" value='')
                         hr
                         .row
                         
                             .form-group.col-12          
                                 <h6>MDB&emsp;&emsp;<span id='cbmdbo'></span></h6> 
-                                <p style = "color:blue;">Vdrop AC ไม่เกิน 2%, Ploss AC ไม่เกิน 3%</p>  
+                                <p style = "color:blue;">แรงดันตกไม่ควรเกิน 2%, กำลังสูญเสียไม่ควรเกิน 3%</p>  
                         .row
                             .form-group.col-12
                                 label(for="") ชนิดสายไฟจาก AC Solar ไป MDB
                                         
                                 select(id='wiremdb', name='type_wmdb' ,type="text", class="form-control")
-                                    option(value='' selected) 
+                                    option(value='' selected) *
                                     option(value='ไม่มีตู้ AC Solar') ไม่มีตู้ AC Solar
                                     option(value='สายไฟหุ้มฉนวน PVC (1 แกน)' ) สายไฟหุ้มฉนวน PVC (1 แกน)
                                     option(value='สายไฟหุ้มฉนวน PVC (หลายแกน)' ) สายไฟหุ้มฉนวน PVC (หลายแกน)
@@ -569,7 +589,7 @@ block content
                             .form-group.col-9
                                 label(for="") วิธีเดินสาย AC Solar ไป MDB
                                 select(id='metacsolar', name='how_wacsolar' ,type="text", class="form-control")
-                                    option(value='-' selected)
+                                    option(value='-' selected) *
                                     option(value='ท่อร้อยสาย' ) ท่อร้อยสาย 
                                     option(value='Wireway' ) Wireway     
                                     
@@ -578,7 +598,7 @@ block content
                                 input(type="text", id="acsolar_Mdb", name='distance_acsolar', class="form-control", placeholder="*", value= '' )
                         .row
                             .form-group.col-6
-                                label(for="") CB MDB.
+                                label(for="") เซอร์กิตเบรกเกอร์ (AC)
                                 input(type="text",id='cb_mdb',name='cb_mdb', class="form-control", placeholder="*", value= ''  )
                                     
                             .form-group.col-6
@@ -587,9 +607,9 @@ block content
                             
                                 
                             .form-group.col-6
-                                label(for="") ขนาดสายไฟ MDB
+                                label(for="") เลือกขนาดสายไฟ
                                 select(id='wire_mdb_select',name='wiremdb', class="form-control" )
-                                    option(value=0 selected)
+                                    option(value=0 selected) *
                                     option(value=2.5) 2.5
                                     option(value=4) 4
                                     option(value=6) 6
@@ -608,21 +628,21 @@ block content
                                     option(value=400) 400
                                     option(value=500) 500
                             .form-group.col-6
-                                label(for="") สายดิน MDB(sq.mm.)
+                                label(for="") สายดิน (sq.mm.)
                                 input(type="text", id="ground_mdb",name='ground_mdb', class="form-control" value='') 
                         .row
                             .form-group.col-6
-                                label(for="") Vdrop Max.
+                                label(for="") แรงดันตกในสายไฟ
                                 input(type="text", id="Vdrop_mdb_select",name='vdropmdb', class="form-control" value='')
                             .form-group.col-6
-                                label(for="") <a style = "color:blue;">% Vdrop Max.</a>
+                                label(for="") <a style = "color:blue;">เปอร์เซ็นต์แรงดันตก</a>
                                 input(type="text", id="Per_vdropmdb_select",name='pervdropmdb', class="form-control" value='')
                         .row    
                             .form-group.col-6
-                                label(for="") Ploss
+                                label(for="") กำลังสูญเสีย
                                 input(type="text", id="Ploss_mdb_select",name='plossmdb', class="form-control" value='')
                             .form-group.col-6
-                                label(for="") <a style = "color:blue;">% Ploss</a>
+                                label(for="") <a style = "color:blue;">เปอร์เซ็นต์กำลังสูญเสีย</a>
                                 input(type="text", id="Per_plossmdb_select",name='perplossmdb', class="form-control" value='')
                 
                         <hr>
@@ -735,6 +755,10 @@ block content
         
         function Strings(){
 
+                document.getElementById("pv_stbest").innerHTML = commaSeparateNumber(Pv_stringgood)
+                document.getElementById("pv_stlow").innerHTML = commaSeparateNumber(Pv_stringmin)
+                document.getElementById("pv_stheight").innerHTML = commaSeparateNumber(Pv_string1)
+
                 document.getElementById("numpvs").innerHTML = commaSeparateNumber(No_Pvs)
                 document.getElementById("numinvs").innerHTML = Numberinv
                 document.getElementById("maxin").innerHTML = datain.Number_of_independent_MPP_inputs
@@ -746,6 +770,8 @@ block content
                 document.getElementById("rat1").innerHTML = Pv_stringmin
                 document.getElementById("dog").innerHTML = commaSeparateNumber(Max_strings*Pv_string1)
                 document.getElementById("dog1").innerHTML = commaSeparateNumber(Min_strings*(Pv_stringmin))
+                document.getElementById("stringnmax").innerHTML = stringnmax.toFixed(2)
+                document.getElementById("pvstringnmax").innerHTML = Pv_stringgood.toFixed(2)
                 document.getElementById("good").innerHTML = commaSeparateNumber(pv_suggestmin1)+" - "+commaSeparateNumber(pv_suggestmax1) + " (แผง)"
         }
     
@@ -937,6 +963,11 @@ block content
                     else if(invfils1==Infinity&&invfils2==Infinity&&invfils3==Infinity&&invfils4==Infinity&&invfils5==Infinity&&invfils6==Infinity&&invfils7==Infinity&&invfils8==Infinity&&invfils9==Infinity&&invfils10==Infinity&&invfils11==Infinity&&invfils12==Infinity&&invfils13==Infinity&&invfils14==Infinity&&invfils15==Infinity&&invfils16==Infinity&&invfils17==Infinity&&invfils18==Infinity&&invfils19==Infinity&&invfils20==Infinity&&invfils21==Infinity&&invfils22!=Infinity){
                         document.getElementById("demo").innerHTML = commaSeparateNumber(invfils22)
                         document.getElementById("demo1").innerHTML = 22}
+                    
+                    else{
+                        document.getElementById("demo").innerHTML = '-'
+                        document.getElementById("demo1").innerHTML = '-'
+                    }
             }            
 
                     
