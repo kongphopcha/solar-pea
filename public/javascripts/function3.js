@@ -353,7 +353,7 @@ $(document).ready(function() {
                     //    $('#dc_to_ac').val(Pmaximum/datain.Pinv_ac*Numberinv);
                    // })})
                    var stringnmax
-                $(document).ready(function() {
+                   $(document).ready(function() {
                     $('.form-control').keyup(function(){
                         Numberinv =$('#numberinv').val();
                         
@@ -362,30 +362,14 @@ $(document).ready(function() {
                         Tem_min=$('#Tem_min').val();
                         Tem_max=$('#Tem_max').val();
                         Tem_max2=$('#Tem_max2').val();
-                        Pv_stringmin = Math.ceil((datain3.MPP_Voltage_range_min*1.1)/data.Vmp);
+                        
                         Vcell_min=data.Vmp*[1+(data.Temperature_Coefficient_of_Pmax/100)*(Tem_max-25)];
-                        Vstring_min =Pv_stringmin*Vcell_min
-                        
-                        //Max_strings = Numberinv*String_array*datain.Number_of_independent_MPP_inputs
+                        Pv_stringmin = Math.round(datain3.MPP_Voltage_range_min/Vcell_min);
+                        Pv_stringgood =  Math.round(datain3.Vrated_dc/Vcell_min)
+                        Pv_string = Math.round(datain3.MPP_Voltage_range_max/Vcell_min);
+                
                         Voc_maxpv = data.Voc*[1+(data.Temperature_Coefficient_of_Voc/100)*(Tem_min-25)];
-                        Pv_string = Math.ceil((datain3.MPP_Voltage_range_max)/data.Vmp);
-                
-                        Pv_stringgood =  Math.ceil(datain3.Vrated_dc/data.Vmp)
-                        stringnmax =Math.floor(No_Pvs/Pv_stringgood)
-                
                         Voc_maxstring = Voc_maxpv*Pv_string
-                        
-                        
-                        
-                        //var No_min = Math.ceil(datain.Vinv_dcmin/Voc_max);
-                       // var No_max = Math.floor(datain.Vinv_dcmax/Vcell_min);
-                        //var Vocmax_string = Voc_max*Pvs_string;
-                
-                        
-                       // if(String_array <= datain.Strings_per_MPP_input){String_array1 = String_array}
-                       // else if(String_array > datain.Strings_per_MPP_input){String_array1 = datain.Strings_per_MPP_input}
-                        
-                        $('#dc_to_ac').val((No_Pvs*data.Pmax/(datain3.Pinv_ac*Numberinv)).toFixed(2));
                         if (type == 'บ้านอยู่อาศัย' && Voc_maxstring < 600) {
                                     
                             Pv_string1=Pv_string
@@ -401,6 +385,19 @@ $(document).ready(function() {
                            
                         }
                 
+                       
+                        
+                        //Max_strings = Numberinv*String_array*datain.Number_of_independent_MPP_inputs
+                
+                        //var No_min = Math.ceil(datain.Vinv_dcmin/Voc_max);
+                       // var No_max = Math.floor(datain.Vinv_dcmax/Vcell_min);
+                        //var Vocmax_string = Voc_max*Pvs_string;
+                
+                        
+                       // if(String_array <= datain.Strings_per_MPP_input){String_array1 = String_array}
+                       // else if(String_array > datain.Strings_per_MPP_input){String_array1 = datain.Strings_per_MPP_input}
+                        
+                        $('#dc_to_dc').val((No_Pvs*data.Pmax/(datain3.Pinv_dc*Numberinv)).toFixed(2));
                         $('#in_inv').val(datain3.Number_of_independent_MPP_inputs)     
                         
                         })})  
@@ -408,35 +405,19 @@ $(document).ready(function() {
                             $('.form-control').click(function(){
                                 Numberinv =$('#numberinv').val();
                                 
-                               
-                                 //var Pvs_string=Math.round(No_Pvs/Max_strings);
+                              
+                                //var Pvs_string=Math.round(No_Pvs/Max_strings);
                                 Tem_min=$('#Tem_min').val();
                                 Tem_max=$('#Tem_max').val();
                                 Tem_max2=$('#Tem_max2').val();
-                                Pv_stringmin = Math.ceil((datain3.MPP_Voltage_range_min*1.1)/data.Vmp);
+                                
                                 Vcell_min=data.Vmp*[1+(data.Temperature_Coefficient_of_Pmax/100)*(Tem_max-25)];
-                                Vstring_min =Pv_stringmin*Vcell_min
-                                
-                                //Max_strings = Numberinv*String_array*datain.Number_of_independent_MPP_inputs
-                                Voc_maxpv = data.Voc*[1+(data.Temperature_Coefficient_of_Voc/100)*(Tem_min-25)];
-                                Pv_string = Math.ceil((datain3.MPP_Voltage_range_max)/data.Vmp);
-                
-                                Pv_stringgood =  Math.ceil(datain3.Vrated_dc/data.Vmp)
-                                stringnmax =Math.floor(No_Pvs/Pv_stringgood)
-                                
-                                Voc_maxstring = Voc_maxpv*Pv_string
-                                
-                                
-                                
-                                //var No_min = Math.ceil(datain.Vinv_dcmin/Voc_max);
-                               // var No_max = Math.floor(datain.Vinv_dcmax/Vcell_min);
-                                //var Vocmax_string = Voc_max*Pvs_string;
+                                Pv_stringmin = Math.round(datain3.MPP_Voltage_range_min/Vcell_min);
+                                Pv_stringgood =  Math.round(datain3.Vrated_dc/Vcell_min)
+                                Pv_string = Math.round(datain3.MPP_Voltage_range_max/Vcell_min);
                         
-                                
-                               // if(String_array <= datain.Strings_per_MPP_input){String_array1 = String_array}
-                               // else if(String_array > datain.Strings_per_MPP_input){String_array1 = datain.Strings_per_MPP_input}
-                                
-                                $('#dc_to_ac').val((No_Pvs*data.Pmax/(datain3.Pinv_ac*Numberinv)).toFixed(2));
+                                Voc_maxpv = data.Voc*[1+(data.Temperature_Coefficient_of_Voc/100)*(Tem_min-25)];
+                                Voc_maxstring = Voc_maxpv*Pv_string
                                 if (type == 'บ้านอยู่อาศัย' && Voc_maxstring < 600) {
                                             
                                     Pv_string1=Pv_string
@@ -451,9 +432,23 @@ $(document).ready(function() {
                                     Pv_string1 = Math.floor(1000/Voc_maxpv)
                                    
                                 }
-                                $('#in_inv').val(datain3.Number_of_independent_MPP_inputs)         
+                        
+                               
                                 
-                                })})             
+                                //Max_strings = Numberinv*String_array*datain.Number_of_independent_MPP_inputs
+                        
+                                //var No_min = Math.ceil(datain.Vinv_dcmin/Voc_max);
+                               // var No_max = Math.floor(datain.Vinv_dcmax/Vcell_min);
+                                //var Vocmax_string = Voc_max*Pvs_string;
+                        
+                                
+                               // if(String_array <= datain.Strings_per_MPP_input){String_array1 = String_array}
+                               // else if(String_array > datain.Strings_per_MPP_input){String_array1 = datain.Strings_per_MPP_input}
+                                
+                                $('#dc_to_dc').val((No_Pvs*data.Pmax/(datain3.Pinv_dc*Numberinv)).toFixed(2));
+                                $('#in_inv').val(datain3.Number_of_independent_MPP_inputs)     
+                                
+                                })})  
                                 var String_array;
                                 $(document).ready(function() {
                                     $('.form-control').keyup(function(){
@@ -486,7 +481,7 @@ $(document).ready(function() {
                                     $('.form-control').keyup(function(){
                                  
                                     
-                                        $('#input_inv').val(datain3.Number_of_independent_MPP_inputs);
+                                        
                                         $('#string_input').val(String_array);
                                         $('#PV_stringmin').val(Pv_stringmin);
                                         $('#PV_string').val(Pv_string1);
@@ -496,7 +491,7 @@ $(document).ready(function() {
                                 $(document).ready(function() {
                                     $('.form-control').click(function(){
                 
-                                        $('#input_inv').val(datain3.Number_of_independent_MPP_inputs);
+                                        
                                         $('#string_input').val(String_array);
                                         $('#PV_stringmin').val(Pv_stringmin);
                                         $('#PV_string').val(Pv_string1);
@@ -1033,7 +1028,7 @@ $('.form-control').keyup(function(){
                                
                                           
                     function process(){ 
-                        $('#fuse0').html('FUSE : '+fuse0+''+' (A)'+' ขึ้นไป '+ fuse09)
+                        $('#fuse0').html('FUSE : '+fuse0+''+' (A)'+' ขึ้นไป')
                         $('#cbdco').html('CB DC : '+cbdc+', '+cbdc2+' (AT)'+' ขึ้นไป')
                         $('#cbaco').html('CB INV. : '+cbac+''+' (AT)'+' ขึ้นไป')
                         $('#cbmdbo').html('CB MDB : '+cbact+''+' (AT)'+' ขึ้นไป')
@@ -1294,7 +1289,7 @@ function process9(){
     
     }
     else{
-        input1 = 'อินพุต : '+ datainfo3.in_inv1+ ' สตริง : '+datainfo3.st_in1+ ' แผง : '+datainfo3.Pv_st1
+        input1 = 'MPPT : '+ datainfo3.in_inv1+ ' สตริง : '+datainfo3.st_in1+ ' แผง : '+datainfo3.Pv_st1
       
     }
 
@@ -1303,7 +1298,7 @@ function process9(){
       
     }
     else{
-        input2 ='อินพุต : '+ datainfo3.in_inv2+ ' สตริง : '+datainfo3.st_in2+ ' แผง : '+datainfo3.Pv_st2
+        input2 ='MPPT : '+ datainfo3.in_inv2+ ' สตริง : '+datainfo3.st_in2+ ' แผง : '+datainfo3.Pv_st2
        
     }
     if(datainfo3.in_inv3 ==0){
@@ -1311,7 +1306,7 @@ function process9(){
         input3 =''
     }
     else{
-        input3 ='อินพุต : '+ datainfo3.in_inv3+ ' สตริง : '+datainfo3.st_in3+ ' แผง : '+datainfo3.pv_onein
+        input3 ='MPPT : '+ datainfo3.in_inv3+ ' สตริง : '+datainfo3.st_in3+ ' แผง : '+datainfo3.pv_onein
       
     }
     pvuse = datainfo3.No_Pvs-datainfo3.saspv
@@ -1334,11 +1329,11 @@ function process9(){
     $('#Meter9').html(datainfo3.meter)
     $('#Area9').html(datainfo3.area+ ' (m^2) ')
 
-    $('#inverter9').html(datainfo3inv.Inverter+', '+datainfo3.in_inv+' (อินพุต)')
+    $('#inverter9').html(datainfo3inv.Inverter+', '+datainfo3.in_inv+' (MPPT)')
     $('#numberinv9').html(datainfo3.num_inv+ ' (เครื่อง)'+', '+datainfo3.stringtotal+' (สตริง)')
-    $('#jadstring1').html(datainfo3.in_inv1+' (อินพุต), '+datainfo3.st_in1+' (สตริง), '+datainfo3.Pv_st1+' (แผง)')
-    $('#jadstring2').html(datainfo3.in_inv2+' (อินพุต), '+datainfo3.st_in2+' (สตริง), '+datainfo3.Pv_st2+' (แผง)')
-    $('#jadstring3').html(datainfo3.in_inv3+' (อินพุต), '+datainfo3.st_in3+' (สตริง), '+datainfo3.pv_onein+' (แผง)')
+    $('#jadstring1').html(datainfo3.in_inv1+' (MPPT), '+datainfo3.st_in1+' (สตริง), '+datainfo3.Pv_st1+' (แผง)')
+    $('#jadstring2').html(datainfo3.in_inv2+' (MPPT), '+datainfo3.st_in2+' (สตริง), '+datainfo3.Pv_st2+' (แผง)')
+    $('#jadstring3').html(datainfo3.in_inv3+' (MPPT), '+datainfo3.st_in3+' (สตริง), '+datainfo3.pv_onein+' (แผง)')
     $('#sas9').html(datainfo3.saspv+' (แผง)')
     $('#string_inmax9').html(datainfo3.string_input+' (สตริง)')
     $('#pv_st9').html(datainfo3.PV_Stringmin+' - '+datainfo3.PV_String+' (แผง), [ประสิทธิภาพดีสุด] '+datainfo3.PV_string_best+' (แผง)')
@@ -1395,7 +1390,7 @@ function process9(){
     $('#image7').html('FUSE: '+datainfo3.fuse+ ' (A)'+', CB: '+datainfo3.cbac+ ' (AT) ')
     $('#image8').html('PV1-F : '+datainfo3.pv1f_array+ ' (sq.mm.)')
     $('#image9').html('จำนวน : '+datainfo3.num_inv+ ' (เครื่อง) ')
-    $('#image10').html('อินพุต : '+datainfo3inv.Number_of_independent_MPP_inputs)
+    $('#image10').html('MPPTs : '+datainfo3inv.Number_of_independent_MPP_inputs)
     $('#image11').html(datainfo3inv.Inverter)
     $('#imgground3').html('สายดิน = '+datainfo3.ground_inv+ ' (sq.mm.) ')
     $('#image12').html(datainfo3.wireac+ ' (sq.mm.), '+datainfo3.distance_ac+ ' (m), '+datainfo3.how_wac)
@@ -1437,29 +1432,7 @@ $(document).ready(function() {
         else if(fu0 > 20){fuse0 =fu0}
     
 })})
-var fuse09 
-$(document).ready(function() {
-    $('.form-control').keyup(function(){ 
-        if(stminchok >1 ){
-            fuse09 = ''
-        }
-        else if(stmaxchok >1 ){
-            fuse09 = ''
-        }
 
-        else{fuse09 = '(ไม่จำเป็นต้องติดตั้ง)'}
-})})
-$(document).ready(function() {
-    $('.form-control').click(function(){ 
-        if(stminchok >1 ){
-            fuse09 = ''
-        }
-        else if(stmaxchok >1 ){
-            fuse09 = ''
-        }
-
-        else{fuse09 = '(ไม่จำเป็นต้องติดตั้ง)'}
-})})
 
 var cbdc
 var cbdc2
@@ -1760,6 +1733,7 @@ var cbdc2
                else if(Ipv >70 && Ipv<=98){pv1f=10}
                else if(Ipv >98 && Ipv<=132){pv1f=16}
                else if(Ipv >132 && Ipv<=176){pv1f=25}
+               else if(Ipv> 176){pv1f=''}
              
                $('#pv1f_select00').val(pv1f)
                
@@ -1844,6 +1818,7 @@ var cbdc2
                else if(Ipvs1 >70 && Ipvs1<=98){pv1fs1=10}
                else if(Ipvs1 >98 && Ipvs1<=132){pv1fs1=16}
                else if(Ipvs1 >132 && Ipvs1<=176){pv1fs1=25}
+               else if(Ipvs1> 176){pv1fs1=''}
                
                $('#pv1f_select1').val(pv1fs1)
            })})

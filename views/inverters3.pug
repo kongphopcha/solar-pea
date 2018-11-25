@@ -52,12 +52,12 @@ block content
                  
                     .row        
                         .form-group.col-6
-                            label(for="") Max. input current (Iinv_dcmax)
+                            label(for="") Max. MPPT current
                             input(type="text", name="Iinv_dcmax", class="form-control" placeholder="A" value=(inverter3 ? inverter3.Iinv_dcmax : ''))
                    
                         .form-group.col-6
-                            label(for="") No. independent MPP inputs
-                            input(type="text", name="Number_of_independent_MPP_inputs", class="form-control" placeholder="Input" value=(inverter3 ? inverter3.Number_of_independent_MPP_inputs : ''))
+                            label(for="") Number of MPPTs
+                            input(type="text", name="Number_of_independent_MPP_inputs", class="form-control"  value=(inverter3 ? inverter3.Number_of_independent_MPP_inputs : ''))
                     .row    
                         
                     

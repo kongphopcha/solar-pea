@@ -203,7 +203,7 @@ block content
                             
                     .row
                         .form-group.col-12
-                            label(for="") ความเข้มแสงอาทิตย์เฉลี่ยต่อปี (kWh/m^2/year)
+                            label(for="") พลังงานแสงอาทิตย์เฉลี่ยต่อปี (kWh/m^2/year)
                                     
                         
                             input(id='Hdts', type="text", name="hdts", class="form-control", value=''  )
@@ -261,7 +261,7 @@ block content
 
                     .row
                         .form-group.col-12
-                            label(for="") Pinv_ac ที่แนะนำ (W)
+                            label(for="") กำลังอินเวอร์เตอร์ (AC) ที่แนะนำ (W)
                         .form-group.col-6
                                     
                             input(id='Pinv_ac_min',type="text", name="Pinv_ac_min", class="form-control",  value='' )
@@ -297,20 +297,20 @@ block content
                             label(for="") จำนวน
                             input(id="numberinv", name='num_inv', type="text", class="form-control", placeholder="*",value='')
                         .form-group.col-3
-                            label(for="" style = "color:blue;") DC to AC ratio*
-                            input(id="dc_to_ac", type="text", class="form-control", value='')
+                            label(for="" style = "color:blue;") Ppv/Pinv_dc*
+                            input(id="dc_to_dc", type="text", class="form-control", value='')
                         .form-group.col-12
 
-                            <p style = "color:blue;">*DC to AC ratio ควรมีค่า 1.1-1.2 </p>
+                            <p style = "color:blue;">*Ppv/Pinv_dc ห้ามเกิน 1.1</p>
                         .form-group.col-12
                             
                             <h5><b>เงื่อนไขการจัดสตริงของอินเวอร์เตอร์</b></h5> 
                         
                         .form-group.col-6
-                            label(for="") อินพุต/อินเวอร์เตอร์  
+                            label(for="") MPPT/อินเวอร์เตอร์  
                             input(id="in_inv", type="text", name="in_inv", class="form-control", value='')   
                         .form-group.col-6
-                            label(for="") สตริง/อินพุตสูงสุด
+                            label(for="") สตริง/MPPT สูงสุด
                             input(id="string_input", type="text", name="string_input", class="form-control", value='')      
                         .form-group.col-4
                             label(for="") แผง/สตริง น้อยสุด
@@ -342,10 +342,10 @@ block content
                             <a href='#/infos' class='btn btn-secondary' onclick="jadstring()">ประมวลผล</a>     
                     .row
                         .form-group.col-4
-                            label(for="") อินพุต ชุดที่ 1 (อินพุต)
+                            label(for="") MPPT ชุดที่ 1 (MPPT)
                             input(id="in_inv1", type="text", name="in_inv1", class="form-control", value='')    
                         .form-group.col-4
-                            label(for="") สตริง/อินพุต ชุดที่ 1 (สตริง)
+                            label(for="") สตริง/MPPT ชุดที่ 1 (สตริง)
                             input(id="st_in1", type="text", name="st_in1", class="form-control", value='')
                         .form-group.col-4
                             label(for="") แผง/สตริง ชุดที่ 1 (แผง)
@@ -353,20 +353,20 @@ block content
                         
                           
                         .form-group.col-4
-                            label(for="") อินพุต ชุดที่ 2 (อินพุต)
+                            label(for="") MPPT ชุดที่ 2 (MPPT)
                             input(id="in_inv2", type="text", name="in_inv2", class="form-control", value='')    
                         .form-group.col-4
-                            label(for="") สตริง/อินพุต ชุดที่ 2 (สตริง)
+                            label(for="") สตริง/MPPT ชุดที่ 2 (สตริง)
                             input(id="st_in2", type="text", name="st_in2", class="form-control", value='')
                         .form-group.col-4
                             label(for="") แผง/สตริง ชุดที่ 2 (แผง)
                             input(id="Pv_st2", type="text", name="Pv_st2", class="form-control", value='')  
 
                         .form-group.col-4
-                            label(for="") อินพุต ชุดที่ 3 (อินพุต)
+                            label(for="") MPPT ชุดที่ 3 (MPPT)
                             input(id="in_inv3", type="text", name="in_inv3", class="form-control", value='')    
                         .form-group.col-4
-                            label(for="") สตริง/อินพุต ชุดที่ 3 (สตริง)
+                            label(for="") สตริง/MPPT ชุดที่ 3 (สตริง)
                             input(id="st_in3", type="text", name="st_in3", class="form-control", value='')
                         .form-group.col-4
                             label(for="") แผง/สตริง ชุดที่ 3 (แผง)
@@ -467,6 +467,7 @@ block content
                         
                             .form-group.col-12    
                                 <h6>PV ARRAY&emsp;&emsp;<span id='cbdco'></span></h6>
+                                <p style = "color:red;">ถ้า CB ขนาดใหญ่ ให้ลดการต่อขนานสตริงใน DC BOX</p>
                         
                         .row
                             .form-group.col-6
