@@ -88,7 +88,7 @@ block content
                         .form-group.col-4
                             label(for="") อุณหภูมิต่ำสุดที่แผง (°C)
                                     
-                            input(type="text", id="Tem_min", name='tem_min', class="form-control", value='', placeholder="*-10 °C")
+                            input(type="text", id="Tem_min", name='tem_min', class="form-control", value='', placeholder="*0 °C")
                         .form-group.col-4
                             label(for="") อุณหภูมิสูงสุดที่แผง (°C)
                                     
@@ -96,7 +96,7 @@ block content
                         .form-group.col-4
                             label(for="") อุณหภูมิสูงสุดที่ INV. (°C)
                                     
-                            input(type="text", id="Tem_max2", name='tem_max2', class="form-control", value='', placeholder="*40 °C") 
+                            input(type="text", id="Tem_max2", name='tem_max2', class="form-control", value='', placeholder="*30 °C") 
                         
                         
                            
@@ -310,7 +310,7 @@ block content
                         
                         .form-group.col-12
                                 
-                            <p style = "color:blue;">*Ppv/Pinv_dc ห้ามเกิน 1.1</p>            
+                            <p style = "color:blue;"><span id='condition'></span></p>            
                     
                         .form-group.col-12
                             
@@ -885,6 +885,9 @@ block content
                 return invsPac >= Pinv_ac_min/22 && invsPac <= Pinv_ac_max/22;
                 }
             function invertercheck2() {
+                    if(Tem_max2 <= 30){document.getElementById("condition").innerHTML ='*Ppv/Pinv_dc ห้ามเกิน 1.25'}
+                    else if(Tem_max2 >30 && Tem_max2 <= 50){document.getElementById("condition").innerHTML ='*Ppv/Pinv_dc ห้ามเกิน 1.1'}
+                    else if(Tem_max2 >50){document.getElementById("condition").innerHTML ='*Ppv/Pinv_dc ห้ามเกิน 0.8'}
                     var invfils1=Math.min(...Object.values(invsPacs.filter(range1)))
                     var invfils2=Math.min(...Object.values(invsPacs.filter(range2)))
                     var invfils3=Math.min(...Object.values(invsPacs.filter(range3)))
