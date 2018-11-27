@@ -1827,8 +1827,8 @@ var cbdc2
        $('#pv1f_select').keyup(function(){
           
       
-       if(cbdcs <= 40 && cbdcs != 0){ground1 =4}
-       else if(cbdcs > 40 && cbdcs<= 70){ground1 =6}
+      
+       if(cbdcs <= 70 && cbdcs != 0){ground1 =6}
        else if(cbdcs > 70 && cbdcs<= 100){ground1 =10}
        else if(cbdcs > 100 && cbdcs<= 200){ground1 =16}
        else if(cbdcs > 200 && cbdcs<= 400){ground1 =25}

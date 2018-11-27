@@ -352,34 +352,34 @@ block content
                             <a href='#/infos' class='btn btn-secondary' onclick="jadstring()">ประมวลผล</a>     
                     .row
                         .form-group.col-4
-                            label(for="") MPPT ชุดที่ 1 (MPPT)
+                            label(for="") [ชุดที่ 1] จำนวน MPPT
                             input(id="in_inv1", type="text", name="in_inv1", class="form-control", value='')    
                         .form-group.col-4
-                            label(for="") สตริง/MPPT ชุดที่ 1 (สตริง)
+                            label(for="") [ชุดที่ 1] สตริง/MPPT (สตริง)
                             input(id="st_in1", type="text", name="st_in1", class="form-control", value='')
                         .form-group.col-4
-                            label(for="") แผง/สตริง ชุดที่ 1 (แผง)
+                            label(for="") [ชุดที่ 1] แผง/สตริง (แผง)
                             input(id="Pv_st1", type="text", name="Pv_st1", class="form-control", value='')  
                         
                           
                         .form-group.col-4
-                            label(for="") MPPT ชุดที่ 2 (MPPT)
+                            label(for="") [ชุดที่ 2] จำนวน MPPT
                             input(id="in_inv2", type="text", name="in_inv2", class="form-control", value='')    
                         .form-group.col-4
-                            label(for="") สตริง/MPPT ชุดที่ 2 (สตริง)
+                            label(for="") [ชุดที่ 2] สตริง/MPPT (สตริง)
                             input(id="st_in2", type="text", name="st_in2", class="form-control", value='')
                         .form-group.col-4
-                            label(for="") แผง/สตริง ชุดที่ 2 (แผง)
+                            label(for="") [ชุดที่ 2] แผง/สตริง (แผง)
                             input(id="Pv_st2", type="text", name="Pv_st2", class="form-control", value='')  
 
                         .form-group.col-4
-                            label(for="") MPPT ชุดที่ 3 (MPPT)
+                            label(for="") [ชุดที่ 3] จำนวน MPPT
                             input(id="in_inv3", type="text", name="in_inv3", class="form-control", value='')    
                         .form-group.col-4
-                            label(for="") สตริง/MPPT ชุดที่ 3 (สตริง)
+                            label(for="") [ชุดที่ 3] สตริง/MPPT (สตริง)
                             input(id="st_in3", type="text", name="st_in3", class="form-control", value='')
                         .form-group.col-4
-                            label(for="") แผง/สตริง ชุดที่ 3 (แผง)
+                            label(for="") [ชุดที่ 3] แผง/สตริง (แผง)
                             input(id="pv_onein", type="text", name="pv_onein", class="form-control", value='')
                         .form-group.col-6
                             label(for="") จำนวนสตริงทั้งหมด
@@ -401,6 +401,7 @@ block content
                     
                 
                 .col-12.col-sm-4.offset-sm-1
+                        
                         br
                         h2 เลือกขนาดสายไฟ
                         br
@@ -412,7 +413,7 @@ block content
                             .form-group.col-12    
                                 <h6>PV STRING</h6>
                                 <h6><span id='fuse0'></span></h6>
-                                <p style = "color:red;">แรงดันตกไม่ควรเกิน 1%, กำลังสูญเสียไม่ควรเกิน 3%</p>
+                                <p style = "color:red;">แรงดันตกไม่ควรเกิน 3%, กำลังสูญเสียไม่ควรเกิน 3%</p>
                         .row
                             .form-group.col-9
                                 label(for="") วิธีเดินสายจากแผงไปกล่องรวมสาย DC
@@ -584,7 +585,7 @@ block content
                         
                             .form-group.col-12          
                                 <h6>MDB&emsp;&emsp;<span id='cbmdbo'></span></h6> 
-                                <p style = "color:blue;">แรงดันตกไม่ควรเกิน 2%, กำลังสูญเสียไม่ควรเกิน 3%</p>  
+                                <p style = "color:blue;">แรงดันตกไม่ควรเกิน 3%, กำลังสูญเสียไม่ควรเกิน 3%</p>  
                         .row
                             .form-group.col-12
                                 label(for="") ชนิดสายไฟจาก AC Solar ไป MDB
@@ -680,7 +681,9 @@ block content
                             .form-group.col-6
                                 label(for="") (เดือน)
                                 input(type="text", id="month10",name='month10', class="form-control" value='')
-                            
+                        br
+                        p <b> By Kongphop  Charoenkit</b>
+                        p <b> Email : kongphop.cha@gmail.com</b>    
                                 
                         br         
                    
@@ -761,53 +764,19 @@ block content
                     meter.add(option2)
                 }
             }
-    script.
-        
-        function Strings(){
-
-          
-                document.getElementById("pv_stbest").innerHTML = commaSeparateNumber(Pv_stringgood)
-                document.getElementById("pv_stlow").innerHTML = commaSeparateNumber(Pv_stringmin)
-                document.getElementById("pv_stheight").innerHTML = commaSeparateNumber(Pv_string1)
-
-                document.getElementById("numpvs").innerHTML = commaSeparateNumber(No_Pvs)
-                document.getElementById("numinvs").innerHTML = Numberinv
-                document.getElementById("maxin").innerHTML = datain3.Number_of_independent_MPP_inputs
-                document.getElementById("maxst_in").innerHTML = String_array
-                
-                document.getElementById("cat").innerHTML = Max_strings
-                document.getElementById("cat1").innerHTML = Min_strings
-                document.getElementById("rat").innerHTML = Pv_string1
-                document.getElementById("rat1").innerHTML = Pv_stringmin
-                document.getElementById("dog").innerHTML = commaSeparateNumber(Max_strings*Pv_string1)
-                document.getElementById("dog1").innerHTML = commaSeparateNumber(Min_strings*(Pv_stringmin))
-                document.getElementById("stringnmax").innerHTML = commaSeparateNumber(stringnmax)
-                document.getElementById("pvstringnmax").innerHTML = Pv_stringgood
-                document.getElementById("good").innerHTML = commaSeparateNumber(pv_suggestmin1)+" - "+commaSeparateNumber(pv_suggestmax1) + " (แผง)"
-        }
     
    
     script.
         function reset1(){
-                            document.getElementById("demo").innerHTML = ""
-                            document.getElementById("demo1").innerHTML = ""
+                        document.getElementById("fuse0").innerHTML = ""  
+                        document.getElementById("cbdco").innerHTML = ""
+                        document.getElementById("cbaco").innerHTML = ""
+                        document.getElementById("cbmdbo").innerHTML = ""
 
-                            document.getElementById("numpvs").innerHTML = ""
-                            document.getElementById("maxin").innerHTML = ""
-                            document.getElementById("maxst_in").innerHTML = ""
-                            document.getElementById("numinvs").innerHTML = ""
-                            document.getElementById("cat").innerHTML = ""
-                            document.getElementById("cat1").innerHTML = ""
-                            document.getElementById("dog").innerHTML = ""
-                            document.getElementById("dog1").innerHTML = ""
-                            document.getElementById("rat").innerHTML = ""
-                            document.getElementById("rat1").innerHTML = ""
-                            document.getElementById("good").innerHTML = ""
+                        document.getElementById("demo").innerHTML = ""
+                        document.getElementById("demo1").innerHTML = ""
 
-                            document.getElementById("fuse0").innerHTML = ""
-                            document.getElementById("cbdco").innerHTML = ""
-                            document.getElementById("cbaco").innerHTML = ""
-                            document.getElementById("cbmdbo").innerHTML = ""
+                        document.getElementById("condition").innerHTML = ""
 
         }
 

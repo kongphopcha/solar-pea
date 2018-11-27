@@ -1073,7 +1073,12 @@ function process1(){
     $('#income10').val(commaSeparateNumber(Math.round(income)))
     $('#year10').val(years)
     $('#month10').val(monthss)
-
+console.log(Pmax1)
+console.log(invest1)
+console.log(energy)
+console.log(income)
+console.log(years)
+console.log(monthss)
 }
 
 
@@ -1537,8 +1542,8 @@ $(document).ready(function() {
     $('#pv1f_select').keyup(function(){
        
    
-    if(cbdcs <= 40 && cbdcs != 0){ground1 =4}
-    else if(cbdcs > 40 && cbdcs<= 70){ground1 =6}
+   
+    if(cbdcs <= 70 && cbdcs!= 0){ground1 =6}
     else if(cbdcs > 70 && cbdcs<= 100){ground1 =10}
     else if(cbdcs > 100 && cbdcs<= 200){ground1 =16}
     else if(cbdcs > 200 && cbdcs<= 400){ground1 =25}
@@ -2343,6 +2348,7 @@ $(document).ready(function() {
         $('#Ploss_mdb_select').val(Ploss_mdbs2.toFixed(2))
         $('#Per_plossmdb_select').val(Per_plossmdbs2.toFixed(2))
 })}) 
+
 
 
 
