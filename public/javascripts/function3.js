@@ -177,37 +177,51 @@ var Area
 var Pmaximum3
 var selectunit
 var Unit9
-
+var peak
 $(document).ready(function() {
     
     $('.form-control').keyup(function(){
         time = $('#timeunit').val();
-        unit_day = parseFloat($('#unit9').val())/31
-        peak = unit_day/(dataload.one+dataload.two+dataload.three+dataload.four+dataload.five+dataload.six+dataload.seven+dataload.eight+dataload.nine+dataload.ten+dataload.eleven+dataload.twelve+dataload.thirteen+dataload.fourteen+dataload.fifteen+dataload.sixteen+dataload.seventeen+dataload.eighteen+dataload.nineteen+dataload.twenty+dataload.twenty_one+dataload.twenty_two+dataload.twenty_three+dataload.twenty_four)
         
-        if(time == 'หน่วยการใช้ไฟ 9.00-16.00 น.'){Unit9 = parseFloat($('#unit9').val())}
+        
+        
+        if(time == 'หน่วยการใช้ไฟ 9.00-16.00 น.'){
+            Unit9 = parseFloat($('#unit9').val())
+            peak9 = Unit9/(dataload.nine+dataload.ten+dataload.eleven+dataload.twelve+dataload.thirteen+dataload.fourteen+dataload.fifteen+dataload.sixteen)
+            peak = peak9/(Math.max(dataload.nine,dataload.ten,dataload.eleven,dataload.twelve,dataload.thirteen,dataload.fourteen,dataload.fifteen,dataload.sixteen))
+            console.log(peak9)
+        }
         else if(time == 'หน่วยการใช้ไฟต่อเดือน'){
-            Unit9 = ((dataload.nine*peak)+(dataload.ten*peak)+(dataload.eleven*peak)+(dataload.twelve*peak)+(dataload.thirteen*peak)+(dataload.fourteen*peak)+(dataload.fifteen*peak)+(dataload.sixteen*peak))*7
+            unit_day = parseFloat($('#unit9').val())/31
+            peak = unit_day/(dataload.one+dataload.two+dataload.three+dataload.four+dataload.five+dataload.six+dataload.seven+dataload.eight+dataload.nine+dataload.ten+dataload.eleven+dataload.twelve+dataload.thirteen+dataload.fourteen+dataload.fifteen+dataload.sixteen+dataload.seventeen+dataload.eighteen+dataload.nineteen+dataload.twenty+dataload.twenty_one+dataload.twenty_two+dataload.twenty_three+dataload.twenty_four)
+            Unit9 = (dataload.nine*peak)+(dataload.ten*peak)+(dataload.eleven*peak)+(dataload.twelve*peak)+(dataload.thirteen*peak)+(dataload.fourteen*peak)+(dataload.fifteen*peak)+(dataload.sixteen*peak)
             
                 
             }
-           
+            
+           console.log(peak)
+           console.log(Unit9)
         
     })})
     $(document).ready(function() {
     
         $('.form-control').click(function(){
             time = $('#timeunit').val();
-            unit_day = parseFloat($('#unit9').val())/31
-            peak = unit_day/(dataload.one+dataload.two+dataload.three+dataload.four+dataload.five+dataload.six+dataload.seven+dataload.eight+dataload.nine+dataload.ten+dataload.eleven+dataload.twelve+dataload.thirteen+dataload.fourteen+dataload.fifteen+dataload.sixteen+dataload.seventeen+dataload.eighteen+dataload.nineteen+dataload.twenty+dataload.twenty_one+dataload.twenty_two+dataload.twenty_three+dataload.twenty_four)
             
-            if(time == 'หน่วยการใช้ไฟ 9.00-16.00 น.'){Unit9 = parseFloat($('#unit9').val())}
+           
+            
+            if(time == 'หน่วยการใช้ไฟ 9.00-16.00 น.'){
+                Unit9 = parseFloat($('#unit9').val())
+                peak9 = Unit9/(dataload.nine+dataload.ten+dataload.eleven+dataload.twelve+dataload.thirteen+dataload.fourteen+dataload.fifteen+dataload.sixteen)
+                peak = peak9/(Math.max(dataload.nine,dataload.ten,dataload.eleven,dataload.twelve,dataload.thirteen,dataload.fourteen,dataload.fifteen,dataload.sixteen))
+            }
             else if(time == 'หน่วยการใช้ไฟต่อเดือน'){
-                Unit9 = ((dataload.nine*peak)+(dataload.ten*peak)+(dataload.eleven*peak)+(dataload.twelve*peak)+(dataload.thirteen*peak)+(dataload.fourteen*peak)+(dataload.fifteen*peak)+(dataload.sixteen*peak))*7
+                unit_day = parseFloat($('#unit9').val())/31
+                peak = unit_day/(dataload.one+dataload.two+dataload.three+dataload.four+dataload.five+dataload.six+dataload.seven+dataload.eight+dataload.nine+dataload.ten+dataload.eleven+dataload.twelve+dataload.thirteen+dataload.fourteen+dataload.fifteen+dataload.sixteen+dataload.seventeen+dataload.eighteen+dataload.nineteen+dataload.twenty+dataload.twenty_one+dataload.twenty_two+dataload.twenty_three+dataload.twenty_four)
+                Unit9 = (dataload.nine*peak)+(dataload.ten*peak)+(dataload.eleven*peak)+(dataload.twelve*peak)+(dataload.thirteen*peak)+(dataload.fourteen*peak)+(dataload.fifteen*peak)+(dataload.sixteen*peak)
                 
                     
                 }
-               
             
         })})
         var Pmax_pv
@@ -1406,7 +1420,7 @@ function process1(){
     $('#Pmax_dc').val(commaSeparateNumber(Math.round(Pmax1)))
     $('#invest10').val(commaSeparateNumber(invest1))
     $('#energy10').val(commaSeparateNumber(Math.round(energy)))
-    $('#income10').val(commaSeparateNumber(Math.round(income)))
+    $('#income10').val(commaSeparateNumber(Math.round(incometotal*365)))
     $('#year10').val(years)
     $('#month10').val(monthss)
 
@@ -2613,219 +2627,84 @@ var cbdc2
                                                         })})                                           
                                                         var energy  
                                                         var eff  
+                                                        var peaksolar
                                                         $(document).ready(function() {
                                                             $('.form-control').keyup(function(){
                                                                 eff = (((100-Per_plosspv002)*datain3.Efficiency*(100-Per_plossacs2)*(100-Per_plossmdbs2))/100000000)*0.9
                                                                 energy = (eff*Pmax1*sun)/1000
-                                                                
+                                                                energy_van = energy/365
+                                                                peaksolar = energy_van/(0.025+0.168+0.545+0.788+0.928+1+0.944+0.796+0.34+0.067+0.032+0.001)
+                                                                div_evan=(dataload.one*peak)+(dataload.two*peak)+(dataload.three*peak)+(dataload.four*peak)+(dataload.five*peak)+(dataload.six*peak)+((dataload.seven*peak)-(0.025*peaksolar))+((dataload.eight*peak)-(0.168*peaksolar))+((dataload.nine*peak)-(0.545*peaksolar))+((dataload.ten*peak)-(0.788*peaksolar))+((dataload.eleven*peak)-(0.928*peaksolar))+((dataload.twelve*peak)-(1*peaksolar))+((dataload.thirteen*peak)-(0.944*peaksolar))+((dataload.fourteen*peak)-(0.796*peaksolar))+((dataload.fifteen*peak)-(0.34*peaksolar))+((dataload.sixteen*peak)-(0.067*peaksolar))+((dataload.seventeen*peak)-(0.032*peaksolar))+((dataload.eighteen*peak)-(0.001*peaksolar))+(dataload.nineteen*peak)+(dataload.twenty*peak)+(dataload.twenty_one*peak)+(dataload.twenty_two*peak)+(dataload.twenty_three*peak)+(dataload.twenty_four*peak)
+                                                                if((0.025*peaksolar)-(dataload.seven*peak) >= 0){income1 = ((dataload.seven*peak)*$('#bath1').val())+(((0.025*peaksolar)-(dataload.seven*peak))*$('#bath2').val())}
+                                                                else{income1=0.025*peaksolar*$('#bath1').val()}
+                                                                if((0.168*peaksolar)-(dataload.eight*peak) >= 0){income2 = ((dataload.eight*peak)*$('#bath1').val())+(((0.168*peaksolar)-(dataload.eight*peak))*$('#bath2').val())}
+                                                                else{income2=0.168*peaksolar*$('#bath1').val()}
+                                                                if((0.545*peaksolar)-(dataload.nine*peak) >= 0){income3 = ((dataload.nine*peak)*$('#bath1').val())+(((0.545*peaksolar)-(dataload.nine*peak))*$('#bath2').val())}
+                                                                else{income3=0.545*peaksolar*$('#bath1').val()}
+                                                                if((0.788*peaksolar)-(dataload.ten*peak) >= 0){income4 = ((dataload.ten*peak)*$('#bath1').val())+(((0.788*peaksolar)-(dataload.ten*peak))*$('#bath2').val())}
+                                                                else{income4=0.788*peaksolar*$('#bath1').val()}
+                                                                if((0.928*peaksolar)-(dataload.eleven*peak) >= 0){income5 = ((dataload.eleven*peak)*$('#bath1').val())+(((0.928*peaksolar)-(dataload.eleven*peak))*$('#bath2').val())}
+                                                                else{income5=0.928*peaksolar*$('#bath1').val()}
+                                                                if((peaksolar)-(dataload.twelve*peak) >= 0){income6 = ((dataload.twelve*peak)*$('#bath1').val())+(((peaksolar)-(dataload.twelve*peak))*$('#bath2').val())}
+                                                                else{income6=peaksolar*$('#bath1').val()}
+                                                                if((0.944*peaksolar)-(dataload.thirteen*peak) >= 0){income7 = ((dataload.thirteen*peak)*$('#bath1').val())+(((0.944*peaksolar)-(dataload.thirteen*peak))*$('#bath2').val())}
+                                                                else{income7=0.944*peaksolar*$('#bath1').val()}
+                                                                if((0.796*peaksolar)-(dataload.fourteen*peak) >= 0){income8 = ((dataload.fourteen*peak)*$('#bath1').val())+(((0.796*peaksolar)-(dataload.fourteen*peak))*$('#bath2').val())}
+                                                                else{income8=0.796*peaksolar*$('#bath1').val()}
+                                                                if((0.34*peaksolar)-(dataload.fifteen*peak) >= 0){income9 = ((dataload.fifteen*peak)*$('#bath1').val())+(((0.34*peaksolar)-(dataload.fifteen*peak))*$('#bath2').val())}
+                                                                else{income9=0.34*peaksolar*$('#bath1').val()}
+                                                                if((0.067*peaksolar)-(dataload.sixteen*peak) >= 0){income10 = ((dataload.sixteen*peak)*$('#bath1').val())+(((0.067*peaksolar)-(dataload.sixteen*peak))*$('#bath2').val())}
+                                                                else{income10=0.067*peaksolar*$('#bath1').val()}
+                                                                if((0.032*peaksolar)-(dataload.seventeen*peak) >= 0){income11 = ((dataload.seventeen*peak)*$('#bath1').val())+(((0.032*peaksolar)-(dataload.seventeen*peak))*$('#bath2').val())}
+                                                                else{income11=0.032*peaksolar*$('#bath1').val()}
+                                                                if((0.001*peaksolar)-(dataload.eighteen*peak) >= 0){income12 = ((dataload.eighteen*peak)*$('#bath1').val())+(((0.001*peaksolar)-(dataload.eighteen*peak))*$('#bath2').val())}
+                                                                else{income12=0.001*peaksolar*$('#bath1').val()}
+                                                                incometotal = income1+income2+income3+income4+income5+income6+income7+income8+income9+income10+income11+income12
+                                                               
                                                             })})  
-                                                        $(document).ready(function() {
-                                                            $('.form-control').click(function(){
-                                                               eff = (((100-Per_plosspv002)*datain3.Efficiency*(100-Per_plossacs2)*(100-Per_plossmdbs2))/100000000)*0.9
-                                                                energy = (eff*Pmax1*sun)/1000
-                                                                
-                                                            })})    
-                                                        var income
-                                                        
-                                                        $(document).ready(function() {
-                                                            $('.form-control').keyup(function(){
-                                                                // ประหยัดสูงสุด เพราะไม่รู้พฤติกรรม
-                                                                     
-                                                                eff = (((100-Per_plosspv1fs1)*datain3.Efficiency*(100-Per_plossacs2))/1000000)*0.9
-                                                                energy = (eff*Pmax1*sun)/1000
-                                                        
-                                                                income1 = 0.94*energy*$('#bath1').val()
-                                                                income2 = 0.06*energy*$('#bath2').val()
-                                                                income3 = energy*$('#bath1').val()
-                                                                income4 = energy*$('#bath2').val()
-                                                                income5 = Unit9*365*$('#bath1').val()
-                                                                income6 = (energy-(Unit9*365))*$('#bath2').val()
-                                                                     
-                                                                
-                                                                   // var income1 = $('#unit9').val()*$('#bath1').val()*365
-                                                                    //var income2 = ($('#energy').val()-$('#unit9').val()*365)*$('#bath2').val()
-                                                                   // income = income1 + income2
-                                                                   // $('#income').val(income)
-                                                                    
-                                                                   // console.log(income1)
-                                                                  //  console.log(income2)
-                                                                  //  console.log(income)
-                                                            
-                                                                if(selectunit ==1){
-                                                                    income = income1+income2
-                                                                    }
-                                                                else if(selectunit ==2){
-                                                                    Penergymax = Effal*eff*Pmax1
-                                                                    Punit9max = (Unit9/7)*1000
-                                                                    if(Punit9max <= 0.05*Penergymax){
-                                                                        income =(0.09*income3)+(0.91*income4)
-                                                                        }
-                                                                    else if(Punit9max > 0.05*Penergymax && Punit9max <= 0.1*Penergymax){
-                                                                        income = 0.163*income3+0.837*income4
-                                                                       } 
-                                                                    else if(Punit9max > 0.1*Penergymax && Punit9max <= 0.15*Penergymax){
-                                                                        income = 0.23*income3+0.77*income4
-                                                                       }
-                                                                    else if(Punit9max > 0.15*Penergymax && Punit9max <= 0.2*Penergymax){
-                                                                        income = 0.294*income3+0.705*income4
-                                                                       }
-                                                                    else if(Punit9max > 0.2*Penergymax && Punit9max <= 0.25*Penergymax){
-                                                                        income = 0.357*income3+0.643*income4
-                                                                       }
-                                                                    else if(Punit9max > 0.25*Penergymax && Punit9max <= 0.3*Penergymax){
-                                                                        income = 0.42*income3+0.58*income4
-                                                                       }
-                                                                    else if(Punit9max > 0.3*Penergymax && Punit9max <= 0.35*Penergymax){
-                                                                        income = 0.48*income3+0.52*income4
-                                                                       }
-                                                                    else if(Punit9max > 0.35*Penergymax && Punit9max <= 0.4*Penergymax){
-                                                                        income = 0.53*income3+0.469*income4
-                                                                       }
-                                                                    else if(Punit9max > 0.4*Penergymax && Punit9max <= 0.45*Penergymax){
-                                                                        income = 0.59*income3+0.41*income4
-                                                                       }
-                                                                    else if(Punit9max > 0.45*Penergymax && Punit9max <= 0.5*Penergymax){
-                                                                        income = 0.642*income3+0.357*income4
-                                                                       }
-                                                                    else if(Punit9max > 0.5*Penergymax && Punit9max <= 0.55*Penergymax){
-                                                                        income = 0.693*income3+0.307*income4
-                                                                       } 
-                                                                    else if(Punit9max > 0.55*Penergymax && Punit9max <= 0.6*Penergymax){
-                                                                        income = 0.743*income3+0.257*income4
-                                                                       }
-                                                                    else if(Punit9max > 0.6*Penergymax && Punit9max <= 0.65*Penergymax){
-                                                                        income = 0.786*income3+0.213*income4
-                                                                       }
-                                                                    else if(Punit9max > 065*Penergymax && Punit9max <= 0.7*Penergymax){
-                                                                        income = 0.83*income3+0.169*income4
-                                                                       }
-                                                                    else if(Punit9max > 0.75*Penergymax && Punit9max <= 0.8*Penergymax){
-                                                                        income = 0.869*income3+0.131*income4
-                                                                       }
-                                                                    else if(Punit9max > 0.8*Penergymax && Punit9max <= 0.85*Penergymax){
-                                                                        income = 0.907*income3+0.093*income4
-                                                                       }
-                                                                    else if(Punit9max > 0.85*Penergymax && Punit9max <= 0.9*Penergymax){
-                                                                        income = 0.940*income3+0.06*income4
-                                                                       }
-                                                                    else if(Punit9max > 0.9*Penergymax && Punit9max <= 0.95*Penergymax){
-                                                                        income = 0.969*income3+0.03*income4
-                                                                       }
-                                                                    else if(Punit9max > 0.95*Penergymax && Punit9max <= 1*Penergymax){
-                                                                        income = 0.989*income3+0.01*income4
-                                                                       }
-                                                                    else if(Punit9max > 1*Penergymax){
-                                                                        income = income3
-                                                                       }
-                                                                    
-                                                                       
-                                                        
-                                                                    
-                                                                }
-                                                                
-                                                            })})
                                                             $(document).ready(function() {
                                                                 $('.form-control').click(function(){
-                                                                    // ประหยัดสูงสุด เพราะไม่รู้พฤติกรรม
-                                                                         
-                                                                    
-                                                                    income1 = 0.94*energy*$('#bath1').val()
-                                                                    income2 = 0.06*energy*$('#bath2').val()
-                                                                    income3 = energy*$('#bath1').val()
-                                                                    income4 = energy*$('#bath2').val()
-                                                                    income5 = Unit9*365*$('#bath1').val()
-                                                                    income6 = (energy-(Unit9*365))*$('#bath2').val()
-                                                                         
-                                                                
-                                                                       // var income1 = $('#unit9').val()*$('#bath1').val()*365
-                                                                        //var income2 = ($('#energy').val()-$('#unit9').val()*365)*$('#bath2').val()
-                                                                       // income = income1 + income2
-                                                                       // $('#income').val(income)
-                                                                        
-                                                                       // console.log(income1)
-                                                                      //  console.log(income2)
-                                                                      //  console.log(income)
-                                                                
-                                                                    if(selectunit ==1){
-                                                                        income = income1+income2
-                                                                        }
-                                                                    else if(selectunit ==2){
-                                                                        Penergymax = Effal*eff*Pmax1
-                                                                        Punit9max = (Unit9/7)*1000
-                                                                        if(Punit9max <= 0.05*Penergymax){
-                                                                            income =(0.09*income3)+(0.91*income4)
-                                                                            }
-                                                                        else if(Punit9max > 0.05*Penergymax && Punit9max <= 0.1*Penergymax){
-                                                                            income = 0.163*income3+0.837*income4
-                                                                           } 
-                                                                        else if(Punit9max > 0.1*Penergymax && Punit9max <= 0.15*Penergymax){
-                                                                            income = 0.23*income3+0.77*income4
-                                                                           }
-                                                                        else if(Punit9max > 0.15*Penergymax && Punit9max <= 0.2*Penergymax){
-                                                                            income = 0.294*income3+0.705*income4
-                                                                           }
-                                                                        else if(Punit9max > 0.2*Penergymax && Punit9max <= 0.25*Penergymax){
-                                                                            income = 0.357*income3+0.643*income4
-                                                                           }
-                                                                        else if(Punit9max > 0.25*Penergymax && Punit9max <= 0.3*Penergymax){
-                                                                            income = 0.42*income3+0.58*income4
-                                                                           }
-                                                                        else if(Punit9max > 0.3*Penergymax && Punit9max <= 0.35*Penergymax){
-                                                                            income = 0.48*income3+0.52*income4
-                                                                           }
-                                                                        else if(Punit9max > 0.35*Penergymax && Punit9max <= 0.4*Penergymax){
-                                                                            income = 0.53*income3+0.469*income4
-                                                                           }
-                                                                        else if(Punit9max > 0.4*Penergymax && Punit9max <= 0.45*Penergymax){
-                                                                            income = 0.59*income3+0.41*income4
-                                                                           }
-                                                                        else if(Punit9max > 0.45*Penergymax && Punit9max <= 0.5*Penergymax){
-                                                                            income = 0.642*income3+0.357*income4
-                                                                           }
-                                                                        else if(Punit9max > 0.5*Penergymax && Punit9max <= 0.55*Penergymax){
-                                                                            income = 0.693*income3+0.307*income4
-                                                                           } 
-                                                                        else if(Punit9max > 0.55*Penergymax && Punit9max <= 0.6*Penergymax){
-                                                                            income = 0.743*income3+0.257*income4
-                                                                           }
-                                                                        else if(Punit9max > 0.6*Penergymax && Punit9max <= 0.65*Penergymax){
-                                                                            income = 0.786*income3+0.213*income4
-                                                                           }
-                                                                        else if(Punit9max > 065*Penergymax && Punit9max <= 0.7*Penergymax){
-                                                                            income = 0.83*income3+0.169*income4
-                                                                           }
-                                                                        else if(Punit9max > 0.75*Penergymax && Punit9max <= 0.8*Penergymax){
-                                                                            income = 0.869*income3+0.131*income4
-                                                                           }
-                                                                        else if(Punit9max > 0.8*Penergymax && Punit9max <= 0.85*Penergymax){
-                                                                            income = 0.907*income3+0.093*income4
-                                                                           }
-                                                                        else if(Punit9max > 0.85*Penergymax && Punit9max <= 0.9*Penergymax){
-                                                                            income = 0.940*income3+0.06*income4
-                                                                           }
-                                                                        else if(Punit9max > 0.9*Penergymax && Punit9max <= 0.95*Penergymax){
-                                                                            income = 0.969*income3+0.03*income4
-                                                                           }
-                                                                        else if(Punit9max > 0.95*Penergymax && Punit9max <= 1*Penergymax){
-                                                                            income = 0.989*income3+0.01*income4
-                                                                           }
-                                                                        else if(Punit9max > 1*Penergymax){
-                                                                            income = income3
-                                                                           }
-                                                                        
-                                                                           
-                                                            
-                                                                        
-                                                                    }
-                                                                })})
+                                                                    eff = (((100-Per_plosspv002)*datain3.Efficiency*(100-Per_plossacs2)*(100-Per_plossmdbs2))/100000000)*0.9
+                                                                    energy = (eff*Pmax1*sun)/1000
+                                                                    energy_van = energy/365
+                                                                    peaksolar = energy_van/(0.025+0.168+0.545+0.788+0.928+1+0.944+0.796+0.34+0.067+0.032+0.001)
+                                                                    div_evan=(dataload.one*peak)+(dataload.two*peak)+(dataload.three*peak)+(dataload.four*peak)+(dataload.five*peak)+(dataload.six*peak)+((dataload.seven*peak)-(0.025*peaksolar))+((dataload.eight*peak)-(0.168*peaksolar))+((dataload.nine*peak)-(0.545*peaksolar))+((dataload.ten*peak)-(0.788*peaksolar))+((dataload.eleven*peak)-(0.928*peaksolar))+((dataload.twelve*peak)-(1*peaksolar))+((dataload.thirteen*peak)-(0.944*peaksolar))+((dataload.fourteen*peak)-(0.796*peaksolar))+((dataload.fifteen*peak)-(0.34*peaksolar))+((dataload.sixteen*peak)-(0.067*peaksolar))+((dataload.seventeen*peak)-(0.032*peaksolar))+((dataload.eighteen*peak)-(0.001*peaksolar))+(dataload.nineteen*peak)+(dataload.twenty*peak)+(dataload.twenty_one*peak)+(dataload.twenty_two*peak)+(dataload.twenty_three*peak)+(dataload.twenty_four*peak)
+                                                                    if((0.025*peaksolar)-(dataload.seven*peak) >= 0){income1 = ((dataload.seven*peak)*$('#bath1').val())+(((0.025*peaksolar)-(dataload.seven*peak))*$('#bath2').val())}
+                                                                    else{income1=0.025*peaksolar*$('#bath1').val()}
+                                                                    if((0.168*peaksolar)-(dataload.eight*peak) >= 0){income2 = ((dataload.eight*peak)*$('#bath1').val())+(((0.168*peaksolar)-(dataload.eight*peak))*$('#bath2').val())}
+                                                                    else{income2=0.168*peaksolar*$('#bath1').val()}
+                                                                    if((0.545*peaksolar)-(dataload.nine*peak) >= 0){income3 = ((dataload.nine*peak)*$('#bath1').val())+(((0.545*peaksolar)-(dataload.nine*peak))*$('#bath2').val())}
+                                                                    else{income3=0.545*peaksolar*$('#bath1').val()}
+                                                                    if((0.788*peaksolar)-(dataload.ten*peak) >= 0){income4 = ((dataload.ten*peak)*$('#bath1').val())+(((0.788*peaksolar)-(dataload.ten*peak))*$('#bath2').val())}
+                                                                    else{income4=0.788*peaksolar*$('#bath1').val()}
+                                                                    if((0.928*peaksolar)-(dataload.eleven*peak) >= 0){income5 = ((dataload.eleven*peak)*$('#bath1').val())+(((0.928*peaksolar)-(dataload.eleven*peak))*$('#bath2').val())}
+                                                                    else{income5=0.928*peaksolar*$('#bath1').val()}
+                                                                    if((peaksolar)-(dataload.twelve*peak) >= 0){income6 = ((dataload.twelve*peak)*$('#bath1').val())+(((peaksolar)-(dataload.twelve*peak))*$('#bath2').val())}
+                                                                    else{income6=peaksolar*$('#bath1').val()}
+                                                                    if((0.944*peaksolar)-(dataload.thirteen*peak) >= 0){income7 = ((dataload.thirteen*peak)*$('#bath1').val())+(((0.944*peaksolar)-(dataload.thirteen*peak))*$('#bath2').val())}
+                                                                    else{income7=0.944*peaksolar*$('#bath1').val()}
+                                                                    if((0.796*peaksolar)-(dataload.fourteen*peak) >= 0){income8 = ((dataload.fourteen*peak)*$('#bath1').val())+(((0.796*peaksolar)-(dataload.fourteen*peak))*$('#bath2').val())}
+                                                                    else{income8=0.796*peaksolar*$('#bath1').val()}
+                                                                    if((0.34*peaksolar)-(dataload.fifteen*peak) >= 0){income9 = ((dataload.fifteen*peak)*$('#bath1').val())+(((0.34*peaksolar)-(dataload.fifteen*peak))*$('#bath2').val())}
+                                                                    else{income9=0.34*peaksolar*$('#bath1').val()}
+                                                                    if((0.067*peaksolar)-(dataload.sixteen*peak) >= 0){income10 = ((dataload.sixteen*peak)*$('#bath1').val())+(((0.067*peaksolar)-(dataload.sixteen*peak))*$('#bath2').val())}
+                                                                    else{income10=0.067*peaksolar*$('#bath1').val()}
+                                                                    if((0.032*peaksolar)-(dataload.seventeen*peak) >= 0){income11 = ((dataload.seventeen*peak)*$('#bath1').val())+(((0.032*peaksolar)-(dataload.seventeen*peak))*$('#bath2').val())}
+                                                                    else{income11=0.032*peaksolar*$('#bath1').val()}
+                                                                    if((0.001*peaksolar)-(dataload.eighteen*peak) >= 0){income12 = ((dataload.eighteen*peak)*$('#bath1').val())+(((0.001*peaksolar)-(dataload.eighteen*peak))*$('#bath2').val())}
+                                                                    else{income12=0.001*peaksolar*$('#bath1').val()}
+                                                                    incometotal = income1+income2+income3+income4+income5+income6+income7+income8+income9+income10+income11+income12
+                                                                   
+                                                                })})  
+                                                      
                                                         var years
                                                         var monthss
                                                         $(document).ready(function() {
                                                            
                                                             $('.form-control').keyup(function(){
-                                                                if(selectunit ==1){
-                                                                    year = Math.floor(invest1/(income1+income2))
-                                                                    month = invest1/(income1+income2)-Math.floor(invest1/(income1+income2))
+                                                                
+                                                                    year = Math.floor(invest1/(incometotal*365))
+                                                                    month = invest1/(incometotal*365)-Math.floor(invest1/(incometotal*365))
                                                                     months = Math.round(12*month)
                                                                     if(months<12){
                                                                         years = year
@@ -2836,42 +2715,16 @@ var cbdc2
                                                                         monthss = 0                
                                                                     }
                                                                     
-                                                                    }
-                                                                else if(selectunit ==2){
-                                                                    if(energy<=Unit9*365){
-                                                                        year = Math.floor(invest1/(income3+income4))
-                                                                        month = invest1/(income3+income4)-Math.floor(invest1/(income3+income4))
-                                                                        months = Math.round(12*month)
-                                                                        if(months<12){
-                                                                            years = year
-                                                                            monthss = months             
-                                                                        }
-                                                                        else if(months>=12){
-                                                                            years = year+1
-                                                                            monthss = 0  
-                                                                        }
-                                                                    }
-                                                                    else if(energy>Unit9*365){
-                                                                        year = Math.floor(invest1/(income5+income6))
-                                                                        month = invest1/(income5+income6)-Math.floor(invest1/(income5+income6))
-                                                                        months = Math.round(12*month)
-                                                                        if(months<12){
-                                                                            years = year
-                                                                            monthss = months               
-                                                                        }
-                                                                        else if(months>=12){
-                                                                            years = year+1
-                                                                            monthss = 0
-                                                                        }
-                                                                    }}
+                                                                    
+                                                               
                                                                 
                                                             })})
                                                             $(document).ready(function() {
                                                            
                                                                 $('.form-control').click(function(){
-                                                                    if(selectunit ==1){
-                                                                        year = Math.floor(invest1/(income1+income2))
-                                                                        month = invest1/(income1+income2)-Math.floor(invest1/(income1+income2))
+                                                                    
+                                                                        year = Math.floor(invest1/(incometotal*365))
+                                                                        month = invest1/(incometotal*365)-Math.floor(invest1/(incometotal*365))
                                                                         months = Math.round(12*month)
                                                                         if(months<12){
                                                                             years = year
@@ -2882,35 +2735,11 @@ var cbdc2
                                                                             monthss = 0                
                                                                         }
                                                                         
-                                                                        }
-                                                                    else if(selectunit ==2){
-                                                                        if(energy<=Unit9*365){
-                                                                            year = Math.floor(invest1/(income3+income4))
-                                                                            month = invest1/(income3+income4)-Math.floor(invest1/(income3+income4))
-                                                                            months = Math.round(12*month)
-                                                                            if(months<12){
-                                                                                years = year
-                                                                                monthss = months             
-                                                                            }
-                                                                            else if(months>=12){
-                                                                                years = year+1
-                                                                                monthss = 0  
-                                                                            }
-                                                                        }
-                                                                        else if(energy>Unit9*365){
-                                                                            year = Math.floor(invest1/(income5+income6))
-                                                                            month = invest1/(income5+income6)-Math.floor(invest1/(income5+income6))
-                                                                            months = Math.round(12*month)
-                                                                            if(months<12){
-                                                                                years = year
-                                                                                monthss = months               
-                                                                            }
-                                                                            else if(months>=12){
-                                                                                years = year+1
-                                                                                monthss = 0
-                                                                            }
-                                                                        }}
-                                                                })})                                               
+                                                                        
+                                                                   
+                                                                    
+                                                                })})
+                                                                                 
                                                         
                                                        
                                
