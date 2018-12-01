@@ -1,7 +1,8 @@
-extends layout3
+extends layout
 
 
 block content
+    
     <!-- NAVIGATOR -->
     nav.navbar.navbar-expand-lg.navbar-light.bg-light
         .container
@@ -18,7 +19,7 @@ block content
                     a(href="/inverters").nav-item.nav-link.text-uppercase INVERTERS
                     a(href="/inverters3").nav-item.nav-link.text-uppercase INVERTERS 3 Phase
                     a(href="/loads").nav-item.nav-link.text-uppercase LOAD PROFILE
-
+   
     .container
 
     .container
@@ -27,7 +28,7 @@ block content
             .col-12.col-sm-6
 
                 br
-                h2 ข้อมูลการติดตั้ง
+                h1 ข้อมูลการติดตั้ง
                 br
                 form(action='/prints3', method="post")
                     .row
@@ -35,9 +36,9 @@ block content
                             label(for="") ชื่อโครงการ 
                             select(id="nameproject9", class="form-control" name='nameproject9' onclick="process9()")
                                 option(value='' selected)
-                                each info in infos3
-                                    option(value=info ) #{info.project}             
-                        
+                                each info3 in infos3
+                                    option(value=info3 ) #{info3.project}             
+                        .form-group.col-12
                             br
                             <h6>รายละเอียดอื่นๆ : <span id='Description9'></span></h5>
                             <h6>อาคารประเภท : <span id='type9'></span></h5>
@@ -45,7 +46,7 @@ block content
                             <h6><span id='timeunit9'></span></h5>   
                             <h6>ซื้อไฟ/หน่วย : <span id='bath19'></span></h5>
                             <h6>ขายไฟ/หน่วย : <span id='bath29'></span></h5> 
-                            <h>อุณหภูมิต่ำสุด : <span id='Tem_min9'></span></h5>
+                            <h6>อุณหภูมิต่ำสุด : <span id='Tem_min9'></span></h5>
                             <h6>อุณหภูมิสูงสุด : <span id='Tem_max9'></span></h5>
                             <h6>อุณหภูมิบริเวณอินเวอร์เตอร์สูงสุด : <span id='Tem_max99'></span></h5>
                             <h6>จังหวัด : <span id='Province9'></span></h5>
@@ -70,9 +71,11 @@ block content
                             <h6>จำนวนสตริงต่อ MPPT สูงสุด : <span id='string_inmax9'></span></h5>
                             <h6>จำนวนแผงต่อสตริง : <span id='pv_st9'></span></h5>
                             <h6>*สตริงที่ต่อเข้า MPPT เดียวกันแต่ละสตริงต้องมีจำนวนแผงเท่ากัน</h6>
+                            
+                            
                         .form-group.col-12
                             hr
-                            <h3>ประมาณการลงทุน</h3>
+                            h1 ประมาณการลงทุน
                             <h6>กำลังสูงสุดของด้านดีซี : <span id='pmaxdc9'></span></h5>
                             <h6>ประมาณการลงทุน : <span id='invest9'></span></h5>
                             <h6>ปริมาณไฟฟ้าที่ผลิตได้ : <span id='energy99'></span></h5>
@@ -82,16 +85,17 @@ block content
             .col-12.col-sm-5.offset-sm-1
                         .form-group.col-12
                             br
+                            h2 รายละเอียดการเดินสายไฟ
                             <h4>PV STRING</h4>
                             <h6>วิธีเดินสายจากแผงไปกล่องรวมสาย DC : </h5>
                             <h6><span id='metstring'></span></h5>
                             <h6>ระยะ : <span id='longstring'></span></h5>
                             <h6>FUSE : <span id='fuse9'></span></h5>
                             <h6>PV1-F : <span id='wirestring'></span></h5>
-                            <h6>Vdrop/Input : <span id='vdropstring9'></span></h5>
-                            <h6>% Vdrop : <span id='pervdropstring9'></span></h5>
-                            <h6>Ploss/String : <span id='plossstring9'></span></h5>
-                            <h6>% Ploss : <span id='perplossstring9'></span></h5>
+                            <h6>แรงดันตกในสายไฟ : <span id='vdropstring9'></span></h5>
+                            <h6>เปอร์เซ็นต์แรงดันตก : <span id='pervdropstring9'></span></h5>
+                            <h6>กำลังสูญเสีย/อินเวอร์เตอร์ : <span id='plossstring9'></span></h5>
+                            <h6>เปอร์เซ็นต์กำลังสูญเสีย : <span id='perplossstring9'></span></h5>
                             hr
                             <h4>PV ARRAY</h4>
                             <h6>CB DC : <span id='cbdcarray'></span></h5>
@@ -102,15 +106,15 @@ block content
                             <h4>INVERTER</h4>
                             <h6>ชนิดสายไฟ Inverter ไป AC Solar หรือ MDB : </h5>
                             <h6><span id='typewireinverter'></span></h5>
-                            <h6>วิธีเดินสาย : <span id='metinverter'></span></h5>
+                            <h>วิธีเดินสาย : <span id='metinverter'></span></h5>
                             <h6>ระยะ : <span id='longinverter'></span></h5>
                             <h6>CB Inverter : <span id='cbinverter'></span></h5>
                             <h6>ขนาดสายไฟ : <span id='wireinverter'></span></h5>
                             <h6>สายดินที่อินเวอร์เตอร์ : <span id='groundinverter'></span></h5>
-                            <h6>Vdrop/Inv. : <span id='vdroparray9'></span></h5>
-                            <h6>% Vdrop : <span id='pervdroparray9'></span></h5>
-                            <h6>Ploss/Inv. : <span id='plossarray9'></span></h5>
-                            <h6>% Ploss : <span id='perplossarray9'></span></h5>
+                            <h6>แรงดันตกในสายไฟ : <span id='vdroparray9'></span></h5>
+                            <h6>เปอร์เซ็นต์แรงดันตก : <span id='pervdroparray9'></span></h5>
+                            <h6>กำลังสูญเสีย : <span id='plossarray9'></span></h5>
+                            <h6>เปอร์เซ็นต์กำลังสูญเสีย : <span id='perplossarray9'></span></h5>
                             hr
                             <h4>MDB</h4>
                             <h6>ชนิดสายไฟจาก AC Solar ไป MDB : </h5>
@@ -120,18 +124,21 @@ block content
                             <h6>CB MDB : <span id='cbmdb'></span></h5>
                             <h6>ขนาดสายไฟ : <span id='wiremdb'></span></h5>
                             <h6>สายดิน : <span id='groundmdb'></span></h5>
-                            <h6>Vdrop/Inv. : <span id='vdropmdb9'></span></h5>
-                            <h6>% Vdrop : <span id='pervdropmdb9'></span></h5>
-                            <h6>Ploss/Inv. : <span id='plossmdb9'></span></h5>
-                            <h6>% Ploss : <span id='perplossmdb9'></span></h5>
-
-
-
+                            <h6>แรงดันตกในสายไฟ : <span id='vdropmdb9'></span></h5>
+                            <h6>เปอร์เซ็นต์แรงดันตก : <span id='pervdropmdb9'></span></h5>
+                            <h6>กำลังสูญเสีย : <span id='plossmdb9'></span></h5>
+                            <h6>เปอร์เซ็นต์กำลังสูญเสีย : <span id='perplossmdb9'></span></h5>
+                            br
+                            br
+                            p <b> Program By Kongphop  Charoenkit</b>
+                            p <b> Email : kongphop.cha@gmail.com</b>        
+        br                     
+        br              
         br
         br
-        br                      
+        br
         .row
-                                
+                               
             .col-12.col-sm-6            
                                 
                 
@@ -143,9 +150,11 @@ block content
                 <a href="javascript:window.print()"  class='btn btn-secondary' >PRINT</a>
                 </div>
                 br
+        
+        
         br
         br
-        br
+        
         .row
             
             <div class="gallery2">
@@ -159,7 +168,7 @@ block content
                     <p><span id='imgground2'></span></p>
 
                     
-                    
+                   
 
                     <p><span id='image5'></span></p>
                     <p><span id='image6'></span></p>
@@ -177,8 +186,13 @@ block content
                     <p><span id='image16'></span></p>
                     <p><strong id='sample'>แผนภาพอย่างง่าย</strong></p>
                     
-                    
                 </div>
                 
             </div>
+        .row
+            <p><b> Program By Kongphop  Charoenkit, Email : kongphop.cha@gmail.com</b></p>
         br
+
+
+                                
+    
