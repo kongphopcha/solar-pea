@@ -1400,7 +1400,7 @@ function process9(){
     $('#imgground1').html('สายดินที่โครงโลหะ : '+datainfo3.groundpv1+ ' (sq.mm.) ')
     $('#image5').html('PV1-F : '+datainfo3.pv1f_string+ ' (sq.mm.), '+datainfo3.distance_dc+ ' (m) ')
     $('#image6').html(datainfo3.how_wdc)
-    $('#image7').html('FUSE: '+datainfo3.fuse+ ' (A)'+', CB: '+datainfo3.cbac+ ' (AT) ')
+    $('#image7').html('FUSE: '+datainfo3.fuse+ ' (A)'+', CB: '+datainfo3.cbdc+ ' (AT) ')
     $('#image8').html('PV1-F : '+datainfo3.pv1f_array+ ' (sq.mm.)')
     $('#image9').html('จำนวน : '+datainfo3.num_inv+ ' (เครื่อง) ')
     $('#image10').html('MPPTs : '+datainfo3inv.Number_of_independent_MPP_inputs)

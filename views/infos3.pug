@@ -192,9 +192,9 @@ block content
                                 input(id="PSH", name='psh', type="text", class="form-control" )
                     .row
                         .form-group.col-6
-                            label(for="") มุมอะซิมุท (°)
+                            label(for="") มุมที่แผงหันหน้าไปในแนวราบ (°)
                                     
-                            input(id='Azimuth', type="text", name="azimuth", class="form-control", placeholder="* 180°", value='' )
+                            input(id='Azimuth', type="text", name="azimuth", class="form-control", placeholder="* N=0°, E=90°, S=180°, W=270° ", value='')
                                         
                         .form-group.col-6
                                 label(for="") มุมเงย (°)
@@ -505,7 +505,7 @@ block content
                                     option(value='ไม่มี' ) ไม่มี
                         .row
                             .form-group.col-12
-                                label(for="") สายดินที่โครงโลหะ
+                                label(for="") สายดินที่โครงโลหะ (sq.mm.)
                                 input(type="text", id="groundpv1",name='groundpv1', class="form-control" value='') 
                             
                         hr

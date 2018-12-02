@@ -19,7 +19,7 @@ var infoSchema = mongoose.Schema({
     altitute: {type: String, trim:true},
     hdts: {type: String, trim:true},
     PV_module: {type: String, trim:true},
-    No_Pvs : {type: Number},
+    No_Pvs : {type: String, trim:true},
     meter: {type: String, trim:true}, 
     area: {type: String, trim:true},
     inv : {type: String, trim:true},
