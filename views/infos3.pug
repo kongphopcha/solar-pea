@@ -478,7 +478,7 @@ block content
                         
                             .form-group.col-12    
                                 <h6>PV ARRAY&emsp;&emsp;<span id='cbdco'></span></h6>
-                                <p style = "color:red;">ถ้า CB ขนาดใหญ่ ให้ลดการต่อขนานสตริงใน DC BOX</p>
+                                <p style = "color:red;">ถ้า CB ใหญ่ไป ให้ลดการต่อขนานสตริงใน DC BOX</p>
                         .row
                             .form-group.col-6
                                 label(for="") เซอร์กิตเบรกเกอร์ (DC)
@@ -497,13 +497,17 @@ block content
                                     option(value=10 ) 10
                                     option(value=16 ) 16
                                     option(value=25 ) 25
-                        .row
                             .form-group.col-6
+                                label(for="") ระบบป้องกันฟ้าผ่า
+                                select(id='fah',name='fah', class="form-control" )
+                                    option(value='' selected) *
+                                    option(value='มี' ) มี
+                                    option(value='ไม่มี' ) ไม่มี
+                        .row
+                            .form-group.col-12
                                 label(for="") สายดินที่โครงโลหะ
                                 input(type="text", id="groundpv1",name='groundpv1', class="form-control" value='') 
-                            .form-group.col-6
-                                label(for="") สายต่อหลักดิน
-                                input(type="text", id="groundpv2",name='groundpv2', class="form-control" value='') 
+                            
                         hr
                         .row
                         

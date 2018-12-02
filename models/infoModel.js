@@ -52,8 +52,9 @@ var infoSchema = mongoose.Schema({
     perplosspv : {type: Number},
     cbdc : {type: Number},
     pv1f_array : {type: Number},
+    fah : {type: String, trim:true},  
     groundpv1 : {type: Number},
-    groundpv2 : {type: Number},
+    
     type_wac : {type: String, trim:true}, 
     how_wac : {type: String, trim:true},
     distance_ac : {type: Number},

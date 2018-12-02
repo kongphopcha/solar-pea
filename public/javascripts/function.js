@@ -1020,7 +1020,7 @@ function process9(){
     $('#cbdcarray').html(datainfo.cbdc+ ' (AT) ')
     $('#wirearray').html(datainfo.pv1f_array+ ' (sq.mm.) ')
     $('#groundarray1').html(datainfo.groundpv1+ ' (sq.mm.) ')
-    $('#groundarray2').html(datainfo.groundpv2+ ' (sq.mm.) ')
+    $('#fah2').html(datainfo.fah)
     $('#typewireinverter').html(datainfo.type_wac)
     $('#metinverter').html(datainfo.how_wac)
     $('#longinverter').html(datainfo.distance_ac+ ' (m) ')
@@ -1050,7 +1050,6 @@ function process9(){
     
 
     $('#imgground1').html('สายดินที่โครงโลหะ : '+datainfo.groundpv1+ ' (sq.mm.) ')
-    $('#imgground2').html('สายต่อหลักดิน : '+datainfo.groundpv2+ ' (sq.mm.) ')
     $('#image5').html('PV1-F : '+datainfo.pv1f_string+ ' (sq.mm.), '+datainfo.distance_dc+ ' (m) ')
     $('#image6').html(datainfo.how_wdc)
     $('#image7').html('FUSE: '+datainfo.fuse+ ' (A)'+', CB: '+datainfo.cbac+ ' (AT) ')
@@ -1536,44 +1535,41 @@ $(document).ready(function() {
         })})
 
 $(document).ready(function() {
-    $('#pv1f_select').keyup(function(){
-       
-   
-   
-    if(cbdcs <= 70 && cbdcs!= 0){ground1 =6}
-    else if(cbdcs > 70 && cbdcs<= 100){ground1 =10}
-    else if(cbdcs > 100 && cbdcs<= 200){ground1 =16}
-    else if(cbdcs > 200 && cbdcs<= 400){ground1 =25}
-    else if(cbdcs > 400 && cbdcs<= 500){ground1 =35}
-    else if(cbdcs > 500 && cbdcs<= 800){ground1 =50}
-    else if(cbdcs > 800 && cbdcs<= 1000){ground1 =70}
-    else if(cbdcs > 1000 && cbdcs<= 1250){ground1 =95}
-    else if(cbdcs > 1250 && cbdcs<= 2000){ground1 =120}
-    else if(cbdcs > 2000 && cbdcs<= 2500){ground1 =185}
-    else if(cbdcs > 2500 && cbdcs<= 4000){ground1 =240}
-    else if(cbdcs > 4000 && cbdcs<= 6000){ground1 =400}
-    $('#groundpv1').val(ground1)
-
-    })})        
-   
-$(document).ready(function() {
-    $('#pv1f_select').keyup(function(){
-        ground2 = 1.25*data.Isc*stringtotal
-       
-        if(ground2 <= 100 && ground2 != 0){ground11 =10}
-        else if(ground2 > 100 && ground2<= 200){ground11 =16}
-        else if(ground2 > 200 && ground2<= 400){ground11 =25}
-        else if(ground2 > 400 && ground2<= 500){ground11 =35}
-        else if(ground2 > 500 && ground2<= 800){ground11 =50}
-        else if(ground2 > 800 && ground2<= 1000){ground11 =70}
-        else if(ground2 > 1000 && ground2<= 1250){ground11 =95}
-        else if(ground2 > 1250 && ground2<= 2000){ground11=120}
-        else if(ground2 > 2000 && ground2<= 2500){ground11 =185}
-        else if(ground2 > 2500 && ground2<= 4000){ground11 =240}
-        else if(ground2 > 4000 && ground2<= 6000){ground11 =400}
-        $('#groundpv2').val(ground11)
-    })})
-   
+    $('.form-control').click(function(){
+        fah = $('#fah').val()
+        
+        if(fah == 'ไม่มี'){
+            if(pv1fs1 <= 6 && pv1fs1 != 0){ground1 = 6}
+            else if(pv1fs1 > 6 && pv1fs1 <= 15){ground1 = 10}
+            else if(pv1fs1 >15 && pv1fs1 <= 35){ground1 = 16}
+            else if(pv1fs1 > 35){ground1 = pv1fs1/2}
+            $('#groundpv1').val(ground1)
+        }
+        else if(fah == 'มี'){
+            if(pv1fs1 <= 35 && pv1fs1 != 0){ground1 = 16}
+            else if(pv1fs1 > 35){ground1 = pv1fs1/2}
+            $('#groundpv1').val(ground1)
+        }
+      
+    })})   
+    $(document).ready(function() {
+        $('.form-control').keyup(function(){
+            fah = $('#fah').val()
+            
+            if(fah == 'ไม่มี'){
+                if(pv1fs1 <= 6 && pv1fs1 != 0){ground1 = 6}
+                else if(pv1fs1 > 6 && pv1fs1 <= 15){ground1 = 10}
+                else if(pv1fs1 >15 && pv1fs1 <= 35){ground1 = 16}
+                else if(pv1fs1 > 35){ground1 = pv1fs1/2}
+                $('#groundpv1').val(ground1)
+            }
+            else if(fah == 'มี'){
+                if(pv1fs1 <= 35 && pv1fs1 != 0){ground1 = 16}
+                else if(pv1fs1 > 35){ground1 = pv1fs1/2}
+                $('#groundpv1').val(ground1)
+            }
+          
+        })})        
 // เลือกสายinv.
    
         var crossac    
